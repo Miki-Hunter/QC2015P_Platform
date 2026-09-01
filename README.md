@@ -1,8 +1,8 @@
 <p align="center">
   <h1 align="center">⚡ QC2015P 充电通信 HIL 测试平台</h1>
-  <p align="center"><b>GB/T 27930-2024 标准 · 充电桩与车辆双端仿真 · 一键启动即用</b></p>
+  <p align="center"><b>GB/T 27930.2-2024 标准 · 充电桩与车辆双端仿真 · 一键启动即用</b></p>
   <p align="center">
-    <img src="https://img.shields.io/badge/标准-GB%2FT%2027930--2024-blue?style=flat-square" />
+    <img src="https://img.shields.io/badge/标准-GB%2FT%2027930.2--2024-blue?style=flat-square" />
     <img src="https://img.shields.io/badge/平台-Windows%2010%2F11-blueviolet?style=flat-square" />
     <img src="https://img.shields.io/badge/后端-C%2B%2B-00599C?style=flat-square" />
     <img src="https://img.shields.io/badge/前端-Vue.js-42b883?style=flat-square" />
@@ -15,18 +15,17 @@
 ## 🎬 演示视频
 
 <p align="center">
-  <a href="https://github.com/Miki-Hunter/QC2015P_Platform/releases">
-    <img src="docs/screenshots/01-home.png" width="70%" alt="演示视频封面" />
-    <br/>
-    <b>▶️ 点击图片前往 Releases 页面下载演示视频</b>
-  </a>
+  <video src="https://github.com/Miki-Hunter/QC2015P_Platform/raw/main/演示视频_compressed.mp4" controls width="850" poster="docs/screenshots/01-home.png">
+    你的浏览器不支持视频播放，请<a href="https://github.com/Miki-Hunter/QC2015P_Platform/releases">点击这里下载</a>观看。
+  </video>
 </p>
 
-| 版本 | 分辨率 | 大小 | 说明 |
-|:-----|:------:|:----:|:-----|
-| `演示视频_compressed.mp4` | 1080p 60fps | 26 MB | 推荐，GitHub 可在线播放 |
-| `演示视频.mkv` | 2K 120fps | 190 MB | 原始高清录制 |
+<details>
+<summary>📥 原始高清视频下载（1080p，125MB）</summary>
 
+从 [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases) 页面下载原始录制文件。
+
+</details>
 ---
 
 ## 📖 这是什么？

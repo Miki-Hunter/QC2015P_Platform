@@ -1,0 +1,500 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: BMS Charger SECC EVCC
+
+
+BO_ 2553607254 LM_SECC: 8 SECC
+ SG_ LM_SECC_TotalNum m0 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ LM_SECC_TotalBytes m0 : 16|16@1+ (1,0) [0|1785] "" Vector__XXX
+ SG_ LM_SECC_Byte7 m1 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte6 m1 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte5 m1 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte4 m1 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte3 m1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte2 m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte1 m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2553566964 LM_EVCC: 8 EVCC
+ SG_ LM_EVCC_TotalNum m0 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ LM_EVCC_TotalBytes m0 : 16|16@1+ (1,0) [0|1785] "" Vector__XXX
+ SG_ LM_EVCC_Byte7 m1 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte6 m1 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte5 m1 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte4 m1 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte3 m1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte2 m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte1 m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2553698036 SM_URM_EVCC_183656F4: 8 EVCC
+ SG_ PGI32_VAuthenStatus m50 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI77_SingleBattV_Min m119 : 24|16@1+ (0.01,0) [0|655.35] "V" Vector__XXX
+ SG_ PGI77_SingleBattV_Max m119 : 8|16@1+ (0.01,0) [0|655.35] "V" Vector__XXX
+ SG_ PGI77_SingleBattTemp_Min m119 : 48|8@1+ (1,-50) [-50|205] "deg" Vector__XXX
+ SG_ PGI77_SingleBattTemp_Max m119 : 40|8@1+ (1,-50) [-50|205] "deg" Vector__XXX
+ SG_ PGI74_TimeRemain m116 : 24|16@1+ (1,0) [0|65535] "min" Vector__XXX
+ SG_ PGI74_SOC m116 : 8|16@1+ (0.1,0) [0|6553.5] "%" Vector__XXX
+ SG_ PGI73_V m115 : 8|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI73_PowerMode m115 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI73_A m115 : 24|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI72_EVCCReady m114 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI72_EVCC_V_Exe m114 : 16|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI91_EVCCDetectSta m145 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI06_K6 m6 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI06_K5 m6 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ SU_EVCC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2553738326 SM_URM_SECC_1836F456: 8 SECC
+ SG_ PGI31_MTime2 m49 : 16|8@1+ (1,0) [0|255] "min" Vector__XXX
+ SG_ PGI31_CAuthenStatus m49 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI92_AllowDetectCheck m146 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI76_V_Exe m118 : 8|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI76_A_Exe m118 : 24|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI75_OutputChangeReason m117 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI75_MaxOutput_A m117 : 8|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI71_ChargerReady m113 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_ShortCircuit m81 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_Insulation m81 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_Discharge m81 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_DetectTest m81 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI07_ELock m7 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI05_K2 m5 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI05_K1 m5 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ SU_SECC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2419414772 SM_RM_EVCC_103556F4: 8 EVCC
+ SG_ PGI3A_FDCType m58 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI36_FDCType m54 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI09_wakeup m9 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_STOP_type m4 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_STOP_reason1 m4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_STOP_reason0 m4 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_reLink m4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI02_check m2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI94_SOC m148 : 8|16@1+ (0.1,0) [0|6553.5] "%" Vector__XXX
+ SG_ PGI79_Pause m121 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI52_CheckState m82 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_Scheduled m18 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_PreChgEnTrans m18 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_PowerMode m18 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_ParmCfg m18 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_OutLoopDete m18 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_EndOfCharge m18 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_Authentic m18 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ S_EVCC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2419455062 SM_RM_SECC_1035F456: 8 SECC
+ SG_ PGI39_SAuthenFDC m57 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI39_AuthenResult m57 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI35_SAuthenFDC m53 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI35_AuthenResult m53 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI33_SAuthenFDC m51 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI33_AuthenResult m51 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI08_wakeup m8 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI93_DishargeCapacity m147 : 24|16@1+ (0.1,0) [0|6553.5] "kWh" Vector__XXX
+ SG_ PGI93_ChargeCapacity m147 : 8|16@1+ (0.1,0) [0|6553.5] "kWh" Vector__XXX
+ SG_ PGI78_Pause m120 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_STOP_type m3 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_STOP_reason1 m3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_STOP_reason0 m3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_reLink m3 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI01_FDC m1 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI01_FC m1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ S_SECC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2352436980 CONTROL_EVCC_C3756F4: 8 EVCC
+ SG_ waitRecvNumTotal m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ waitRecvNumStart m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedNumTotal m3 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedByteTotal m3 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ confirmPGI m0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ctrl_EVCC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2352477270 CONTROL_SECC_C37F456: 8 SECC
+ SG_ waitRecvNumTotal m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ waitRecvNumStart m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedNumTotal m3 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedByteTotal m3 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ confirmPGI m0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ctrl_SECC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2352568052 VC_EVCC_C3956F4: 8 EVCC
+ SG_ EVCC_ProtocolVersion2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_ProtocolVersion1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_ProtocolVersion0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_VersionResult : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_TLVersion : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_Reserved : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_CPVersoin : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_CANType : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2352542806 VC_SECC_C38F456: 8 SECC
+ SG_ SECC_ProtocolVersion2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_ProtocolVersion1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_ProtocolVersion0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_VersionResult : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_TLVersion : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_Reserved : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_CPVersoin : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_CANType : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147483681 LM_SECC_PGI21: 12 EVCC
+ SG_ PGI_Num : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI21_V_Min : 24|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI21_V_Max : 8|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI21_RebotTimes : 72|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI21_A_Min : 56|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI21_A_Max : 40|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+
+BO_ 2147483665 LM_SECC_PGI11: 8 SECC
+ SG_ PGI_Num : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_Scheduled_MIX : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_PreChgEnTrans_MIX : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_PowerMode_MIX : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_ParmCfg_MIX : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_OutLoopDete_MIX : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_EndOfCharge_MIX : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_Authentic_MIX : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2147483682 LM_EVCC_PGI22: 16 EVCC
+ SG_ PGI_Num : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI22_Voltage2 : 72|16@1+ (0.01,0) [0|6500] "V" Vector__XXX
+ SG_ PGI22_Voltage : 24|16@1+ (0.1,0) [0|6500] "V" Vector__XXX
+ SG_ PGI22_Temp : 88|8@1+ (1,-50) [-50|200] "deg" Vector__XXX
+ SG_ PGI22_SOC : 56|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ PGI22_RestartNum : 104|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI22_Current : 8|16@1+ (0.1,0) [0|6500] "A" Vector__XXX
+ SG_ PGI22_Capacity : 40|16@1+ (0.1,0) [0|6500] "kWh" Vector__XXX
+ SG_ PGI22_BatteryType : 96|8@1+ (1,0) [0|255] "" Vector__XXX
+
+
+
+CM_ BO_ 2553607254 "充电机-长消息";
+CM_ SG_ 2553607254 LM_SECC_TotalNum "待发长消息总帧数";
+CM_ SG_ 2553607254 LM_SECC_TotalBytes "待发长消息总字节数";
+CM_ SG_ 2553607254 LM_SECC_Byte0 "长消息序号";
+CM_ BO_ 2553566964 "车辆-长消息";
+CM_ SG_ 2553566964 LM_EVCC_TotalNum "待发长消息总帧数";
+CM_ SG_ 2553566964 LM_EVCC_TotalBytes "待发长消息总字节数";
+CM_ SG_ 2553566964 LM_EVCC_Byte0 "长消息序号";
+CM_ BO_ 2553698036 "车辆-不需要确认短消息";
+CM_ SG_ 2553698036 PGI32_VAuthenStatus "车辆当前扫码刷卡的状态";
+CM_ SG_ 2553698036 PGI77_SingleBattV_Min "动力蓄电池最小并联单元最低电压";
+CM_ SG_ 2553698036 PGI77_SingleBattV_Max "动力蓄电池最小并联单元最高电压";
+CM_ SG_ 2553698036 PGI77_SingleBattTemp_Min "动力蓄电池单体最低温度";
+CM_ SG_ 2553698036 PGI77_SingleBattTemp_Max "动力蓄电池单体最高温度";
+CM_ SG_ 2553698036 PGI74_TimeRemain "剩余估算时间min";
+CM_ SG_ 2553698036 PGI74_SOC "当前荷电状态";
+CM_ SG_ 2553698036 PGI73_V "整车充电电压需求";
+CM_ SG_ 2553698036 PGI73_PowerMode "车辆期待的充电模式";
+CM_ SG_ 2553698036 PGI73_A "整车充电电流需求";
+CM_ SG_ 2553698036 PGI72_EVCCReady "车辆准备就绪状态";
+CM_ SG_ 2553698036 PGI72_EVCC_V_Exe "整车充电系统当前电压";
+CM_ SG_ 2553698036 PGI91_EVCCDetectSta "粘连检测状态信息";
+CM_ SG_ 2553698036 PGI06_K6 "车辆供电回路接触器 K6 状态";
+CM_ SG_ 2553698036 PGI06_K5 "车辆供电回路接触器 K5 状态";
+CM_ SG_ 2553698036 SU_EVCC_PGI "参数组标识";
+CM_ BO_ 2553738326 "充电机-不需要确认短消息";
+CM_ SG_ 2553738326 PGI31_MTime2 "总鉴权等待时间";
+CM_ SG_ 2553738326 PGI31_CAuthenStatus "充电机当前扫码刷卡的状态";
+CM_ SG_ 2553738326 PGI92_AllowDetectCheck "充电机允许粘连检测";
+CM_ SG_ 2553738326 PGI76_V_Exe "充电机当前输出电压(V)";
+CM_ SG_ 2553738326 PGI76_A_Exe "充电机当前充电电流(A)";
+CM_ SG_ 2553738326 PGI75_OutputChangeReason "充电机当前输出能力变化原因";
+CM_ SG_ 2553738326 PGI75_MaxOutput_A "充电机当前最大输出电流能力";
+CM_ SG_ 2553738326 PGI71_ChargerReady "充电机准备就绪状态";
+CM_ SG_ 2553738326 PGI51_ShortCircuit "短路检测状态信息";
+CM_ SG_ 2553738326 PGI51_Insulation "绝缘检测状态信息";
+CM_ SG_ 2553738326 PGI51_Discharge "泄放状态信息";
+CM_ SG_ 2553738326 PGI51_DetectTest "粘连检测状态信息";
+CM_ SG_ 2553738326 PGI07_ELock "充电机电子锁状态";
+CM_ SG_ 2553738326 PGI05_K2 "直流供电回路接触器 K2 状态";
+CM_ SG_ 2553738326 PGI05_K1 "直流供电回路接触器 K1 状态";
+CM_ SG_ 2553738326 SU_SECC_PGI "参数组标识";
+CM_ BO_ 2419414772 "车辆-需要确认短消息";
+CM_ SG_ 2419414772 PGI3A_FDCType "即将进入本功能模块的新FDC";
+CM_ SG_ 2419414772 PGI36_FDCType "即将进入本功能模块的新FDC";
+CM_ SG_ 2419414772 PGI09_wakeup "车辆唤醒标识";
+CM_ SG_ 2419414772 PGI04_STOP_type "车辆中止类型";
+CM_ SG_ 2419414772 PGI04_STOP_reason1 "车辆中止原因1";
+CM_ SG_ 2419414772 PGI04_STOP_reason0 "车辆中止原因0";
+CM_ SG_ 2419414772 PGI04_reLink "车辆请求重连";
+CM_ SG_ 2419414772 PGI02_check "车辆确认结果";
+CM_ SG_ 2419414772 PGI94_SOC "车辆荷电状态";
+CM_ SG_ 2419414772 PGI79_Pause "车辆暂停";
+CM_ SG_ 2419414772 PGI52_CheckState "确认检测完成状态";
+CM_ SG_ 2419414772 PGI12_Scheduled "FDC-预约充电";
+CM_ SG_ 2419414772 PGI12_PreChgEnTrans "FDC-预充及能量传输";
+CM_ SG_ 2419414772 PGI12_PowerMode "FDC-供电模式";
+CM_ SG_ 2419414772 PGI12_ParmCfg "FDC-参数配置";
+CM_ SG_ 2419414772 PGI12_OutLoopDete "FDC-输出回路检测";
+CM_ SG_ 2419414772 PGI12_EndOfCharge "FDC-结束";
+CM_ SG_ 2419414772 PGI12_Authentic "FDC-鉴权";
+CM_ SG_ 2419414772 S_EVCC_PGI "参数组标识";
+CM_ BO_ 2419455062 "充电机-需要确认短消息";
+CM_ SG_ 2419455062 PGI39_SAuthenFDC "成功鉴权的FDC-云端";
+CM_ SG_ 2419455062 PGI39_AuthenResult "身份鉴权结果-云端";
+CM_ SG_ 2419455062 PGI35_SAuthenFDC "成功鉴权的FDC-EVIN";
+CM_ SG_ 2419455062 PGI35_AuthenResult "身份鉴权结果-EVIN";
+CM_ SG_ 2419455062 PGI33_SAuthenFDC "成功鉴权的FDC-扫码刷卡";
+CM_ SG_ 2419455062 PGI33_AuthenResult "身份鉴权结果-扫码刷卡";
+CM_ SG_ 2419455062 PGI08_wakeup "充电机唤醒标识";
+CM_ SG_ 2419455062 PGI93_DishargeCapacity "本次总放电能量";
+CM_ SG_ 2419455062 PGI93_ChargeCapacity "本次总充电能量";
+CM_ SG_ 2419455062 PGI78_Pause "充电机暂停";
+CM_ SG_ 2419455062 PGI03_STOP_type "充电机中止类型";
+CM_ SG_ 2419455062 PGI03_STOP_reason1 "充电机中止原因1";
+CM_ SG_ 2419455062 PGI03_STOP_reason0 "充电机中止原因0";
+CM_ SG_ 2419455062 PGI03_reLink "充电机请求重连";
+CM_ SG_ 2419455062 PGI01_FDC "即将进入功能模块的 FDC";
+CM_ SG_ 2419455062 PGI01_FC "即将进入功能模块的 FC";
+CM_ SG_ 2419455062 S_SECC_PGI "参数组标识";
+CM_ BO_ 2352436980 "车辆-控制帧";
+CM_ SG_ 2352436980 waitRecvNumTotal "本次待接收长消息数量";
+CM_ SG_ 2352436980 waitRecvNumStart "本次待接收长消息起始序号";
+CM_ SG_ 2352436980 recvedNumTotal "已接收长消息总帧数";
+CM_ SG_ 2352436980 recvedByteTotal "已接收长消息总字节数";
+CM_ SG_ 2352436980 confirmPGI "被确认短消息的PGI";
+CM_ SG_ 2352436980 Ctrl_EVCC_Byte0 "本次控制类型";
+CM_ BO_ 2352477270 "充电机-控制帧";
+CM_ SG_ 2352477270 waitRecvNumTotal "本次待接收长消息数量";
+CM_ SG_ 2352477270 waitRecvNumStart "本次待接收长消息起始序号";
+CM_ SG_ 2352477270 recvedNumTotal "已接收长消息总帧数";
+CM_ SG_ 2352477270 recvedByteTotal "已接收长消息总字节数";
+CM_ SG_ 2352477270 confirmPGI "被确认短消息的PGI";
+CM_ SG_ 2352477270 Ctrl_SECC_Byte0 "本次控制类型";
+CM_ BO_ 2352568052 "车辆-版本协商";
+CM_ SG_ 2352568052 EVCC_ProtocolVersion2 "协议版本号 :  临时版本号";
+CM_ SG_ 2352568052 EVCC_ProtocolVersion1 "协议版本号 :  次版本号";
+CM_ SG_ 2352568052 EVCC_ProtocolVersion0 "协议版本号 :  主版本号";
+CM_ SG_ 2352568052 EVCC_VersionResult "协商结果";
+CM_ SG_ 2352568052 EVCC_TLVersion "充电机传输层版本";
+CM_ SG_ 2352568052 EVCC_Reserved "保留位";
+CM_ SG_ 2352568052 EVCC_CPVersoin "充电机控制导引版本";
+CM_ SG_ 2352568052 EVCC_CANType "CAN类型";
+CM_ BO_ 2352542806 "充电机-版本协商";
+CM_ SG_ 2352542806 SECC_ProtocolVersion2 "协议版本号 :  临时版本号";
+CM_ SG_ 2352542806 SECC_ProtocolVersion1 "协议版本号 :  次版本号";
+CM_ SG_ 2352542806 SECC_ProtocolVersion0 "协议版本号 :  主版本号";
+CM_ SG_ 2352542806 SECC_VersionResult "协商结果";
+CM_ SG_ 2352542806 SECC_TLVersion "车辆传输层版本";
+CM_ SG_ 2352542806 SECC_Reserved "保留位";
+CM_ SG_ 2352542806 SECC_CPVersoin "车辆控制导引版本";
+CM_ SG_ 2352542806 SECC_CANType "CAN类型";
+CM_ BO_ 2147483681 "充电机-参数配置";
+CM_ SG_ 2147483681 PGI_Num "参数组标识";
+CM_ SG_ 2147483681 PGI21_V_Min "充电机最低充电输出电压值(V)";
+CM_ SG_ 2147483681 PGI21_V_Max "充电机最高充电输出电压值(V)";
+CM_ SG_ 2147483681 PGI21_RebotTimes "充电机当前支持重新启动次数";
+CM_ SG_ 2147483681 PGI21_A_Min "充电机最小充电输出电流值(A)";
+CM_ SG_ 2147483681 PGI21_A_Max "充电机最大充电输出电流值(A)";
+CM_ BO_ 2147483665 "充电机-功能协商";
+CM_ SG_ 2147483665 PGI_Num "参数组标识";
+CM_ SG_ 2147483665 PGI11_Scheduled_MIX "支持的FDC：预约充电";
+CM_ SG_ 2147483665 PGI11_PreChgEnTrans_MIX "支持的FDC：预充及能量传输";
+CM_ SG_ 2147483665 PGI11_PowerMode_MIX "支持的FDC：供电模式";
+CM_ SG_ 2147483665 PGI11_ParmCfg_MIX "支持的FDC：参数配置";
+CM_ SG_ 2147483665 PGI11_OutLoopDete_MIX "支持的FDC：输出回路检测";
+CM_ SG_ 2147483665 PGI11_EndOfCharge_MIX "支持的FDC：结束";
+CM_ SG_ 2147483665 PGI11_Authentic_MIX "支持的FDC：鉴权";
+CM_ BO_ 2147483682 "车辆-参数配置";
+CM_ SG_ 2147483682 PGI_Num "参数组标识";
+CM_ SG_ 2147483682 PGI22_Voltage2 "动力蓄电池最小并联单元最高允许电压";
+CM_ SG_ 2147483682 PGI22_Voltage "车辆最高允许充电总电压";
+CM_ SG_ 2147483682 PGI22_Temp "动力蓄电池单体最高允许温度";
+CM_ SG_ 2147483682 PGI22_SOC "整车动力蓄电池当前荷电状态";
+CM_ SG_ 2147483682 PGI22_RestartNum "车辆当前支持重新启动次数";
+CM_ SG_ 2147483682 PGI22_Current "车辆最大允许充电电流";
+CM_ SG_ 2147483682 PGI22_Capacity "车辆最高允许输入总能量";
+CM_ SG_ 2147483682 PGI22_BatteryType "动力蓄电池类型";
+BA_DEF_ BO_  "J1939Mapping" STRING ;
+BA_DEF_ SG_  "SigType" ENUM  "Default","Range","RangeSigned","ASCII","Discrete","Control","ReferencePGN","DTC","StringDelimiter","StringLength","StringLengthControl","MessageCounter","MessageChecksum";
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "GenSigILSupport" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 100000;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 3600000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 1000000;
+BA_DEF_ SG_  "GenSigStartValue" INT 0 10000;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "NmJ1939SystemInstance" INT 0 15;
+BA_DEF_ BU_  "NmJ1939System" INT 0 127;
+BA_DEF_ BU_  "NmJ1939ManufacturerCode" INT 0 2047;
+BA_DEF_ BU_  "NmJ1939IndustryGroup" INT 0 7;
+BA_DEF_ BU_  "NmJ1939IdentityNumber" INT 0 2097151;
+BA_DEF_ BU_  "NmJ1939FunctionInstance" INT 0 7;
+BA_DEF_ BU_  "NmJ1939Function" INT 0 255;
+BA_DEF_ BU_  "NmJ1939ECUInstance" INT 0 3;
+BA_DEF_ BU_  "NmJ1939AAC" INT 0 1;
+BA_DEF_ BU_  "NmStationAddress" INT 0 255;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","NotUsed","IfActive","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","noMsgSendType";
+BA_DEF_ BO_  "GenMsgRequestable" INT 0 1;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 3600000;
+BA_DEF_ SG_  "SPN" INT 0 524287;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "ProtocolType" STRING ;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
+BA_DEF_DEF_  "J1939Mapping" "";
+BA_DEF_DEF_  "SigType" "Default";
+BA_DEF_DEF_  "GenSigEVName" "Env@Nodename_@Signame";
+BA_DEF_DEF_  "GenSigILSupport" "Yes";
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "NmJ1939SystemInstance" 0;
+BA_DEF_DEF_  "NmJ1939System" 0;
+BA_DEF_DEF_  "NmJ1939ManufacturerCode" 0;
+BA_DEF_DEF_  "NmJ1939IndustryGroup" 0;
+BA_DEF_DEF_  "NmJ1939IdentityNumber" 0;
+BA_DEF_DEF_  "NmJ1939FunctionInstance" 0;
+BA_DEF_DEF_  "NmJ1939Function" 0;
+BA_DEF_DEF_  "NmJ1939ECUInstance" 0;
+BA_DEF_DEF_  "NmJ1939AAC" 0;
+BA_DEF_DEF_  "NmStationAddress" 254;
+BA_DEF_DEF_  "GenMsgSendType" "noMsgSendType";
+BA_DEF_DEF_  "GenMsgRequestable" 1;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "SPN" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "ProtocolType" "J1939";
+BA_DEF_DEF_  "VFrameFormat" "J1939PG";
+BA_ "DBName" "gbt279302011";
+BA_ "NmStationAddress" BU_ BMS 244;
+BA_ "NmStationAddress" BU_ Charger 86;
+BA_ "GenMsgCycleTime" BO_ 2553607254 10;
+BA_ "GenMsgSendType" BO_ 2553607254 1;
+BA_ "VFrameFormat" BO_ 2553607254 3;
+BA_ "GenMsgCycleTime" BO_ 2553566964 10;
+BA_ "GenMsgSendType" BO_ 2553566964 1;
+BA_ "VFrameFormat" BO_ 2553566964 3;
+BA_ "GenMsgCycleTime" BO_ 2553698036 50;
+BA_ "GenMsgSendType" BO_ 2553698036 1;
+BA_ "VFrameFormat" BO_ 2553698036 3;
+BA_ "GenMsgCycleTime" BO_ 2553738326 50;
+BA_ "GenMsgSendType" BO_ 2553738326 1;
+BA_ "VFrameFormat" BO_ 2553738326 3;
+BA_ "GenMsgCycleTime" BO_ 2419414772 50;
+BA_ "GenMsgSendType" BO_ 2419414772 1;
+BA_ "VFrameFormat" BO_ 2419414772 3;
+BA_ "GenMsgCycleTime" BO_ 2419455062 50;
+BA_ "GenMsgSendType" BO_ 2419455062 1;
+BA_ "VFrameFormat" BO_ 2419455062 3;
+BA_ "GenMsgCycleTime" BO_ 2352436980 50;
+BA_ "GenMsgSendType" BO_ 2352436980 1;
+BA_ "VFrameFormat" BO_ 2352436980 3;
+BA_ "GenMsgCycleTime" BO_ 2352477270 10;
+BA_ "GenMsgSendType" BO_ 2352477270 1;
+BA_ "VFrameFormat" BO_ 2352477270 3;
+BA_ "GenMsgCycleTime" BO_ 2352568052 50;
+BA_ "GenMsgSendType" BO_ 2352568052 1;
+BA_ "VFrameFormat" BO_ 2352568052 3;
+BA_ "GenMsgCycleTime" BO_ 2352542806 50;
+BA_ "GenMsgSendType" BO_ 2352542806 1;
+BA_ "VFrameFormat" BO_ 2352542806 3;
+BA_ "VFrameFormat" BO_ 2147483681 3;
+BA_ "VFrameFormat" BO_ 2147483665 3;
+BA_ "VFrameFormat" BO_ 2147483682 3;
+VAL_ 2553698036 PGI32_VAuthenStatus 170 "0xAA-KeepWaitting" 0 "0x00-NoWaitting" ;
+VAL_ 2553698036 PGI73_PowerMode 2 "2-CC_Mode" 1 "1-CV_Mode" ;
+VAL_ 2553698036 PGI72_EVCCReady 255 "0xFF" 170 "0xAA-Ready" 0 "0x00-NoReady" ;
+VAL_ 2553698036 PGI91_EVCCDetectSta 255 "0xFF-NotTest" 4 "4-Fail" 3 "3-Pass" 2 "2-ErrSTOP" 1 "1-Doing" 0 "0-Watting" ;
+VAL_ 2553698036 PGI06_K6 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2553698036 PGI06_K5 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2553738326 PGI31_CAuthenStatus 255 "0xFF" 170 "0xAA-Finished" 0 "0x00-Waitting" ;
+VAL_ 2553738326 PGI92_AllowDetectCheck 255 "0xFF" 170 "0xAA-Allow" 0 "0x00-NoAllow" ;
+VAL_ 2553738326 PGI75_OutputChangeReason 255 "0xFF-Other" 2 "2-Network" 1 "1-Charger" 0 "0-NoChange" ;
+VAL_ 2553738326 PGI71_ChargerReady 255 "0xFF" 170 "0xAA-Ready" 0 "0x00-NoReady" ;
+VAL_ 2553738326 PGI51_ShortCircuit 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI51_Insulation 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI51_Discharge 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI51_DetectTest 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI07_ELock 255 "0xFF-Untrusted" 170 "0xAA-Locked" 0 "0x00-Unlocked" ;
+VAL_ 2553738326 PGI05_K2 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2553738326 PGI05_K1 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2419414772 PGI09_wakeup 255 "0xFF" 170 "0xAA-Wakeup" 0 "0x00-Waitting" ;
+VAL_ 2419414772 PGI04_STOP_type 4 "4-CheckFail" 3 "3-FunctionFail" 2 "2-FunctionOverTime" 1 "1-ChargeSTOP" ;
+VAL_ 2419414772 PGI04_reLink 255 "0xFF-NoRelink" 170 "0xAA-Relink" 0 "0x00" ;
+VAL_ 2419414772 PGI02_check 255 "0xFF-Fail" 170 "0xAA-Succeed" 0 "0x00" ;
+VAL_ 2419414772 PGI79_Pause 255 "0xFF" 170 "0xAA-Paused" 0 "0x00-Resume" ;
+VAL_ 2419414772 PGI52_CheckState 255 "0xFF" 170 "0xAA-Checked" 0 "0x00" ;
+VAL_ 2419455062 PGI39_SAuthenFDC 3 "FDC3" 2 "FDC2" 1 "FDC1" 0 "0-Fail" ;
+VAL_ 2419455062 PGI39_AuthenResult 255 "0xFF" 170 "0xAA-Succeed" 0 "0x00-Fail" ;
+VAL_ 2419455062 PGI35_SAuthenFDC 3 "FDC3" 2 "FDC2" 1 "FDC1" 0 "0-Fail" ;
+VAL_ 2419455062 PGI35_AuthenResult 255 "0xFF" 170 "0xAA-Succeed" 0 "0x00-Fail" ;
+VAL_ 2419455062 PGI33_SAuthenFDC 3 "FDC3" 2 "FDC2" 1 "FDC1" 0 "0-Fail" ;
+VAL_ 2419455062 PGI33_AuthenResult 255 "0xFF" 170 "0xAA-Succeed" 0 "0x00-Fail" ;
+VAL_ 2419455062 PGI08_wakeup 255 "0xFF" 170 "0xAA-Wakeup" 0 "0x00-Waitting" ;
+VAL_ 2419455062 PGI78_Pause 255 "0xFF" 170 "0xAA-Paused" 0 "0x00-Resume" ;
+VAL_ 2419455062 PGI03_STOP_type 4 "4-CheckFail" 3 "3-FunctionFail" 2 "2-FunctionOverTime" 1 "1-ChargeSTOP" ;
+VAL_ 2419455062 PGI03_reLink 255 "0xFF-NoRelink" 170 "0xAA-Relink" 0 "0x00" ;
+VAL_ 2352436980 Ctrl_EVCC_Byte0 3 "3-LM_EndofACK" 2 "2-LM_NACK" 1 "1-LM_ACK" 0 "0-RecvSM" ;
+VAL_ 2352477270 Ctrl_SECC_Byte0 3 "3-LM_EndofACK" 2 "2-LM_NACK" 1 "1-LM_ACK" 0 "0-RecvSM" ;
+VAL_ 2352568052 EVCC_VersionResult 2 "2-Fail" 1 "1-Succeed" 0 "0-Continue" ;
+VAL_ 2352568052 EVCC_CANType 2 "2-CANXL" 1 "1-CANFD" 0 "0-CAN2.0B" ;
+VAL_ 2352542806 SECC_VersionResult 2 "2-Fail" 1 "1-Succeed" 0 "0-Continue" ;
+VAL_ 2352542806 SECC_CANType 2 "2-CANXL" 1 "1-CANFD" 0 "0-CAN2.0B" ;
+VAL_ 2147483682 PGI22_BatteryType 255 "FF-其他电池" 8 "8-钛酸锂电池" 7 "7-聚合物锂离子电池" 6 "6-三元材料电池" 5 "5-钴酸锂电池" 4 "4-锰酸锂电池" 3 "3-磷酸铁锂电池" 2 "2-镍氢电池" 1 "1-铅酸电池" ;
+
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte7 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte6 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte5 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte4 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte3 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte2 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte1 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte7 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte6 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte5 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte4 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte3 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte2 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte1 LM_EVCC_Byte0 1-255;

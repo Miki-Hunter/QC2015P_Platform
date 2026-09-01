@@ -1,0 +1,16 @@
+# 原始大型视频（压缩后的 mp4 已入库）
+演示视频.mkv
+
+# 录制文件
+*.asc
+*.blf
+!Logger/canvas/
+
+# build 目录下的文档副本（根目录已有原件）
+build/README.md
+build/docs/
+
+# 系统文件
+Thumbs.db
+Desktop.ini
+.DS_Store

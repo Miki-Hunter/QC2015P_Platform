@@ -1,0 +1,19 @@
+# EVCC 画布默认参数配置
+# 格式：参数名 备注说明（备注可选，显示在画布卡片上）
+# 支持三种参数类型：
+#   模型参数（可读写）：如 EVCC_ChargeSta、EVCC_CC2
+#   DBC信号（只读）：如 PGI05_K1
+#   Monitor变量（只读）：如 SOC_Exe
+#
+# 示例：
+EVCC_ChargeSta 插枪
+EVCC_Relink 重连
+EVCC_Reboot 重启
+SOC_Set 设置SOC
+SOC_Exe 当前SOC %
+MTimer 剩余充电时间(分钟min)
+Charge_Vol 当前充电电压（V)
+Charge_Cur 当前充电电流(A)
+RelinkAllow 允许重连
+RebootAllow 允许重启
+DetectAllow 允许检测（结束阶段）

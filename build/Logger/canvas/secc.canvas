@@ -1,0 +1,18 @@
+# SECC 画布默认参数配置
+# 格式：参数名 备注说明（备注可选，显示在画布卡片上）
+# 支持三种参数类型：
+#   模型参数（可读写）：如 SECC_ChargeSta、SECC_CC2
+#   DBC信号（只读）：如 PGI05_K1
+#   Monitor变量（只读）：如 SOC_Exe
+#
+# 示例：
+# SECC_CC2 CC2插枪
+# MAIN_SEQ 主SEQ（Monitor只读）
+SECC_ChargeSta 插枪
+Card 刷卡鉴权
+SECC_Relink 重连
+SECC_Reboot 重启
+ChargeCapacity 本次充电电量(kWh)
+RelinkAllow 允许重连
+RebootAllow 允许重启
+DetectAllow 允许检测（结束阶段）

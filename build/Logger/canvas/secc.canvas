@@ -8,6 +8,7 @@
 # 示例：
 # SECC_CC2 CC2插枪
 # MAIN_SEQ 主SEQ（Monitor只读）
+SECC_2015P_Enable 新快充-启用
 SECC_ChargeSta 插枪
 Card 刷卡鉴权
 SECC_Relink 重连
@@ -16,3 +17,4 @@ ChargeCapacity 本次充电电量(kWh)
 RelinkAllow 允许重连
 RebootAllow 允许重启
 DetectAllow 允许检测（结束阶段）
+SECC_CVList 支持版本列表

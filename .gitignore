@@ -2,8 +2,6 @@
 演示视频.mkv
 
 # 录制文件
-*.asc
-*.blf
 !Logger/canvas/
 
 # build 目录下的文档副本（根目录已有原件）

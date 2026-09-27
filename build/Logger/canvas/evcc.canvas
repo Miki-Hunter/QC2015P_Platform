@@ -6,6 +6,7 @@
 #   Monitor变量（只读）：如 SOC_Exe
 #
 # 示例：
+EVCC_2015P_Enable 新快充-启用
 EVCC_ChargeSta 插枪
 EVCC_Relink 重连
 EVCC_Reboot 重启

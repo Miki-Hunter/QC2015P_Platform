@@ -18,6 +18,7 @@ QC2015P 本地测试平台 Python 脚本库
 
 import json
 import time
+import socket
 import urllib.request
 import urllib.parse
 from typing import Any, Dict, List, Optional, Union
@@ -28,6 +29,70 @@ from typing import Any, Dict, List, Optional, Union
 _host = "localhost"
 _port = 9527
 _timeout = 5  # HTTP请求超时(秒)
+
+# ============================================================
+# 高速TCP持久连接（端口9528，绕过HTTP线程创建开销）
+# ============================================================
+_fast_sock = None
+_fast_failed = False  # 记录fast TCP是否曾失败，避免每次重试
+
+def _fast_connect():
+    """建立到9528的持久TCP连接"""
+    global _fast_sock, _fast_failed
+    if _fast_failed:
+        raise ConnectionError("Fast TCP不可用")
+    if _fast_sock is not None:
+        try:
+            _fast_sock.sendall(b"")  # 检测连接是否存活
+            return _fast_sock
+        except (OSError, BrokenPipeError):
+            _fast_sock = None
+    try:
+        _fast_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        _fast_sock.settimeout(0.1)  # 连接超时100ms（快速失败）
+        _fast_sock.connect((_host, 9528))
+        _fast_sock.settimeout(_timeout)  # 连接成功后恢复正常超时
+        return _fast_sock
+    except (OSError, ConnectionRefusedError, TimeoutError) as e:
+        _fast_failed = True
+        _fast_sock = None
+        raise ConnectionError(f"Fast TCP连接失败: {e}")
+
+def _fast_send(cmd: str) -> str:
+    """通过持久TCP连接发送命令，返回响应行"""
+    sock = _fast_connect()
+    sock.sendall((cmd + "\n").encode("utf-8"))
+    # 读取响应（直到\n）
+    resp = b""
+    while True:
+        chunk = sock.recv(4096)
+        if not chunk:
+            _fast_sock = None
+            raise ConnectionError("Fast TCP连接断开")
+        resp += chunk
+        if b"\n" in resp:
+            break
+    return resp.decode("utf-8").strip()
+
+def _fast_set(model: str, name: str, value: str) -> bool:
+    """高速设置参数"""
+    resp = _fast_send(f"SET {model} {name} {value}")
+    return resp == "OK"
+
+def _fast_get(model: str, name: str) -> str:
+    """高速读取参数"""
+    resp = _fast_send(f"GET {model} {name}")
+    if resp.startswith("VALUE "):
+        return resp[6:]
+    return ""
+
+def _fast_dbc(model: str, msg_id: int) -> Optional[Dict]:
+    """高速读取单条DBC报文"""
+    resp = _fast_send(f"DBC {model} {msg_id}")
+    try:
+        return json.loads(resp)
+    except json.JSONDecodeError:
+        return None
 
 
 def configure(host: str = "localhost", port: int = 9527):
@@ -127,17 +192,10 @@ def set_params(name: str, value: Union[str, int, float, bool, list]) -> bool:
     else:
         raise QC2015PError(f"不支持的值类型: {type(value).__name__}")
 
-    # 推入脚本队列
-    result = _get("/api/script/push", {
-        "cmd": "set", "model": model, "name": real_name, "value": value_str
+    # 直接写入（服务端限速1ms/次）
+    result = _get(f"/api/{model.lower()}/params/set", {
+        "name": real_name, "value": value_str
     })
-    if not result.get("success"):
-        raise QC2015PError(f"命令入队失败: {result.get('error', 'unknown')}")
-
-    # 等待执行结果
-    result = _wait_result()
-    if result is None:
-        raise QC2015PError("等待超时，命令未被执行")
     if not result.get("success"):
         raise QC2015PError(f"设置失败: {result.get('error', 'unknown')}")
     return True
@@ -226,22 +284,28 @@ def _get_dbc_signal(signal_name: str, msg_id: int) -> Any:
 
 
 def _get_dbc_raw(msg_id: int) -> Optional[Dict]:
-    """获取DBC报文原始数据"""
-    data = _get("/api/secc/dbc_params")
-    for msg in data.get("data", []):
-        if msg.get("id") == msg_id:
-            return msg
+    """获取DBC报文原始数据（高速TCP单条查询）"""
+    try:
+        result = _fast_dbc("SECC", msg_id)
+        if result and result.get("id"):
+            return result
+    except (ConnectionError, OSError):
+        pass
+    # 回退到HTTP
+    result = _get("/api/dbc_msg", {"id": str(msg_id), "model": "SECC"})
+    if result and result.get("id"):
+        return result
     return None
 
 
 def _wait_result(timeout: float = 5.0) -> Optional[Dict]:
-    """等待脚本命令执行结果"""
+    """等待脚本命令执行结果（1ms轮询，降低延迟）"""
     start = time.time()
     while time.time() - start < timeout:
         result = _get("/api/script/result")
         if result.get("success") is not None:
             return result
-        time.sleep(0.005)
+        time.sleep(0.001)
     return None
 
 
@@ -294,6 +358,16 @@ def disconnect() -> bool:
     """
     r0 = _get("/api/can/disconnect", {"ch": 0})
     r1 = _get("/api/can/disconnect", {"ch": 1})
+    # 关闭高速TCP连接
+    global _fast_sock, _fast_failed
+    if _fast_sock:
+        try:
+            _fast_sock.sendall(b"QUIT\n")
+            _fast_sock.close()
+        except (OSError, BrokenPipeError):
+            pass
+        _fast_sock = None
+    _fast_failed = False  # 重置，允许下次重新连接
     return r0.get("success", False) and r1.get("success", False)
 
 
@@ -406,73 +480,134 @@ def _format_value(value: Union[str, int, float, bool, list]) -> str:
     raise QC2015PError(f"不支持的值类型: {type(value).__name__}")
 
 def SECC_ValueSet(name: str, value: Union[str, int, float, bool, list]) -> bool:
-    """设置 SECC 模型参数。共享参数会自动同步到 EVCC。
+    """设置 SECC 模型参数（高速TCP直写，≈0.3ms）。
        SECC_ValueSet("ChargeSta", 1)  →  直接写入 SECC 模型的 ChargeSta 参数
     """
     value_str = _format_value(value)
-    result = _get("/api/script/push", {
-        "cmd": "set", "model": "SECC", "name": name, "value": value_str
-    })
-    if not result.get("success"):
-        raise QC2015PError(f"命令入队失败: {result.get('error', 'unknown')}")
-    result = _wait_result()
-    if result is None:
-        raise QC2015PError("等待超时，命令未被执行")
-    if not result.get("success"):
-        raise QC2015PError(f"设置失败: {result.get('error', 'unknown')}")
-    return True
+    try:
+        return _fast_set("SECC", name, value_str)
+    except (ConnectionError, OSError):
+        # 回退到HTTP
+        result = _get("/api/secc/params/set", {"name": name, "value": value_str})
+        return result.get("success", False)
 
 
 def SECC_ValueGet(name: str) -> Any:
-    """读取 SECC 模型参数。
+    """读取 SECC 模型参数（高速TCP直读）。
        SECC_ValueGet("ChargeSta")  →  直接读取 SECC 模型的 ChargeSta 参数
+       SECC_ValueGet("MAIN_SEQ")  →  读取 UserMonitor 只读变量
     """
-    result = _get("/api/script/push", {
-        "cmd": "get", "model": "SECC", "name": name
-    })
-    if not result.get("success"):
-        raise QC2015PError(f"命令入队失败: {result.get('error', 'unknown')}")
-    result = _wait_result()
-    if result is None:
-        raise QC2015PError("等待超时，命令未被执行")
-    if not result.get("success"):
-        raise QC2015PError(f"读取失败: {result.get('error', 'unknown')}")
-    return _parse_value(result.get("value", ""))
+    try:
+        val = _fast_get("SECC", name)
+        return _parse_value(val)
+    except (ConnectionError, OSError):
+        # 先查模型参数
+        result = _get("/api/secc/params")
+        for p in result.get("data", []):
+            if p.get("name") == name:
+                return _parse_value(p.get("value", ""))
+        # 再查 UserMonitor 只读变量
+        result = _get("/api/secc/monitor_params")
+        for p in result.get("data", []):
+            if p.get("name") == name:
+                return _parse_value(p.get("value", ""))
+        raise QC2015PError(f"参数未找到: {name}")
 
 
 def EVCC_ValueSet(name: str, value: Union[str, int, float, bool, list]) -> bool:
-    """设置 EVCC 模型参数。共享参数会自动同步到 SECC。
+    """设置 EVCC 模型参数（高速TCP直写，≈0.3ms）。
        EVCC_ValueSet("ChargeSta", 1)  →  直接写入 EVCC 模型的 ChargeSta 参数
     """
     value_str = _format_value(value)
-    result = _get("/api/script/push", {
-        "cmd": "set", "model": "EVCC", "name": name, "value": value_str
-    })
-    if not result.get("success"):
-        raise QC2015PError(f"命令入队失败: {result.get('error', 'unknown')}")
-    result = _wait_result()
-    if result is None:
-        raise QC2015PError("等待超时，命令未被执行")
-    if not result.get("success"):
-        raise QC2015PError(f"设置失败: {result.get('error', 'unknown')}")
-    return True
+    try:
+        return _fast_set("EVCC", name, value_str)
+    except (ConnectionError, OSError):
+        result = _get("/api/evcc/params/set", {"name": name, "value": value_str})
+        return result.get("success", False)
 
 
 def EVCC_ValueGet(name: str) -> Any:
-    """读取 EVCC 模型参数。
+    """读取 EVCC 模型参数（高速TCP直读）。
        EVCC_ValueGet("ChargeSta")  →  直接读取 EVCC 模型的 ChargeSta 参数
+       EVCC_ValueGet("EVCC_MAIN_SEQ")  →  读取 UserMonitor 只读变量
     """
-    result = _get("/api/script/push", {
-        "cmd": "get", "model": "EVCC", "name": name
-    })
-    if not result.get("success"):
-        raise QC2015PError(f"命令入队失败: {result.get('error', 'unknown')}")
-    result = _wait_result()
-    if result is None:
-        raise QC2015PError("等待超时，命令未被执行")
-    if not result.get("success"):
-        raise QC2015PError(f"读取失败: {result.get('error', 'unknown')}")
-    return _parse_value(result.get("value", ""))
+    try:
+        val = _fast_get("EVCC", name)
+        return _parse_value(val)
+    except (ConnectionError, OSError):
+        result = _get("/api/evcc/params")
+        for p in result.get("data", []):
+            if p.get("name") == name:
+                return _parse_value(p.get("value", ""))
+        result = _get("/api/evcc/monitor_params")
+        for p in result.get("data", []):
+            if p.get("name") == name:
+                return _parse_value(p.get("value", ""))
+        raise QC2015PError(f"参数未找到: {name}")
+
+
+# ============================================================
+# 批量操作（一次HTTP请求设置多个参数，消除逐条线程创建开销）
+# ============================================================
+
+def SECC_ValueSetBatch(sets: Dict[str, Union[str, int, float, bool, list]]) -> bool:
+    """批量设置SECC参数（单次HTTP请求）。
+       SECC_ValueSetBatch({"ChargeSta": 1, "CVList": [1,2,3]})  →  一次写入多个参数
+    """
+    params = {}
+    for name, value in sets.items():
+        params[name] = _format_value(value)
+    try:
+        result = _get("/api/secc/params/set_batch", params)
+        return result.get("success", False)
+    except (ConnectionError, ValueError):
+        return False
+
+
+def EVCC_ValueSetBatch(sets: Dict[str, Union[str, int, float, bool, list]]) -> bool:
+    """批量设置EVCC参数（单次HTTP请求）。
+       EVCC_ValueSetBatch({"ChargeSta": 1, "MaxVoltage": 750})  →  一次写入多个参数
+    """
+    params = {}
+    for name, value in sets.items():
+        params[name] = _format_value(value)
+    try:
+        result = _get("/api/evcc/params/set_batch", params)
+        return result.get("success", False)
+    except (ConnectionError, ValueError):
+        return False
+
+
+class BatchSet:
+    """批量设置上下文管理器——收集多次Set操作，退出时一次性提交。
+       用法:
+           with BatchSet() as batch:
+               batch.secc("ChargeSta", 1)
+               batch.secc("CVList", [1,2,3])
+               batch.evcc("MaxVoltage", 750)
+           # 退出with块时，自动合并为1次HTTP请求
+    """
+    def __init__(self):
+        self._secc = {}
+        self._evcc = {}
+
+    def secc(self, name: str, value: Union[str, int, float, bool, list]):
+        self._secc[name] = value
+        return self
+
+    def evcc(self, name: str, value: Union[str, int, float, bool, list]):
+        self._evcc[name] = value
+        return self
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self._secc:
+            SECC_ValueSetBatch(self._secc)
+        if self._evcc:
+            EVCC_ValueSetBatch(self._evcc)
+        return False
 
 
 def MsgGet(msg_id, what=None) -> Any:

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_EVCC'.
 //
-// Model version                  : 1.401
+// Model version                  : 1.547
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Tue Sep  1 20:27:09 2026
+// C/C++ source code generated on : Sun Sep 27 17:49:46 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor
@@ -21,11 +21,17 @@
 
 extern real_T rt_powd_snf(real_T u0, real_T u1);
 extern real_T rt_roundd_snf(real_T u);
+extern real_T rt_urand_Upu32_Yd_f_pw_snf(uint32_T *u);
+extern real_T rt_nrand_Upu32_Yd_f_pw_snf(uint32_T *u);
 extern real_T uMultiWord2Double(const uint32_T u1[], int32_T n1, int32_T e1);
 extern void MultiWordIor(const uint32_T u1[], const uint32_T u2[], uint32_T y[],
   int32_T n);
 extern void Double2MultiWord(real_T u1, uint32_T y[], int32_T n);
 extern void uMultiWordShl(const uint32_T u1[], int32_T n1, uint32_T n2, uint32_T
+  y[], int32_T n);
+extern void MultiWordAnd(const uint32_T u1[], const uint32_T u2[], uint32_T y[],
+  int32_T n);
+extern void uMultiWordShr(const uint32_T u1[], int32_T n1, uint32_T n2, uint32_T
   y[], int32_T n);
 
 #endif                                 // RTW_HEADER_QC2015P_EVCC_private_h_

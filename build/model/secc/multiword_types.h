@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_SECC'.
 //
-// Model version                  : 1.406
+// Model version                  : 1.567
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Sat Aug 29 16:43:03 2026
+// C/C++ source code generated on : Sun Sep 27 17:22:00 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor

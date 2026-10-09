@@ -216,6 +216,62 @@ The top SEQ badge also maps the 2015 protocol phases (SEQ 10~99); those labels c
 
 ---
 
+## 🧪 Protocol Conformance Testing (GB/T 34658-2025)
+
+**What it buys you**: now that the new national standard is in force, "it charges" is no longer enough — certification bodies and OEM acceptance teams ask whether **every single item the standard requires** is satisfied. This folder holds **recorded traffic from conformance runs** executed on this platform, ready to keep as test evidence, hand over, or review after the fact — no real vehicle or charger needed, and nobody watching a screen.
+
+### What the standard covers
+
+**GB/T 34658-2025 — "Conformance test of the communication protocol between off-board conductive chargers and the battery management system of electric vehicles"** is the **companion test standard** to the GB/T 27930 series. It defines *how to verify each item one by one* so you can prove the communication between the charger (SECC) and the battery management system / vehicle side (EVCC) genuinely **complies with the protocol**, rather than merely "happens to work".
+
+Test items are organised by protocol layer:
+
+| Layer | What it checks | Typical items |
+|:------|:---------------|:--------------|
+| **Physical (PL)** | Electrical characteristics | CAN bus terminating resistor (120 Ω ±10%), bit rate (250 kbit/s) |
+| **Data link (DL)** | Whether a single frame is compliant | Data frame format, **version negotiation** |
+| **Transport (TL)** | Whether multi-frame long messages get through | Long-message send / receive (LM / RM / URM) |
+| **Application (AL)** | End-to-end charging business logic | Wake-up, function negotiation, parameter configuration, authentication, charging schedule, power supply mode, pre-charging & energy transfer, phase ack, suspend, end of charging, backward compatibility… |
+
+The standard contains roughly **370 test cases**, split evenly between the charger side and the vehicle side; each item comes in a **positive** variant (verify the normal flow) and a **negative** variant (inject a fault and check the device under test responds correctly):
+
+| Device under test | Positive | Negative | Total |
+|:------------------|:--------:|:--------:|:-----:|
+| 🔌 SECC (charger) | 71 | 114 | **185** |
+| 🚗 EVCC (vehicle) | 67 | 117 | **184** |
+
+### Recordings included in this repository
+
+📂 [`通信协议一致性_GBT34658-2025/`](通信协议一致性_GBT34658-2025/)
+
+```
+通信协议一致性_GBT34658-2025/
+└── EVCC/                                              ← device under test: vehicle side
+    ├── TC_C.EVCC_P_DL_VersionNegotiation_001~003.blf
+    ├── TC_C.EVCC_P_DL_VersionNegotiation_004.blf
+    ├── …
+    └── TC_C.EVCC_N_DL_VersionNegotiation_008.blf
+```
+
+A first batch of **14 BLF recordings** covering the **EVCC version negotiation (data link layer)** positive and negative cases — all captured automatically by this platform and openable frame by frame in CANoe / CANalyzer.
+
+### How to read a test-case ID
+
+```
+TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
+  │      │    │   │          │              │
+  │      │    │   │          │              └─ index within the item
+  │      │    │   │          └──────────────── test item (version negotiation)
+  │      │    │   └─────────────────────────── protocol layer: PL / DL / TL / AL
+  │      │    └─────────────────────────────── case type: P positive / N negative
+  │      └──────────────────────────────────── device under test: EVCC vehicle / SECC charger
+  └─────────────────────────────────────────── test case
+```
+
+> 🚧 **Work in progress**: EVCC version negotiation is done so far; the remaining EVCC layers follow in standard order, then the SECC layers.
+
+---
+
 ## 🖥️ Interface Overview
 
 ### Home Page
@@ -557,6 +613,9 @@ QC2015P_Platform/
 │   ├── demo.py                      ← Demo script
 │   └── screenshots/                 ← UI screenshots (10 images)
 │
+├── 📂 通信协议一致性_GBT34658-2025/   ← GB/T 34658-2025 conformance test recordings
+│   └── EVCC/                        ← device under test (vehicle side), first batch of 14 BLF files
+│
 ├── 📄 README.md                     ← Chinese README
 ├── 📄 README_EN.md                  ← English README (this file)
 ├── 🎬 演示视频_compressed.mp4        ← Demo video (1080p 60fps, 26MB)
@@ -672,6 +731,12 @@ SECC_ValueSetBatch({"SECC_2015P_Enable": False})
 
 <details>
 <summary><b>📝 Changelog</b> (click to expand)</summary>
+
+**2026-10-09 — GB/T 34658-2025 protocol conformance test recordings added**
+
+- **New folder `通信协议一致性_GBT34658-2025/`**: a first batch of 14 BLF recordings covering the **EVCC version negotiation (data link layer)** positive and negative cases of GB/T 34658-2025, all captured automatically by this platform
+- **New README section**: introduces the standard (the companion conformance test standard to the GB/T 27930 series), its four-layer structure (physical / data link / transport / application), the full suite size (185 SECC + 184 EVCC cases) and the test-case ID scheme
+- The remaining EVCC layers will follow in standard order, then the SECC layers
 
 **2026-09-27 — Backward compatibility with GB/T 27930-2015**
 

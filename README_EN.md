@@ -166,6 +166,15 @@ This is a **local capability flag, not a protocol selector**:
 
 > Transport-layer messages on both sides are grouped under the `TP_*` prefix.
 
+### 2015 Messages Are Decoded in the UI Too
+
+In the message trace, 2015 messages show **names and decoded signals** exactly like 2024 ones:
+
+- The built-in message dictionary (DBC) covers **all 38 messages** — 13 from 2024 plus 25 from 2015 (`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` and so on)
+- Long multi-packet messages such as `BRM` / `BCP` / `BCS` are **automatically reassembled** (J1939 transport protocol) before decoding, so the panel shows the complete signals — no manual stitching
+
+In other words: running a 2015 session, you can still read "battery type, total voltage, SOC" straight off the trace without knowing hex.
+
 📊 **Want to see the real thing?** The repository root ships a **sample recording** captured with this platform: [`向下兼容2015协议_V1.0.blf`](向下兼容2015协议_V1.0.blf) — a complete 2015 legacy-protocol charging session. Open it directly in CANoe / CANalyzer; no hardware required.
 
 ### Four Control Parameters per Message
@@ -189,11 +198,9 @@ With `CRM_Data_SW` on, every signal inside the message can be overridden individ
 
 ```python
 # Override the "BMS identification" signal in CRM, keep all other fields from model logic
-SECC_ValueSetBatch({
-    "CRM_Data_SW":                True,   # arm the data override
-    "SPN2560_CRM_BMSIdentify_SW": True,   # arm this one signal
-    "SPN2560_CRM_BMSIdentify_Va": 0x5A,   # write a custom value
-})
+SECC_ValueSet("CRM_Data_SW", True)                  # arm the data override
+SECC_ValueSet("SPN2560_CRM_BMSIdentify_SW", True)   # arm this one signal
+SECC_ValueSet("SPN2560_CRM_BMSIdentify_Va", 0x5A)   # write a custom value
 ```
 
 This round of model updates adds **99** parameters on the SECC side and **180** on the EVCC side, spanning three levels of control: message level (enable / cycle / data override), signal level (per-field SPN override) and raw message injection.
@@ -475,7 +482,7 @@ Frontend Param Edit ──→ HTTP API ──→ Model Memory Write ──→ Ef
 
 | Dependency | Description | Required |
 |:-----------|:------------|:--------:|
-| **ZLG USBCAN2** | CAN adapter hardware | ✅ |
+| **ZLG USBCAN2** or **USBCANFD-200U** | CAN adapter hardware (either one; the newer USBCANFD is supported too) | ✅ |
 | **Windows 10/11** | Operating system | ✅ |
 | **Chrome / Edge** | Browser | ✅ |
 
@@ -489,7 +496,7 @@ Download the `build` folder from this repository, or download the packaged archi
 
 **Step 2: Connect CAN Hardware**
 
-Plug in ZLG USBCAN2 via USB, ensure drivers are installed.
+Plug in a ZLG USBCAN2 (or the newer USBCANFD-200U) via USB, ensure drivers are installed. Pick the matching model in the web CAN panel — "USBCAN2" for the older stick, "USBCANFD-200U" for the newer one — and the program loads the right driver automatically.
 
 **Step 3: Launch**
 
@@ -539,36 +546,27 @@ soc = MsgGet(0x1836F456, "PGI05_K1")
 print(f"SOC value: {soc}")
 ```
 
-### Batch Writes (multiple parameters in one request)
+### Writing Several Parameters in a Row
+
+Single writes go over the fast TCP channel (≈0.3ms each), so writing a few parameters one after another is already quick — just call them in sequence (no batch wrapper anymore):
 
 ```python
-# Option 1 — one call, several parameters
-# (example: switch to the 2015 protocol and force CHM on)
-SECC_ValueSetBatch({
-    "SECC_2015P_Enable": False,   # false = run the 2015 legacy protocol
-    "CHM_Enable_SW": True,        # take manual control of CHM transmission
-    "CHM_Enable_Va": True,        # force it on
-})
-
-# Option 2 — context manager, merged into a single request on exit
-with BatchSet() as b:
-    b.secc("ChargeSta", 1)
-    b.secc("CC2", 3.5)
-    b.evcc("MaxVoltage", 750)
+# Example: switch to the 2015 protocol and force CHM on
+SECC_ValueSet("SECC_2015P_Enable", False)  # false = run the 2015 legacy protocol
+SECC_ValueSet("CHM_Enable_SW", True)       # take manual control of CHM transmission
+SECC_ValueSet("CHM_Enable_Va", True)       # force it on
 ```
 
 ### API Quick Reference
 
 | Function | Description | Example |
 |:---------|:------------|:--------|
-| `connect(baud)` | Connect CAN dual channel | `connect(baud=250000)` |
+| `connect(baud, device)` | Connect CAN dual channel | `connect(baud=250000)`<br>`connect(device="zlgcanfd")` |
 | `disconnect()` | Disconnect CAN dual channel | `disconnect()` |
 | `SECC_ValueSet(name, val)` | Set SECC parameter | `SECC_ValueSet("ChargeSta", 1)` |
 | `SECC_ValueGet(name)` | Read SECC parameter | `SECC_ValueGet("ChargeSta")` |
 | `EVCC_ValueSet(name, val)` | Set EVCC parameter | `EVCC_ValueSet("ChargeSta", 1)` |
 | `EVCC_ValueGet(name)` | Read EVCC parameter | `EVCC_ValueGet("ChargeSta")` |
-| `SECC_ValueSetBatch(dict)` | Batch-write SECC parameters | `SECC_ValueSetBatch({"CC2": 3.5})` |
-| `EVCC_ValueSetBatch(dict)` | Batch-write EVCC parameters | `EVCC_ValueSetBatch({"CC2": 3.5})` |
 | `MsgGet(id)` | Read full message info | `MsgGet(0x1836F456)` |
 | `MsgGet(id, "Data")` | Read raw byte array | `MsgGet(0x1836F456, "Data")` |
 | `MsgGet(id, signal)` | Read single signal | `MsgGet(0x1836F456, "PGI05_K1")` |
@@ -594,8 +592,10 @@ QC2015P_Platform/
 │
 ├── 📂 build/                        ← Compiled output (run directly)
 │   ├── QC2015P_HIL.exe              ← Main program
-│   ├── *.dll                        ← Runtime dependencies (GCC / USBCAN / binlog)
-│   ├── 27930_2024_MIX.dbc           ← DBC signal definition file
+│   ├── *.dll                        ← Runtime dependencies (GCC / USBCAN / zlgcan / binlog)
+│   ├── 27930_2024_MIX_update.dbc    ← DBC definitions (38 messages: 13 from 2024 + 25 from 2015, the one the program loads)
+│   ├── 27930_2024_MIX.dbc           ← Older DBC (2024 only, kept as backup)
+│   ├── 📂 kerneldlls/               ← Full set of ZLG device driver DLLs (USBCAN2 / USBCANFD etc.)
 │   ├── 📂 web/                      ← Frontend pages (built)
 │   │   ├── index.html               ← Home page
 │   │   ├── secc.html                ← SECC page
@@ -655,7 +655,7 @@ QC2015P_Platform/
 |:------|:-----------|:------------------------------|
 | **Frontend** | Vue.js 3 + Vite 5 | The UI you see and click in the browser — **no client install**, dark/light theme |
 | **Backend** | C++ 17 + MinGW-w64 | The program that actually simulates and sends/receives frames, **advancing one step per millisecond** |
-| **CAN** | ZLG USBCAN2 DLL | The hardware box that talks to real chargers / vehicles |
+| **CAN** | ZLG USBCAN2 / USBCANFD | The hardware box that talks to real chargers / vehicles (older and newer sticks both supported) |
 | **Model** | Simulink Coder | The charging logic of charger and vehicle, **built graphically and turned into code automatically** — no hand-written code |
 | **Protocol** | GB/T 27930.2-2024 + GB/T 27930-2015 | Both generations of the national standard are supported |
 | **DBC** | CANdb++ format | The message spec: **which bits are voltage, which are current** — the platform uses it to translate automatically |
@@ -677,7 +677,8 @@ Try running from command line to see error messages. Common causes:
 <details>
 <summary><b>Q: CAN connection failed?</b></summary>
 
-Ensure **no other CAN software** (e.g., CANoe, USBCAN tools) is using the same device. ZLG USBCAN2 does not support multiple software opening simultaneously.
+1. Ensure **no other CAN software** (e.g., CANoe, USBCAN tools) is using the same device — ZLG devices don't allow multiple programs to open them at once.
+2. Check that the **model selected in the CAN panel matches the stick you plugged in**: "USBCAN2" for the older stick, "USBCANFD-200U (new)" for the newer one. A wrong selection won't connect.
 </details>
 
 <details>
@@ -707,7 +708,7 @@ Search for `2015P_Enable` in the Web UI parameter list, or change it from Python
 
 ```python
 # make the EVSE end run the 2015 protocol only
-SECC_ValueSetBatch({"SECC_2015P_Enable": False})
+SECC_ValueSet("SECC_2015P_Enable", False)
 ```
 </details>
 
@@ -731,6 +732,20 @@ SECC_ValueSetBatch({"SECC_2015P_Enable": False})
 
 <details>
 <summary><b>📝 Changelog</b> (click to expand)</summary>
+
+**2026-10-28 — USBCANFD device support + 2015 message decoding in the UI**
+
+- **New device support**: ZLG **USBCANFD-200U** (the newer CAN FD stick) now works alongside the classic USBCAN2
+  - The CAN panel gained a model dropdown, so a wrong device selection is no longer a connection failure
+  - New `/api/can/devices` endpoint; Python `connect()` gained a `device=` parameter (`connect(device="zlgcanfd")`)
+  - `build/kerneldlls/` ships the full set of ZLG device driver DLLs with the repository — no more copying them from the ZLG SDK by hand
+  - Added `binlog.dll` (Vector): fixes BLF recording, which could previously fail
+- **2015 messages decoded in the UI**: 2015 messages (`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` and 20 more — 25 in total) now show **names and decoded signals** in the message trace
+  - The built-in message dictionary (DBC) grew from 13 to **38 messages** (the full 2024 + 2015 set)
+  - Multi-packet long messages `BRM`/`BCP`/`BCS` are **reassembled** via the J1939 transport protocol before decoding, so the UI shows complete signals
+  - Connecting a device now resets the model state, so switching sticks needs no program restart
+- **Python client**: `connect()` supports device selection; writes go one-by-one over the fast channel (≈0.3ms each); the old batch helpers (`BatchSet`/`ValueSetBatch`) were removed — just loop the single writes
+- Simulink model code regenerated for both SECC and EVCC
 
 **2026-10-09 — GB/T 34658-2025 protocol conformance test recordings added**
 

@@ -34,29 +34,20 @@ _timeout = 5  # HTTP请求超时(秒)
 # 高速TCP持久连接（端口9528，绕过HTTP线程创建开销）
 # ============================================================
 _fast_sock = None
-_fast_failed = False  # 记录fast TCP是否曾失败，避免每次重试
 
 def _fast_connect():
     """建立到9528的持久TCP连接"""
-    global _fast_sock, _fast_failed
-    if _fast_failed:
-        raise ConnectionError("Fast TCP不可用")
+    global _fast_sock
     if _fast_sock is not None:
         try:
             _fast_sock.sendall(b"")  # 检测连接是否存活
             return _fast_sock
         except (OSError, BrokenPipeError):
             _fast_sock = None
-    try:
-        _fast_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        _fast_sock.settimeout(0.1)  # 连接超时100ms（快速失败）
-        _fast_sock.connect((_host, 9528))
-        _fast_sock.settimeout(_timeout)  # 连接成功后恢复正常超时
-        return _fast_sock
-    except (OSError, ConnectionRefusedError, TimeoutError) as e:
-        _fast_failed = True
-        _fast_sock = None
-        raise ConnectionError(f"Fast TCP连接失败: {e}")
+    _fast_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    _fast_sock.settimeout(_timeout)
+    _fast_sock.connect((_host, 9528))
+    return _fast_sock
 
 def _fast_send(cmd: str) -> str:
     """通过持久TCP连接发送命令，返回响应行"""
@@ -337,18 +328,30 @@ def _parse_value(value_str: str) -> Any:
 # 设备操作 (也是setter/getter风格)
 # ============================================================
 
-def connect(baud: int = 250000) -> bool:
+def connect(baud: int = 250000, device: str = "zlg", dev_type: int = 0, dev_idx: int = 0) -> bool:
     """
     连接CAN设备（双通道同时打开）。
 
-    connect()              # 250k
-    connect(baud=500000)   # 500k
+    connect()                              # ZLG USBCAN2, 250k
+    connect(baud=500000)                   # 500k
+    connect(device="zlgcanfd")             # ZLG USBCANFD-200U (zlgcan.dll)
+
+    Args:
+        baud: 波特率
+        device: 厂商驱动名（"zlg" / "zlgcanfd"）
+        dev_type: 设备类型（0=按驱动默认：zlg→4, zlgcanfd→41）
+        dev_idx: 设备索引
 
     Returns:
         True=两个通道都连接成功
     """
-    r0 = _get("/api/can/connect", {"ch": 0, "baud": baud})
-    r1 = _get("/api/can/connect", {"ch": 1, "baud": baud})
+    params = {"baud": baud, "device": device, "devIdx": dev_idx}
+    if dev_type > 0:
+        params["devType"] = dev_type
+    p0 = dict(params, ch=0)
+    p1 = dict(params, ch=1)
+    r0 = _get("/api/can/connect", p0)
+    r1 = _get("/api/can/connect", p1)
     return r0.get("success", False) and r1.get("success", False)
 
 
@@ -359,7 +362,7 @@ def disconnect() -> bool:
     r0 = _get("/api/can/disconnect", {"ch": 0})
     r1 = _get("/api/can/disconnect", {"ch": 1})
     # 关闭高速TCP连接
-    global _fast_sock, _fast_failed
+    global _fast_sock
     if _fast_sock:
         try:
             _fast_sock.sendall(b"QUIT\n")
@@ -367,7 +370,6 @@ def disconnect() -> bool:
         except (OSError, BrokenPipeError):
             pass
         _fast_sock = None
-    _fast_failed = False  # 重置，允许下次重新连接
     return r0.get("success", False) and r1.get("success", False)
 
 
@@ -495,19 +497,12 @@ def SECC_ValueSet(name: str, value: Union[str, int, float, bool, list]) -> bool:
 def SECC_ValueGet(name: str) -> Any:
     """读取 SECC 模型参数（高速TCP直读）。
        SECC_ValueGet("ChargeSta")  →  直接读取 SECC 模型的 ChargeSta 参数
-       SECC_ValueGet("MAIN_SEQ")  →  读取 UserMonitor 只读变量
     """
     try:
         val = _fast_get("SECC", name)
         return _parse_value(val)
     except (ConnectionError, OSError):
-        # 先查模型参数
         result = _get("/api/secc/params")
-        for p in result.get("data", []):
-            if p.get("name") == name:
-                return _parse_value(p.get("value", ""))
-        # 再查 UserMonitor 只读变量
-        result = _get("/api/secc/monitor_params")
         for p in result.get("data", []):
             if p.get("name") == name:
                 return _parse_value(p.get("value", ""))
@@ -529,7 +524,6 @@ def EVCC_ValueSet(name: str, value: Union[str, int, float, bool, list]) -> bool:
 def EVCC_ValueGet(name: str) -> Any:
     """读取 EVCC 模型参数（高速TCP直读）。
        EVCC_ValueGet("ChargeSta")  →  直接读取 EVCC 模型的 ChargeSta 参数
-       EVCC_ValueGet("EVCC_MAIN_SEQ")  →  读取 UserMonitor 只读变量
     """
     try:
         val = _fast_get("EVCC", name)
@@ -539,75 +533,7 @@ def EVCC_ValueGet(name: str) -> Any:
         for p in result.get("data", []):
             if p.get("name") == name:
                 return _parse_value(p.get("value", ""))
-        result = _get("/api/evcc/monitor_params")
-        for p in result.get("data", []):
-            if p.get("name") == name:
-                return _parse_value(p.get("value", ""))
         raise QC2015PError(f"参数未找到: {name}")
-
-
-# ============================================================
-# 批量操作（一次HTTP请求设置多个参数，消除逐条线程创建开销）
-# ============================================================
-
-def SECC_ValueSetBatch(sets: Dict[str, Union[str, int, float, bool, list]]) -> bool:
-    """批量设置SECC参数（单次HTTP请求）。
-       SECC_ValueSetBatch({"ChargeSta": 1, "CVList": [1,2,3]})  →  一次写入多个参数
-    """
-    params = {}
-    for name, value in sets.items():
-        params[name] = _format_value(value)
-    try:
-        result = _get("/api/secc/params/set_batch", params)
-        return result.get("success", False)
-    except (ConnectionError, ValueError):
-        return False
-
-
-def EVCC_ValueSetBatch(sets: Dict[str, Union[str, int, float, bool, list]]) -> bool:
-    """批量设置EVCC参数（单次HTTP请求）。
-       EVCC_ValueSetBatch({"ChargeSta": 1, "MaxVoltage": 750})  →  一次写入多个参数
-    """
-    params = {}
-    for name, value in sets.items():
-        params[name] = _format_value(value)
-    try:
-        result = _get("/api/evcc/params/set_batch", params)
-        return result.get("success", False)
-    except (ConnectionError, ValueError):
-        return False
-
-
-class BatchSet:
-    """批量设置上下文管理器——收集多次Set操作，退出时一次性提交。
-       用法:
-           with BatchSet() as batch:
-               batch.secc("ChargeSta", 1)
-               batch.secc("CVList", [1,2,3])
-               batch.evcc("MaxVoltage", 750)
-           # 退出with块时，自动合并为1次HTTP请求
-    """
-    def __init__(self):
-        self._secc = {}
-        self._evcc = {}
-
-    def secc(self, name: str, value: Union[str, int, float, bool, list]):
-        self._secc[name] = value
-        return self
-
-    def evcc(self, name: str, value: Union[str, int, float, bool, list]):
-        self._evcc[name] = value
-        return self
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self._secc:
-            SECC_ValueSetBatch(self._secc)
-        if self._evcc:
-            EVCC_ValueSetBatch(self._evcc)
-        return False
 
 
 def MsgGet(msg_id, what=None) -> Any:

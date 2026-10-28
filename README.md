@@ -166,6 +166,15 @@
 
 > 两端的传输层报文以 `TP_*` 前缀分组管理。
 
+### 2015 报文也能在界面里直接看懂
+
+报文追踪里，2015 的报文和 2024 的一样**自动显示报文名、自动解码信号**：
+
+- 平台内置的报文词典（DBC）包含**全部 38 条报文**——2024 的 13 条 + 2015 的 25 条（`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` 等）
+- `BRM` / `BCP` / `BCS` 这类**一次发不完、要拆成多包传的长报文**，平台会自动把多包拼回完整一条再解码（J1939 传输协议重组），界面上看到的就是拼好的完整信号，不用手动拼
+
+也就是说：跑 2015 流程时，你不用懂十六进制，追踪面板里一样能直接读出"电池类型、总电压、SOC"这些参数。
+
 📊 **想看实物？** 仓库根目录附带一份用本平台录制的**真实报文样本** [`向下兼容2015协议_V1.0.blf`](向下兼容2015协议_V1.0.blf) —— 一段完整的 2015 旧协议充电流程记录，用 CANoe / CANalyzer 直接打开就能看，不用接硬件。
 
 ### 每条报文的四个控制参数
@@ -189,11 +198,9 @@
 
 ```python
 # 篡改 CRM 报文中"充电机辨识"信号，其余字段保持模型逻辑值
-SECC_ValueSetBatch({
-    "CRM_Data_SW":     True,      # 打开数据覆盖
-    "SPN2560_CRM_BMSIdentify_SW": True,   # 单独打开这个信号
-    "SPN2560_CRM_BMSIdentify_Va": 0x5A,   # 写入自定义值
-})
+SECC_ValueSet("CRM_Data_SW", True)                  # 打开数据覆盖
+SECC_ValueSet("SPN2560_CRM_BMSIdentify_SW", True)   # 单独打开这个信号
+SECC_ValueSet("SPN2560_CRM_BMSIdentify_Va", 0x5A)   # 写入自定义值
 ```
 
 本轮模型更新新增的参数总数：SECC 侧 **99** 个、EVCC 侧 **180** 个，涵盖报文级（使能/周期/数据覆盖）、信号级（SPN 逐个字段改写）、自定义报文注入三档控制粒度。
@@ -492,7 +499,7 @@ CAN 硬件 ──→ CAN 驱动 ──→ 报文缓冲区 ──→ 前端轮询
 
 | 依赖 | 说明 | 是否必需 |
 |:-----|:-----|:--------:|
-| **ZLG USBCAN2** | CAN 收发硬件 | ✅ |
+| **ZLG USBCAN2** 或 **USBCANFD-200U** | CAN 收发硬件（任选其一，新款 USBCANFD 也支持） | ✅ |
 | **Windows 10/11** | 操作系统 | ✅ |
 | **Chrome / Edge** | 浏览器 | ✅ |
 
@@ -506,7 +513,7 @@ CAN 硬件 ──→ CAN 驱动 ──→ 报文缓冲区 ──→ 前端轮询
 
 **第 2 步：连接 CAN 硬件**
 
-将 ZLG USBCAN2 插入 USB 口，确保驱动已安装。
+将 ZLG USBCAN2（或新款 USBCANFD-200U）插入 USB 口，确保驱动已安装。在网页 CAN 面板里选好设备型号即可——老款 USBCAN2 选「USBCAN2」，新款 USBCANFD 选「USBCANFD-200U」，程序会自动匹配对应驱动。
 
 **第 3 步：启动程序**
 
@@ -556,35 +563,27 @@ soc = MsgGet(0x1836F456, "PGI05_K1")
 print(f"SOC 值: {soc}")
 ```
 
-### 批量写入（一次请求改多条）
+### 连续写多条参数
+
+单条写入走高速 TCP（≈0.3ms），连续写多条也很快，直接逐条写即可（不再提供批量封装）：
 
 ```python
-# 方式一：一次调用写多条（示例：切到 2015 旧协议，并强制发送 CHM 握手报文）
-SECC_ValueSetBatch({
-    "SECC_2015P_Enable": False,   # false = 跑 2015 旧协议
-    "CHM_Enable_SW": True,        # 手动接管 CHM 的发送
-    "CHM_Enable_Va": True,        # 强制发送
-})
-
-# 方式二：上下文管理器，退出时自动合并成一次请求
-with BatchSet() as b:
-    b.secc("ChargeSta", 1)
-    b.secc("CC2", 3.5)
-    b.evcc("MaxVoltage", 750)
+# 示例：切到 2015 旧协议，并强制发送 CHM 握手报文
+SECC_ValueSet("SECC_2015P_Enable", False)  # false = 跑 2015 旧协议
+SECC_ValueSet("CHM_Enable_SW", True)       # 手动接管 CHM 的发送
+SECC_ValueSet("CHM_Enable_Va", True)       # 强制发送
 ```
 
 ### 常用 API 速查
 
 | 函数 | 说明 | 示例 |
 |:-----|:-----|:-----|
-| `connect(baud)` | 连接 CAN 双通道 | `connect(baud=250000)` |
+| `connect(baud, device)` | 连接 CAN 双通道 | `connect(baud=250000)`<br>`connect(device="zlgcanfd")` |
 | `disconnect()` | 断开 CAN 双通道 | `disconnect()` |
 | `SECC_ValueSet(name, val)` | 设置 SECC 参数 | `SECC_ValueSet("ChargeSta", 1)` |
 | `SECC_ValueGet(name)` | 读取 SECC 参数 | `SECC_ValueGet("ChargeSta")` |
 | `EVCC_ValueSet(name, val)` | 设置 EVCC 参数 | `EVCC_ValueSet("ChargeSta", 1)` |
 | `EVCC_ValueGet(name)` | 读取 EVCC 参数 | `EVCC_ValueGet("ChargeSta")` |
-| `SECC_ValueSetBatch(dict)` | 批量写 SECC 参数 | `SECC_ValueSetBatch({"CC2": 3.5})` |
-| `EVCC_ValueSetBatch(dict)` | 批量写 EVCC 参数 | `EVCC_ValueSetBatch({"CC2": 3.5})` |
 | `MsgGet(id)` | 读取完整报文信息 | `MsgGet(0x1836F456)` |
 | `MsgGet(id, "Data")` | 读取原始字节数组 | `MsgGet(0x1836F456, "Data")` |
 | `MsgGet(id, signal)` | 读取单个信号 | `MsgGet(0x1836F456, "PGI05_K1")` |
@@ -610,8 +609,10 @@ QC2015P_Platform/
 │
 ├── 📂 build/                        ← 编译输出（可直接运行）
 │   ├── QC2015P_HIL.exe              ← 主程序
-│   ├── *.dll                        ← 运行时依赖（GCC / USBCAN / binlog）
-│   ├── 27930_2024_MIX.dbc           ← DBC 信号定义文件
+│   ├── *.dll                        ← 运行时依赖（GCC / USBCAN / zlgcan / binlog）
+│   ├── 27930_2024_MIX_update.dbc    ← DBC 信号定义（38 条：2024 13 条 + 2015 25 条，程序实际读取）
+│   ├── 27930_2024_MIX.dbc           ← 旧版 DBC（仅 2024，保留备用）
+│   ├── 📂 kerneldlls/               ← ZLG 全套设备驱动 DLL（USBCAN2 / USBCANFD 等）
 │   ├── 📂 web/                      ← 前端页面（已构建）
 │   │   ├── index.html               ← 主页
 │   │   ├── secc.html                ← SECC 页面
@@ -670,7 +671,7 @@ QC2015P_Platform/
 |:-----|:-----|:---------------------|
 | **前端** | Vue.js 3 + Vite 5 | 你在浏览器里看到和操作的界面，**不用装客户端**，深色/浅色主题 |
 | **后端** | C++ 17 + MinGW-w64 | 真正跑仿真、收发报文的程序，**1 毫秒走一步** |
-| **CAN** | ZLG USBCAN2 DLL | 和真实充电桩 / 车辆通信的那块硬件盒子 |
+| **CAN** | ZLG USBCAN2 / USBCANFD | 和真实充电桩 / 车辆通信的那块硬件盒子（老款新款都支持） |
 | **模型** | Simulink Coder | 充电桩与车辆的充电逻辑，**图形化搭好后自动生成代码**，不用手写 |
 | **协议** | GB/T 27930.2-2024 + GB/T 27930-2015 | 新旧两版国标都支持 |
 | **DBC** | CANdb++ 格式 | 报文说明书：**哪几位是电压、哪几位是电流**，照它自动翻译 |
@@ -692,7 +693,8 @@ QC2015P_Platform/
 <details>
 <summary><b>Q: CAN 连接失败？</b></summary>
 
-确保**没有其他 CAN 软件**（如 CANoe、USBCAN 工具）正在使用同一设备。ZLG USBCAN2 不支持多软件同时打开。
+1. 确保**没有其他 CAN 软件**（如 CANoe、USBCAN 工具）正在使用同一设备。ZLG 设备不支持多软件同时打开。
+2. 确认 CAN 面板里选的**设备型号和实际插的一致**：老款 USBCAN2 选「USBCAN2」，新款 USBCANFD-200U 选「USBCANFD-200U (新款)」。选错型号会连不上。
 </details>
 
 <details>
@@ -722,7 +724,7 @@ QC2015P_Platform/
 
 ```python
 # 让充电桩端只跑 2015 协议
-SECC_ValueSetBatch({"SECC_2015P_Enable": False})
+SECC_ValueSet("SECC_2015P_Enable", False)
 ```
 </details>
 
@@ -746,6 +748,20 @@ SECC_ValueSetBatch({"SECC_2015P_Enable": False})
 
 <details>
 <summary><b>📝 更新记录</b>（点开查看）</summary>
+
+**2026-10-28 — 新增 USBCANFD 设备支持 + 2015 报文界面解码**
+
+- **新设备支持**：新增 ZLG **USBCANFD-200U**（新款 CAN FD 盒子）支持，老款 USBCAN2 继续可用
+  - CAN 面板新增设备型号下拉选择，选错型号才会连不上的问题一去不返
+  - 新增 `/api/can/devices` 端点，Python `connect()` 新增 `device=` 参数（`connect(device="zlgcanfd")`）
+  - `build/kerneldlls/` 随仓库分发 ZLG 全套设备驱动 DLL，克隆后无需再从 ZLG SDK 手动拷贝
+  - 补入 `binlog.dll`（Vector）：修复 BLF 录制此前可能失败的问题
+- **2015 报文界面解码**：报文追踪里 2015 的报文（`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` 等 25 条）**自动显示报文名、自动解码信号**
+  - 内置报文词典（DBC）从 13 条扩到 **38 条**（2024 + 2015 全量）
+  - `BRM`/`BCP`/`BCS` 多包长报文经 J1939 传输协议**自动重组**后再解码，界面上直接看到完整信号
+  - 连接设备时自动复位模型状态，改用新盒子后不用重启程序
+- **Python 客户端**：`connect()` 支持设备选择；写入改为逐条高速直写（单条 ≈0.3ms），移除旧的批量封装（`BatchSet`/`ValueSetBatch`），连续写多条直接循环调用即可
+- 模型代码同步更新（SECC / EVCC 均重新生成）
 
 **2026-10-09 — 新增 GB/T 34658-2025 通信协议一致性测试报文**
 

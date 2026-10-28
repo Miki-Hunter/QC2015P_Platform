@@ -109,6 +109,20 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 ## 2. CAN API
 
+### GET /api/can/devices
+
+查询当前程序支持的 CAN 设备驱动列表。
+
+**响应**:
+```json
+{"devices": "zlg,zlgcanfd"}
+```
+
+| 驱动名 | 对应硬件 | 运行时 DLL |
+|--------|----------|-----------|
+| `zlg` | ZLG USBCAN2 等老款 | `USBCAN.dll` |
+| `zlgcanfd` | ZLG USBCANFD-200U 等新款 CAN FD | `zlgcan.dll` |
+
 ### GET /api/can/connect
 
 连接CAN设备并启动对应模型。
@@ -117,7 +131,8 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `devType` | int | 4 | 设备类型 (4=USBCAN2) |
+| `device` | string | `zlg` | 厂商驱动名：`zlg`（USBCAN2）或 `zlgcanfd`（USBCANFD-200U） |
+| `devType` | int | 按驱动而定 | 设备类型：`zlg` → 4(USBCAN2)，`zlgcanfd` → 41(USBCANFD-200U) |
 | `devIdx` | int | 0 | 设备索引 |
 | `ch` | int | 0 | 通道号 (0=SECC, 1=EVCC) |
 | `baud` | int | 250000 | 波特率 |
@@ -131,7 +146,7 @@ HTTP API接口文档，供前端和Python脚本使用。
 }
 ```
 
-**说明**: 连接通道0会自动启动SECC模型线程，连接通道1会自动启动EVCC模型线程。
+**说明**: 连接通道0会自动启动SECC模型线程，连接通道1会自动启动EVCC模型线程。前端在连接设备前会先调用 `/api/model/reset` 复位模型状态（参数与历史报文追踪保留），换用另一只 CAN 盒子后无需重启程序。
 
 ### GET /api/can/disconnect
 
@@ -273,6 +288,9 @@ GET /api/params/set?name=ChargeSta&value=1
 ---
 
 ## 5. DBC只读参数API
+
+> 📖 程序启动时加载 `27930_2024_MIX_update.dbc`，包含**全部 38 条报文**：GB/T 27930.2-2024 的 13 条 + GB/T 27930-2015 的 25 条（`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` 等）。
+> 2015 的多包长报文 `BRM`/`BCP`/`BCS` 经 J1939 传输协议自动重组后解码——`dbc_params` 与报文追踪里看到的就是拼好的完整信号。
 
 ### GET /api/secc/dbc_params
 
@@ -708,9 +726,6 @@ from qc2015p_client import *
 | `SECC_ValueGet(name)` | 读SECC参数（模型参数或UserMonitor变量） | `SECC_ValueGet("MAIN_SEQ")` |
 | `EVCC_ValueSet(name, value)` | 设置EVCC参数 | `EVCC_ValueSet("ChargeSta", 1)` |
 | `EVCC_ValueGet(name)` | 读EVCC参数 | `EVCC_ValueGet("EVCC_MAIN_SEQ")` |
-| `SECC_ValueSetBatch(dict)` | 一次请求批量写SECC参数 | `SECC_ValueSetBatch({"ChargeSta":1})` |
-| `EVCC_ValueSetBatch(dict)` | 一次请求批量写EVCC参数 | `EVCC_ValueSetBatch({"ChargeSta":1})` |
-| `BatchSet()` | 批量写上下文管理器，退出时合并提交 | 见下 |
 | `MsgGet(id)` | 读报文完整信息 | `MsgGet(0x1836F456)` |
 | `MsgGet(id, "Data")` | 读原始字节数组 | `MsgGet(0x1836F456, "Data")` |
 | `MsgGet(id, "timestamp")` | 读最近更新时间戳(us) | `MsgGet(0x1836F456, "timestamp")` |
@@ -722,6 +737,8 @@ from qc2015p_client import *
 > 例如字段名是 `ChargeSta` 就传 `"ChargeSta"`，字段名本身带前缀的 `SECC_2015P_Enable`、`SECC_ChargeSta` 就传全名。
 > 而底层接口 `set_params()` / `get_params()` 相反，**必须**带 `SECC_`/`EVCC_` 前缀（它靠前缀判断写哪个模型）。
 
+> 📌 **连续写多条**：单条写入已足够快（≈0.3ms），逐条循环调用即可。旧版客户端的 `SECC/EVCC_ValueSetBatch`、`BatchSet` 批量封装已移除（HTTP 端点 `params/set_batch` 仍可用，见 [3. SECC参数API](#3-secc参数api)）。
+
 ### 底层接口（仍可用）
 
 | 函数 | 说明 | 示例 |
@@ -730,7 +747,7 @@ from qc2015p_client import *
 | `get_params(name)` | 读取模型参数 | `get_params("SECC_ChargeSta")` |
 | `get_params(name, msg_id)` | 读取DBC信号 | `get_params("PGI05_K1", 0x1836F456)` |
 | `get_params("Data", msg_id)` | 读取报文原始字节 | `get_params("Data", 0x1836F456)` |
-| `connect(baud)` | 连接CAN（双通道一起打开） | `connect(baud=250000)` |
+| `connect(baud, device)` | 连接CAN（双通道一起打开） | `connect(baud=250000)`<br>`connect(device="zlgcanfd")` |
 | `disconnect()` | 断开CAN（双通道一起断开，并关闭高速TCP连接） | `disconnect()` |
 | `get_status()` | 获取系统状态 | `get_status()` |
 | `is_running(model)` | 检查模型运行状态 | `is_running("SECC")` |
@@ -739,22 +756,13 @@ from qc2015p_client import *
 | `get_trace(model)` | 获取报文追踪 | `get_trace("SECC")` |
 | `configure(host, port)` | 修改服务器地址 | `configure("192.168.1.10")` |
 
-### 批量写入示例
+### 连续写多条示例
 
 ```python
-# 方式一：一次调用写多条（示例：切到 2015 旧协议，并强制发送 CHM 握手报文）
-SECC_ValueSetBatch({
-    "SECC_2015P_Enable": False,   # false = 跑 2015 旧协议
-    "CHM_Enable_SW": True,        # 手动接管 CHM 的发送
-    "CHM_Enable_Va": True,        # 强制发送
-})
-
-# 方式二：上下文管理器，收集完退出时自动合并成1个请求
-with BatchSet() as b:
-    b.secc("ChargeSta", 1)
-    b.secc("CC2", 3.5)
-    b.evcc("MaxVoltage", 750)
-# 退出with块 → 自动提交
+# 示例：切到 2015 旧协议，并强制发送 CHM 握手报文（逐条写，单条 ≈0.3ms）
+SECC_ValueSet("SECC_2015P_Enable", False)  # false = 跑 2015 旧协议
+SECC_ValueSet("CHM_Enable_SW", True)       # 手动接管 CHM 的发送
+SECC_ValueSet("CHM_Enable_Va", True)       # 强制发送
 ```
 
 ### 异常

@@ -1,0 +1,2317 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: BMS Charger SECC EVCC
+
+
+BO_ 2552714996 BHM: 2 BMS
+ SG_ SPN2601_BHM_ChargeTotalVolt_MAX : 0|16@1+ (0.1,0) [0|1000] "V"  Charger
+
+BO_ 2552689750 CHM: 3 Charger
+ SG_ SPN2600_CHM_ProtocolVer : 0|24@1+ (1,0) [0|0] ""  BMS
+
+BO_ 2550723670 CML: 8 Charger
+ SG_ SPN2827_CML_OutputCurrent_MIN : 48|16@1+ (0.1,-400) [-400|6153.5] "A"  BMS
+ SG_ SPN2826_CML_OutputCurrent_MAX : 32|16@1+ (0.1,-400) [-400|6153.5] "A"  BMS
+ SG_ SPN2825_CML_OutputVoltage_MIN : 16|16@1+ (0.1,0) [0|750] "V"  BMS
+ SG_ SPN2824_CML_OutputVoltage_MAX : 0|16@1+ (0.1,0) [0|750] "V"  BMS
+
+BO_ 2550658134 CTS: 7 Charger
+ SG_ SPN2823_CTS_TimeInfo_Year : 40|16@1+ (1,0) [0|65535] ""  BMS
+ SG_ SPN2823_CTS_TimeInfo_Month : 32|8@1+ (1,0) [0|255] ""  BMS
+ SG_ SPN2823_CTS_TimeInfo_Date : 24|8@1+ (1,0) [0|255] ""  BMS
+ SG_ SPN2823_CTS_TimeInfo_Hour : 16|8@1+ (1,0) [0|255] ""  BMS
+ SG_ SPN2823_CTS_TimeInfo_Minute : 8|8@1+ (1,0) [0|255] ""  BMS
+ SG_ SPN2823_CTS_TimeInfo_Second : 0|8@1+ (1,0) [0|255] ""  BMS
+
+BO_ 2617661172 BCP: 13 BMS
+ SG_ SPN2822_BCP_BatteryTotalVoltage : 88|16@1+ (0.1,0) [0|750] "V"  Charger
+ SG_ SPN2821_BCP_SOC : 72|16@1+ (0.1,0) [0|100] "%"  Charger
+ SG_ SPN2820_BCP_Temperature_MAX : 64|8@1+ (1,-50) [-50|205] "deg"  Charger
+ SG_ SPN2819_BCP_ChargeTotalVolt_MAX : 48|16@1+ (0.1,0) [0|1000] "V"  Charger
+ SG_ SPN2818_BCP_NominalCapacity : 32|16@1+ (0.1,0) [0|1000] "kW.h"  Charger
+ SG_ SPN2817_BCP_ChargeCurrent_MAX : 16|16@1+ (0.1,-400) [-400|6153.5] "A"  Charger
+ SG_ SPN2816_BCP_CellChargeVolt_MAX : 0|16@1+ (0.01,0) [0|24] "V"  Charger
+
+BO_ 2617399028 BRM: 49 BMS
+ SG_ SPN2576_BRM_BMSSoftwareVer_Num : 328|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2576_BRM_BMSSoftwareVer_Date : 336|32@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2576_BRM_BMSSoftVer_Reserved : 368|24@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2575_BRM_VINPart3 : 320|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2575_BRM_VINPart2 : 256|64@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2575_BRM_VINPart1 : 192|64@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2574_BRM_BRMReserved : 184|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2573_BRM_Ownership : 176|8@1+ (1,0) [0|255] ""  Charger
+ SG_ SPN2572_BRM_BatteryChargedTimes : 152|24@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2571_BRM_ManufactureDate : 144|8@1+ (1,0) [1|31] ""  Charger
+ SG_ SPN2571_BRM_ManufactureMonth : 136|8@1+ (1,0) [1|12] ""  Charger
+ SG_ SPN2571_BRM_ManufactureYear : 128|8@1+ (1,1985) [1985|2235] ""  Charger
+ SG_ SPN2570_BRM_BatterySN : 96|32@1+ (1,0) [0|65535] ""  Charger
+ SG_ SPN2569_BRM_BatteryProducer : 64|32@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN2568_BRM_BatteryVoltage : 48|16@1+ (0.1,0) [0|750] "V"  Charger
+ SG_ SPN2567_BRM_BatteryCapacity : 32|16@1+ (0.1,0) [0|1000] "Ah"  Charger
+ SG_ SPN2566_BRM_BatteryType : 24|8@1+ (1,0) [1|255] ""  Charger
+ SG_ SPN2565_BRM_ProtocolVer : 0|24@1+ (1,0) [0|0] ""  Charger
+
+BO_ 2632668916 TPCM_DT: 8 BMS
+ SG_ DTFIELD7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DTFIELD6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DTFIELD5 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DTFIELD4 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DTFIELD3 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DTFIELD2 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DTFIELD1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SEQNo : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2632774742 TPCM_CTS_EOMA_ABORT: 8 Charger
+ SG_ PGNGET : 40|24@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MSGRXInfo3 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MSGRXInfo2 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MSGRXInfo1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ CTRLBYTE : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2632734452 TPCM_RTS_ABORT: 8 BMS
+ SG_ PGN : 40|24@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ RESERVED_8bit : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MSGTXInfo3 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MSGTXInfo2 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MSGTXInfo1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ CTRLBYTE : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550264918 CRM: 8 Charger
+ SG_ SPN2562_CRM_ChargerLocationCode : 40|24@1+ (1,0) [0|0] ""  BMS
+ SG_ SPN2561_CRM_ChargerIndex : 8|32@1+ (1,0) [0|4294967295] ""  BMS
+ SG_ SPN2560_CRM_BMSIdentify : 0|8@1+ (1,0) [0|255] ""  BMS
+
+BO_ 2416637014 CRO: 1 Charger
+ SG_ SPN2830_CRO_ChargerReadyOrNot : 0|8@1+ (1,0) [0|0] ""  BMS
+
+BO_ 2416531188 BRO: 1 BMS
+ SG_ SPN2829_BRO_BMSReadyOrNot : 0|8@1+ (1,0) [0|0] ""  Charger
+
+BO_ 2551404276 BSM: 7 BMS
+ SG_ SPN3096_BSM_ChargingPermit : 52|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3095_BSM_BatOutputConState : 50|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3094_BSM_BatInsulationState : 48|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3093_BSM_BatteryTemState : 46|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3092_BSM_ChargingOverCurrent : 44|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3091_BSM_VehicleBatterySOC : 42|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3090_BSM_CellVoltageState : 40|2@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3089_BSM_NumLTemTestingPoint : 32|8@1+ (1,1) [1|128] ""  Charger
+ SG_ SPN3088_BSM_BatteryLowestTemp : 24|8@1+ (1,-50) [-50|205] "℃"  Charger
+ SG_ SPN3087_BSM_NumHTemTestingPoint : 16|8@1+ (1,1) [0|255] ""  Charger
+ SG_ SPN3086_BSM_BatteryHighsestTemp : 8|8@1+ (1,-50) [-50|205] "℃"  Charger
+ SG_ SPN3085_BSM_NumberHighestVB : 0|8@1+ (1,1) [1|256] ""  Charger
+
+BO_ 2551379030 CCS: 8 Charger
+ SG_ SPN3929_CCS_ChargingAllow : 48|2@1+ (1,0) [0|0] ""  BMS
+ SG_ SPN3083_CCS_CumulativeChargeTime : 32|16@1+ (1,0) [0|65535] "min"  BMS
+ SG_ SPN3082_CCS_ChargingCurrentValue : 16|16@1+ (0.1,-400) [-400|6153.5] "A"  BMS
+ SG_ SPN3081_CCS_VoltageOutputValue : 0|16@1+ (0.1,0) [0|750] "V"  BMS
+
+BO_ 2618382068 BCS: 9 BMS
+ SG_ SPN3079_BCS_ChargeTimeRest : 56|16@1+ (1,0) [0|600] "min"  Charger
+ SG_ SPN3078_BCS_SOC : 48|8@1+ (1,0) [0|100] "%"  Charger
+ SG_ SPN3077_BCS_Max_CellVoltage_Num : 44|4@1+ (1,1) [1|16] ""  Charger
+ SG_ SPN3077_BCS_Max_CellVoltage : 32|12@1+ (0.01,0) [0|40.95] "V"  Charger
+ SG_ SPN3075_BCS_ChargEVoltMeasure : 0|16@1+ (0.1,0) [0|6553.5] "V"  Charger
+ SG_ SPN3076_BCS_ChargeCurrentMeasure : 16|16@1+ (0.1,-400) [0|6553.5] "A"  Charger
+
+BO_ 2551207668 BCL: 5 BMS
+ SG_ SPN3073_BCL_CurrentRequirement : 16|16@1+ (0.1,-400) [-400|6153.5] "A"  Charger
+ SG_ SPN3072_BCL_VoltageRequirement : 0|16@1+ (0.1,0) [0|6553.5] "V"  Charger
+ SG_ SPN3074_BCL_ChargingModel : 32|8@1+ (1,0) [1|2] ""  Charger
+
+BO_ 2417685590 CST: 4 Charger
+ SG_ SPN3523_CST_PauseChrgErr_Vol : 26|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3523_CST_PauseChrgErr_Cur : 24|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3522_CST_PauseChrgflt_Tem : 8|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3522_CST_PauseChrgflt_Sud : 16|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3522_CST_PauseChrgflt_Qua : 14|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3522_CST_PauseChrgflt_Oth : 18|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3522_CST_PauseChrgflt_IntTem : 12|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3522_CST_PauseChrgflt_Con : 10|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3521_CST_PauseChrgRes_Active : 6|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3521_CST_PauseChrgRes_Man : 2|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3521_CST_PauseChrgRes_Flt : 4|2@1+ (1,0) [0|3] ""  BMS
+ SG_ SPN3521_CST_PauseChrgRes_Cond : 0|2@1+ (1,0) [0|3] ""  BMS
+
+BO_ 2417579764 BST: 5 BMS
+ SG_ SPN3512_BST_PauseChrgflt_Oth : 22|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ SPN3513_BST_PauseChrgErr_Vol : 26|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3513_BST_PauseChrgErr_Cur : 24|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_TPoint2 : 20|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_BMS : 12|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_OutCon : 10|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_HVRelay : 18|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_Ins : 8|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_Con : 14|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3512_BST_PauseChrgflt_OverT : 16|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3511_BST_PauseChrgRes_ToVol : 2|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3511_BST_PauseChrgRes_SOC : 0|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3511_BST_PauseChrgRes_Active : 6|2@1+ (1,0) [0|3] ""  Charger
+ SG_ SPN3511_BST_PauseChrgRes_CeVol : 4|2@1+ (1,0) [0|3] ""  Charger
+
+BO_ 2618775284 BSP: 16 BMS
+ SG_ SPN3506_BSP_BatteryReserved16 : 120|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3505_BSP_BatteryReserved15 : 112|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3504_BSP_BatteryReserved14 : 104|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3503_BSP_BatteryReserved13 : 96|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3502_BSP_BatteryReserved12 : 88|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3501_BSP_BatteryReserved11 : 80|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3500_BSP_BatteryReserved10 : 72|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3499_BSP_BatteryReserved09 : 64|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3498_BSP_BatteryReserved08 : 56|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3497_BSP_BatteryReserved07 : 48|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3496_BSP_BatteryReserved06 : 40|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3495_BSP_BatteryReserved05 : 32|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3494_BSP_BatteryReserved04 : 24|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3493_BSP_BatteryReserved03 : 16|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3492_BSP_BatteryReserved02 : 8|8@1+ (1,0) [0|0] ""  Charger
+ SG_ SPN3491_BSP_BatteryReserved01 : 0|8@1+ (1,0) [0|0] ""  Charger
+
+BO_ 2283795542 CEM: 4 Charger
+ SG_ NOSPN_CEM_Other : 26|6@1+ (1,0) [0|63] "" Vector__XXX
+ SG_ SPN3926_CEM_BST_OverTim : 20|2@1+ (1,0) [0|2] ""  BMS
+ SG_ SPN3927_CEM_BSD_OverTim : 24|2@1+ (1,0) [0|2] ""  BMS
+ SG_ SPN3923_CEM_BRO_OverTim : 10|2@1+ (1,0) [0|2] ""  BMS
+ SG_ SPN3921_CEM_BRM_OverTim : 0|2@1+ (1,0) [0|2] ""  BMS
+ SG_ SPN3924_CEM_BCS_OverTim : 16|2@1+ (1,0) [0|2] ""  BMS
+ SG_ SPN3922_CEM_BCP_OverTim : 8|2@1+ (1,0) [0|2] ""  BMS
+ SG_ SPN3925_CEM_BCL_OverTim : 18|2@1+ (1,0) [0|2] ""  BMS
+
+BO_ 2552099926 CSD: 8 Charger
+ SG_ SPN3612_CSD_Energy_OutPower : 16|16@1+ (0.1,0) [0|1000] "kwh"  BMS
+ SG_ SPN3613_CSD_ChrgNum : 32|32@1+ (1,1) [1|4294967296] ""  BMS
+ SG_ SPN3611_CSD_ChrgTime : 0|16@1+ (1,0) [0|600] "min"  BMS
+
+BO_ 2283689716 BEM: 4 BMS
+ SG_ NOSPN_BEM_Other : 26|6@1+ (1,0) [0|63] "" Vector__XXX
+ SG_ SPN3902_BEM_RSPN2560AA_OverTim : 2|2@1+ (1,0) [0|2] ""  Charger
+ SG_ SPN3901_BEM_RSPN256000_OverTim : 0|2@1+ (1,0) [0|2] ""  Charger
+ SG_ SPN3903_BEM_CTSCML_OverTim : 8|2@1+ (1,0) [0|2] ""  Charger
+ SG_ SPN3906_BEM_CST_OverTim : 18|2@1+ (1,0) [0|2] ""  Charger
+ SG_ SPN3907_BEM_CSD_OverTim : 24|2@1+ (1,0) [0|2] ""  Charger
+ SG_ SPN3904_BEM_CRO_OverTim : 10|2@1+ (1,0) [0|2] ""  Charger
+ SG_ SPN3905_BEM_CCS_OverTim : 16|2@1+ (1,0) [0|2] ""  Charger
+
+BO_ 2551994100 BSD: 7 BMS
+ SG_ SPN3604_BSD_MinBatT : 40|8@1+ (1,-50) [-50|200] "℃"  Charger
+ SG_ SPN3605_BSD_MaxBatT : 48|8@1+ (1,-50) [-50|200] "℃"  Charger
+ SG_ SPN3602_BSD_MinCellU : 8|16@1+ (0.01,0) [0|24] "V"  Charger
+ SG_ SPN3603_BSD_MaxCellU : 24|16@1+ (0.01,0) [0|24] "V"  Charger
+ SG_ SPN3601_BSD_SOC_end : 0|8@1+ (1,0) [0|100] "%"  Charger
+
+BO_ 2618644212 BMV: 640 BMS
+ SG_ SPN3101_BMV_CellVoltage1 : 0|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3102_BMV_CellVoltage2 : 16|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3103_BMV_CellVoltage3 : 32|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3104_BMV_CellVoltage4 : 48|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3105_BMV_CellVoltage5 : 64|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3106_BMV_CellVoltage6 : 80|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3107_BMV_CellVoltage7 : 96|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3108_BMV_CellVoltage8 : 112|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3109_BMV_CellVoltage9 : 128|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3110_BMV_CellVoltage10 : 144|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3111_BMV_CellVoltage11 : 160|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3112_BMV_CellVoltage12 : 176|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3113_BMV_CellVoltage13 : 192|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3114_BMV_CellVoltage14 : 208|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3115_BMV_CellVoltage15 : 224|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3116_BMV_CellVoltage16 : 240|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3117_BMV_CellVoltage17 : 256|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3118_BMV_CellVoltage18 : 272|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3119_BMV_CellVoltage19 : 288|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3120_BMV_CellVoltage20 : 304|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3121_BMV_CellVoltage21 : 320|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3122_BMV_CellVoltage22 : 336|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3123_BMV_CellVoltage23 : 352|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3124_BMV_CellVoltage24 : 368|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3125_BMV_CellVoltage25 : 384|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3126_BMV_CellVoltage26 : 400|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3127_BMV_CellVoltage27 : 416|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3128_BMV_CellVoltage28 : 432|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3129_BMV_CellVoltage29 : 448|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3130_BMV_CellVoltage30 : 464|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3131_BMV_CellVoltage31 : 480|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3132_BMV_CellVoltage32 : 496|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3133_BMV_CellVoltage33 : 512|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3134_BMV_CellVoltage34 : 528|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3135_BMV_CellVoltage35 : 544|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3136_BMV_CellVoltage36 : 560|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3137_BMV_CellVoltage37 : 576|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3138_BMV_CellVoltage38 : 592|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3139_BMV_CellVoltage39 : 608|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3140_BMV_CellVoltage40 : 624|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3141_BMV_CellVoltage41 : 640|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3142_BMV_CellVoltage42 : 656|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3143_BMV_CellVoltage43 : 672|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3144_BMV_CellVoltage44 : 688|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3145_BMV_CellVoltage45 : 704|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3146_BMV_CellVoltage46 : 720|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3147_BMV_CellVoltage47 : 736|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3148_BMV_CellVoltage48 : 752|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3149_BMV_CellVoltage49 : 768|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3150_BMV_CellVoltage50 : 784|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3151_BMV_CellVoltage51 : 800|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3152_BMV_CellVoltage52 : 816|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3153_BMV_CellVoltage53 : 832|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3154_BMV_CellVoltage54 : 848|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3155_BMV_CellVoltage55 : 864|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3156_BMV_CellVoltage56 : 880|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3157_BMV_CellVoltage57 : 896|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3158_BMV_CellVoltage58 : 912|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3159_BMV_CellVoltage59 : 928|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3160_BMV_CellVoltage60 : 944|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3161_BMV_CellVoltage61 : 960|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3162_BMV_CellVoltage62 : 976|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3163_BMV_CellVoltage63 : 992|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3164_BMV_CellVoltage64 : 1008|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3165_BMV_CellVoltage65 : 1024|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3166_BMV_CellVoltage66 : 1040|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3167_BMV_CellVoltage67 : 1056|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3168_BMV_CellVoltage68 : 1072|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3169_BMV_CellVoltage69 : 1088|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3170_BMV_CellVoltage70 : 1104|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3171_BMV_CellVoltage71 : 1120|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3172_BMV_CellVoltage72 : 1136|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3173_BMV_CellVoltage73 : 1152|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3174_BMV_CellVoltage74 : 1168|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3175_BMV_CellVoltage75 : 1184|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3176_BMV_CellVoltage76 : 1200|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3177_BMV_CellVoltage77 : 1216|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3178_BMV_CellVoltage78 : 1232|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3179_BMV_CellVoltage79 : 1248|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3180_BMV_CellVoltage80 : 1264|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3181_BMV_CellVoltage81 : 1280|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3182_BMV_CellVoltage82 : 1296|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3183_BMV_CellVoltage83 : 1312|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3184_BMV_CellVoltage84 : 1328|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3185_BMV_CellVoltage85 : 1344|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3186_BMV_CellVoltage86 : 1360|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3187_BMV_CellVoltage87 : 1376|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3188_BMV_CellVoltage88 : 1392|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3189_BMV_CellVoltage89 : 1408|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3190_BMV_CellVoltage90 : 1424|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3191_BMV_CellVoltage91 : 1440|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3192_BMV_CellVoltage92 : 1456|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3193_BMV_CellVoltage93 : 1472|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3194_BMV_CellVoltage94 : 1488|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3195_BMV_CellVoltage95 : 1504|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3196_BMV_CellVoltage96 : 1520|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3197_BMV_CellVoltage97 : 1536|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3198_BMV_CellVoltage98 : 1552|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3199_BMV_CellVoltage99 : 1568|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3200_BMV_CellVoltage100 : 1584|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3201_BMV_CellVoltage101 : 1600|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3202_BMV_CellVoltage102 : 1616|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3203_BMV_CellVoltage103 : 1632|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3204_BMV_CellVoltage104 : 1648|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3205_BMV_CellVoltage105 : 1664|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3206_BMV_CellVoltage106 : 1680|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3207_BMV_CellVoltage107 : 1696|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3208_BMV_CellVoltage108 : 1712|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3209_BMV_CellVoltage109 : 1728|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3210_BMV_CellVoltage110 : 1744|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3211_BMV_CellVoltage111 : 1760|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3212_BMV_CellVoltage112 : 1776|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3213_BMV_CellVoltage113 : 1792|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3214_BMV_CellVoltage114 : 1808|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3215_BMV_CellVoltage115 : 1824|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3216_BMV_CellVoltage116 : 1840|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3217_BMV_CellVoltage117 : 1856|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3218_BMV_CellVoltage118 : 1872|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3219_BMV_CellVoltage119 : 1888|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3220_BMV_CellVoltage120 : 1904|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3221_BMV_CellVoltage121 : 1920|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3222_BMV_CellVoltage122 : 1936|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3223_BMV_CellVoltage123 : 1952|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3224_BMV_CellVoltage124 : 1968|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3225_BMV_CellVoltage125 : 1984|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3226_BMV_CellVoltage126 : 2000|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3227_BMV_CellVoltage127 : 2016|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3228_BMV_CellVoltage128 : 2032|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3229_BMV_CellVoltage129 : 2048|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3230_BMV_CellVoltage130 : 2064|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3231_BMV_CellVoltage131 : 2080|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3232_BMV_CellVoltage132 : 2096|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3233_BMV_CellVoltage133 : 2112|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3234_BMV_CellVoltage134 : 2128|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3235_BMV_CellVoltage135 : 2144|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3236_BMV_CellVoltage136 : 2160|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3237_BMV_CellVoltage137 : 2176|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3238_BMV_CellVoltage138 : 2192|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3239_BMV_CellVoltage139 : 2208|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3240_BMV_CellVoltage140 : 2224|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3241_BMV_CellVoltage141 : 2240|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3242_BMV_CellVoltage142 : 2256|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3243_BMV_CellVoltage143 : 2272|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3244_BMV_CellVoltage144 : 2288|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3245_BMV_CellVoltage145 : 2304|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3246_BMV_CellVoltage146 : 2320|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3247_BMV_CellVoltage147 : 2336|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3248_BMV_CellVoltage148 : 2352|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3249_BMV_CellVoltage149 : 2368|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3250_BMV_CellVoltage150 : 2384|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3251_BMV_CellVoltage151 : 2400|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3252_BMV_CellVoltage152 : 2416|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3253_BMV_CellVoltage153 : 2432|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3254_BMV_CellVoltage154 : 2448|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3255_BMV_CellVoltage155 : 2464|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3256_BMV_CellVoltage156 : 2480|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3257_BMV_CellVoltage157 : 2496|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3258_BMV_CellVoltage158 : 2512|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3259_BMV_CellVoltage159 : 2528|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3260_BMV_CellVoltage160 : 2544|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3261_BMV_CellVoltage161 : 2560|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3262_BMV_CellVoltage162 : 2576|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3263_BMV_CellVoltage163 : 2592|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3264_BMV_CellVoltage164 : 2608|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3265_BMV_CellVoltage165 : 2624|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3266_BMV_CellVoltage166 : 2640|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3267_BMV_CellVoltage167 : 2656|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3268_BMV_CellVoltage168 : 2672|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3269_BMV_CellVoltage169 : 2688|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3270_BMV_CellVoltage170 : 2704|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3271_BMV_CellVoltage171 : 2720|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3272_BMV_CellVoltage172 : 2736|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3273_BMV_CellVoltage173 : 2752|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3274_BMV_CellVoltage174 : 2768|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3275_BMV_CellVoltage175 : 2784|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3276_BMV_CellVoltage176 : 2800|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3277_BMV_CellVoltage177 : 2816|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3278_BMV_CellVoltage178 : 2832|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3279_BMV_CellVoltage179 : 2848|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3280_BMV_CellVoltage180 : 2864|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3281_BMV_CellVoltage181 : 2880|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3282_BMV_CellVoltage182 : 2896|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3283_BMV_CellVoltage183 : 2912|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3284_BMV_CellVoltage184 : 2928|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3285_BMV_CellVoltage185 : 2944|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3286_BMV_CellVoltage186 : 2960|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3287_BMV_CellVoltage187 : 2976|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3288_BMV_CellVoltage188 : 2992|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3289_BMV_CellVoltage189 : 3008|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3290_BMV_CellVoltage190 : 3024|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3291_BMV_CellVoltage191 : 3040|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3292_BMV_CellVoltage192 : 3056|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3293_BMV_CellVoltage193 : 3072|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3294_BMV_CellVoltage194 : 3088|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3295_BMV_CellVoltage195 : 3104|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3296_BMV_CellVoltage196 : 3120|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3297_BMV_CellVoltage197 : 3136|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3298_BMV_CellVoltage198 : 3152|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3299_BMV_CellVoltage199 : 3168|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3300_BMV_CellVoltage200 : 3184|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3301_BMV_CellVoltage201 : 3200|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3302_BMV_CellVoltage202 : 3216|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3303_BMV_CellVoltage203 : 3232|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3304_BMV_CellVoltage204 : 3248|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3305_BMV_CellVoltage205 : 3264|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3306_BMV_CellVoltage206 : 3280|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3307_BMV_CellVoltage207 : 3296|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3308_BMV_CellVoltage208 : 3312|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3309_BMV_CellVoltage209 : 3328|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3310_BMV_CellVoltage210 : 3344|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3311_BMV_CellVoltage211 : 3360|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3312_BMV_CellVoltage212 : 3376|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3313_BMV_CellVoltage213 : 3392|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3314_BMV_CellVoltage214 : 3408|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3315_BMV_CellVoltage215 : 3424|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3316_BMV_CellVoltage216 : 3440|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3317_BMV_CellVoltage217 : 3456|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3318_BMV_CellVoltage218 : 3472|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3319_BMV_CellVoltage219 : 3488|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3320_BMV_CellVoltage220 : 3504|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3321_BMV_CellVoltage221 : 3520|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3322_BMV_CellVoltage222 : 3536|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3323_BMV_CellVoltage223 : 3552|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3324_BMV_CellVoltage224 : 3568|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3325_BMV_CellVoltage225 : 3584|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3326_BMV_CellVoltage226 : 3600|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3327_BMV_CellVoltage227 : 3616|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3328_BMV_CellVoltage228 : 3632|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3329_BMV_CellVoltage229 : 3648|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3330_BMV_CellVoltage230 : 3664|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3331_BMV_CellVoltage231 : 3680|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3332_BMV_CellVoltage232 : 3696|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3333_BMV_CellVoltage233 : 3712|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3334_BMV_CellVoltage234 : 3728|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3335_BMV_CellVoltage235 : 3744|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3336_BMV_CellVoltage236 : 3760|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3337_BMV_CellVoltage237 : 3776|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3338_BMV_CellVoltage238 : 3792|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3339_BMV_CellVoltage239 : 3808|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3340_BMV_CellVoltage240 : 3824|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3341_BMV_CellVoltage241 : 3840|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3342_BMV_CellVoltage242 : 3856|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3343_BMV_CellVoltage243 : 3872|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3344_BMV_CellVoltage244 : 3888|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3345_BMV_CellVoltage245 : 3904|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3346_BMV_CellVoltage246 : 3920|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3347_BMV_CellVoltage247 : 3936|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3348_BMV_CellVoltage248 : 3952|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3349_BMV_CellVoltage249 : 3968|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3350_BMV_CellVoltage250 : 3984|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3351_BMV_CellVoltage251 : 4000|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3352_BMV_CellVoltage252 : 4016|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3353_BMV_CellVoltage253 : 4032|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3354_BMV_CellVoltage254 : 4048|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3355_BMV_CellVoltage255 : 4064|16@1+ (0.01,0) [0|24] " V "  Charger
+ SG_ SPN3356_BMV_CellVoltage256 : 4080|16@1+ (0.01,0) [0|24] " V "  Charger
+
+BO_ 2618709748 BMT: 128 BMS
+ SG_ SPN3361_BMT_Temperature1 : 0|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3362_BMT_Temperature2 : 8|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3363_BMT_Temperature3 : 16|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3364_BMT_Temperature4 : 24|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3365_BMT_Temperature5 : 32|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3366_BMT_Temperature6 : 40|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3367_BMT_Temperature7 : 48|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3368_BMT_Temperature8 : 56|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3369_BMT_Temperature9 : 64|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3370_BMT_Temperature10 : 72|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3371_BMT_Temperature11 : 80|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3372_BMT_Temperature12 : 88|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3373_BMT_Temperature13 : 96|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3374_BMT_Temperature14 : 104|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3375_BMT_Temperature15 : 112|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3376_BMT_Temperature16 : 120|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3377_BMT_Temperature17 : 128|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3378_BMT_Temperature18 : 136|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3379_BMT_Temperature19 : 144|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3380_BMT_Temperature20 : 152|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3381_BMT_Temperature21 : 160|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3382_BMT_Temperature22 : 168|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3383_BMT_Temperature23 : 176|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3384_BMT_Temperature24 : 184|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3385_BMT_Temperature25 : 192|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3386_BMT_Temperature26 : 200|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3387_BMT_Temperature27 : 208|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3388_BMT_Temperature28 : 216|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3389_BMT_Temperature29 : 224|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3390_BMT_Temperature30 : 232|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3391_BMT_Temperature31 : 240|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3392_BMT_Temperature32 : 248|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3393_BMT_Temperature33 : 256|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3394_BMT_Temperature34 : 264|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3395_BMT_Temperature35 : 272|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3396_BMT_Temperature36 : 280|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3397_BMT_Temperature37 : 288|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3398_BMT_Temperature38 : 296|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3399_BMT_Temperature39 : 304|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3400_BMT_Temperature40 : 312|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3401_BMT_Temperature41 : 320|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3402_BMT_Temperature42 : 328|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3403_BMT_Temperature43 : 336|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3404_BMT_Temperature44 : 344|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3405_BMT_Temperature45 : 352|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3406_BMT_Temperature46 : 360|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3407_BMT_Temperature47 : 368|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3408_BMT_Temperature48 : 376|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3409_BMT_Temperature49 : 384|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3410_BMT_Temperature50 : 392|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3411_BMT_Temperature51 : 400|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3412_BMT_Temperature52 : 408|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3413_BMT_Temperature53 : 416|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3414_BMT_Temperature54 : 424|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3415_BMT_Temperature55 : 432|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3416_BMT_Temperature56 : 440|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3417_BMT_Temperature57 : 448|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3418_BMT_Temperature58 : 456|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3419_BMT_Temperature59 : 464|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3420_BMT_Temperature60 : 472|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3421_BMT_Temperature61 : 480|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3422_BMT_Temperature62 : 488|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3423_BMT_Temperature63 : 496|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3424_BMT_Temperature64 : 504|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3425_BMT_Temperature65 : 512|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3426_BMT_Temperature66 : 520|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3427_BMT_Temperature67 : 528|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3428_BMT_Temperature68 : 536|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3429_BMT_Temperature69 : 544|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3430_BMT_Temperature70 : 552|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3431_BMT_Temperature71 : 560|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3432_BMT_Temperature72 : 568|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3433_BMT_Temperature73 : 576|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3434_BMT_Temperature74 : 584|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3435_BMT_Temperature75 : 592|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3436_BMT_Temperature76 : 600|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3437_BMT_Temperature77 : 608|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3438_BMT_Temperature78 : 616|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3439_BMT_Temperature79 : 624|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3440_BMT_Temperature80 : 632|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3441_BMT_Temperature81 : 640|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3442_BMT_Temperature82 : 648|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3443_BMT_Temperature83 : 656|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3444_BMT_Temperature84 : 664|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3445_BMT_Temperature85 : 672|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3446_BMT_Temperature86 : 680|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3447_BMT_Temperature87 : 688|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3448_BMT_Temperature88 : 696|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3449_BMT_Temperature89 : 704|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3450_BMT_Temperature90 : 712|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3451_BMT_Temperature91 : 720|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3452_BMT_Temperature92 : 728|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3453_BMT_Temperature93 : 736|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3454_BMT_Temperature94 : 744|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3455_BMT_Temperature95 : 752|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3456_BMT_Temperature96 : 760|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3457_BMT_Temperature97 : 768|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3458_BMT_Temperature98 : 776|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3459_BMT_Temperature99 : 784|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3460_BMT_Temperature100 : 792|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3461_BMT_Temperature101 : 800|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3462_BMT_Temperature102 : 808|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3463_BMT_Temperature103 : 816|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3464_BMT_Temperature104 : 824|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3465_BMT_Temperature105 : 832|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3466_BMT_Temperature106 : 840|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3467_BMT_Temperature107 : 848|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3468_BMT_Temperature108 : 856|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3469_BMT_Temperature109 : 864|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3470_BMT_Temperature110 : 872|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3471_BMT_Temperature111 : 880|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3472_BMT_Temperature112 : 888|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3473_BMT_Temperature113 : 896|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3474_BMT_Temperature114 : 904|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3475_BMT_Temperature115 : 912|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3476_BMT_Temperature116 : 920|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3477_BMT_Temperature117 : 928|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3478_BMT_Temperature118 : 936|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3479_BMT_Temperature119 : 944|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3480_BMT_Temperature120 : 952|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3481_BMT_Temperature121 : 960|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3482_BMT_Temperature122 : 968|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3483_BMT_Temperature123 : 976|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3484_BMT_Temperature124 : 984|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3485_BMT_Temperature125 : 992|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3486_BMT_Temperature126 : 1000|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3487_BMT_Temperature127 : 1008|8@1+ (1,-50) [-50|200] " °C "  Charger
+ SG_ SPN3488_BMT_Temperature128 : 1016|8@1+ (1,-50) [-50|200] " °C "  Charger
+
+BO_ 2553607254 LM_SECC: 8 SECC
+ SG_ LM_SECC_TotalNum m0 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ LM_SECC_TotalBytes m0 : 16|16@1+ (1,0) [0|1785] "" Vector__XXX
+ SG_ LM_SECC_Byte7 m1 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte6 m1 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte5 m1 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte4 m1 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte3 m1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte2 m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte1 m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_SECC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2553566964 LM_EVCC: 8 EVCC
+ SG_ LM_EVCC_TotalNum m0 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ LM_EVCC_TotalBytes m0 : 16|16@1+ (1,0) [0|1785] "" Vector__XXX
+ SG_ LM_EVCC_Byte7 m1 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte6 m1 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte5 m1 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte4 m1 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte3 m1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte2 m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte1 m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LM_EVCC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2553698036 SM_URM_EVCC_183656F4: 8 EVCC
+ SG_ PGI32_VAuthenStatus m50 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI77_SingleBattV_Min m119 : 24|16@1+ (0.01,0) [0|655.35] "V" Vector__XXX
+ SG_ PGI77_SingleBattV_Max m119 : 8|16@1+ (0.01,0) [0|655.35] "V" Vector__XXX
+ SG_ PGI77_SingleBattTemp_Min m119 : 48|8@1+ (1,-50) [-50|205] "deg" Vector__XXX
+ SG_ PGI77_SingleBattTemp_Max m119 : 40|8@1+ (1,-50) [-50|205] "deg" Vector__XXX
+ SG_ PGI74_TimeRemain m116 : 24|16@1+ (1,0) [0|65535] "min" Vector__XXX
+ SG_ PGI74_SOC m116 : 8|16@1+ (0.1,0) [0|6553.5] "%" Vector__XXX
+ SG_ PGI73_V m115 : 8|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI73_PowerMode m115 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI73_A m115 : 24|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI72_EVCCReady m114 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI72_EVCC_V_Exe m114 : 16|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI91_EVCCDetectSta m145 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI06_K6 m6 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI06_K5 m6 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ SU_EVCC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2553738326 SM_URM_SECC_1836F456: 8 SECC
+ SG_ PGI31_MTime2 m49 : 16|8@1+ (1,0) [0|255] "min" Vector__XXX
+ SG_ PGI31_CAuthenStatus m49 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI92_AllowDetectCheck m146 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI76_V_Exe m118 : 8|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI76_A_Exe m118 : 24|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI75_OutputChangeReason m117 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI75_MaxOutput_A m117 : 8|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI71_ChargerReady m113 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_ShortCircuit m81 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_Insulation m81 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_Discharge m81 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI51_DetectTest m81 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI07_ELock m7 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI05_K2 m5 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI05_K1 m5 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ SU_SECC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2419414772 SM_RM_EVCC_103556F4: 8 EVCC
+ SG_ PGI3A_FDCType m58 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI36_FDCType m54 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI09_wakeup m9 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_STOP_type m4 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_STOP_reason1 m4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_STOP_reason0 m4 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI04_reLink m4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI02_check m2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI94_SOC m148 : 8|16@1+ (0.1,0) [0|6553.5] "%" Vector__XXX
+ SG_ PGI79_Pause m121 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI52_CheckState m82 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_Scheduled m18 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_PreChgEnTrans m18 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_PowerMode m18 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_ParmCfg m18 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_OutLoopDete m18 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_EndOfCharge m18 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI12_Authentic m18 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ S_EVCC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2419455062 SM_RM_SECC_1035F456: 8 SECC
+ SG_ PGI39_SAuthenFDC m57 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI39_AuthenResult m57 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI35_SAuthenFDC m53 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI35_AuthenResult m53 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI33_SAuthenFDC m51 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI33_AuthenResult m51 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI08_wakeup m8 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI93_DishargeCapacity m147 : 24|16@1+ (0.1,0) [0|6553.5] "kWh" Vector__XXX
+ SG_ PGI93_ChargeCapacity m147 : 8|16@1+ (0.1,0) [0|6553.5] "kWh" Vector__XXX
+ SG_ PGI78_Pause m120 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_STOP_type m3 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_STOP_reason1 m3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_STOP_reason0 m3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI03_reLink m3 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI01_FDC m1 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI01_FC m1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ S_SECC_PGI M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2352436980 CONTROL_EVCC_C3756F4: 8 EVCC
+ SG_ waitRecvNumTotal m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ waitRecvNumStart m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedNumTotal m3 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedByteTotal m3 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ confirmPGI m0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ctrl_EVCC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2352477270 CONTROL_SECC_C37F456: 8 SECC
+ SG_ waitRecvNumTotal m1 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ waitRecvNumStart m1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedNumTotal m3 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ recvedByteTotal m3 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ confirmPGI m0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ctrl_SECC_Byte0 M : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2352568052 VC_EVCC_C3956F4: 8 EVCC
+ SG_ EVCC_ProtocolVersion2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_ProtocolVersion1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_ProtocolVersion0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_VersionResult : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_TLVersion : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_Reserved : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_CPVersoin : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ EVCC_CANType : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2352542806 VC_SECC_C38F456: 8 SECC
+ SG_ SECC_ProtocolVersion2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_ProtocolVersion1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_ProtocolVersion0 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_VersionResult : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_TLVersion : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_Reserved : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_CPVersoin : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SECC_CANType : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147483681 LM_SECC_PGI21: 12 EVCC
+ SG_ PGI_Num : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI21_V_Min : 24|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI21_V_Max : 8|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ PGI21_RebotTimes : 72|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI21_A_Min : 56|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ PGI21_A_Max : 40|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+
+BO_ 2147483665 LM_SECC_PGI11: 8 SECC
+ SG_ PGI_Num : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_Scheduled_MIX : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_PreChgEnTrans_MIX : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_PowerMode_MIX : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_ParmCfg_MIX : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_OutLoopDete_MIX : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_EndOfCharge_MIX : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI11_Authentic_MIX : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2147483682 LM_EVCC_PGI22: 16 EVCC
+ SG_ PGI_Num : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI22_Voltage2 : 72|16@1+ (0.01,0) [0|6500] "V" Vector__XXX
+ SG_ PGI22_Voltage : 24|16@1+ (0.1,0) [0|6500] "V" Vector__XXX
+ SG_ PGI22_Temp : 88|8@1+ (1,-50) [-50|200] "deg" Vector__XXX
+ SG_ PGI22_SOC : 56|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ PGI22_RestartNum : 104|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGI22_Current : 8|16@1+ (0.1,0) [0|6500] "A" Vector__XXX
+ SG_ PGI22_Capacity : 40|16@1+ (0.1,0) [0|6500] "kWh" Vector__XXX
+ SG_ PGI22_BatteryType : 96|8@1+ (1,0) [0|255] "" Vector__XXX
+
+
+
+CM_ BO_ 2552714996 "车辆握手";
+CM_ SG_ 2552714996 SPN2601_BHM_ChargeTotalVolt_MAX "最高允许充电总电压，0.1V/位，0V偏移量";
+CM_ BO_ 2552689750 "充电机握手";
+CM_ SG_ 2552689750 SPN2600_CHM_ProtocolVer "充电机通信协议版本号，本标准规定当前版本为V1.1，表示为0x000101";
+CM_ BO_ 2550723670 "充电机最大输出能力";
+CM_ SG_ 2550723670 SPN2827_CML_OutputCurrent_MIN "最小输出电流：0.1A/位，-400A偏移量";
+CM_ SG_ 2550723670 SPN2826_CML_OutputCurrent_MAX "最大输出电流：0.1A/位，-400A偏移量";
+CM_ SG_ 2550723670 SPN2825_CML_OutputVoltage_MIN "最低输出电压：0.1V/位，0V偏移量";
+CM_ SG_ 2550723670 SPN2824_CML_OutputVoltage_MAX "最高输出电压：0.1V/位，0V偏移量";
+CM_ BO_ 2550658134 "充电机发送时间同步信息";
+CM_ SG_ 2550658134 SPN2823_CTS_TimeInfo_Year "充电机发送时间同步信息：年，压缩BCD码";
+CM_ SG_ 2550658134 SPN2823_CTS_TimeInfo_Month "充电机发送时间同步信息：月，压缩BCD码";
+CM_ SG_ 2550658134 SPN2823_CTS_TimeInfo_Date "充电机发送时间同步信息：日，压缩BCD码";
+CM_ SG_ 2550658134 SPN2823_CTS_TimeInfo_Hour "充电机发送时间同步信息：时，压缩BCD码";
+CM_ SG_ 2550658134 SPN2823_CTS_TimeInfo_Minute "充电机发送时间同步信息：分，压缩BCD码";
+CM_ SG_ 2550658134 SPN2823_CTS_TimeInfo_Second "充电机发送时间同步信息：秒，压缩BCD码";
+CM_ BO_ 2617661172 "动力蓄电池充电参数";
+CM_ SG_ 2617661172 SPN2822_BCP_BatteryTotalVoltage "整车动力蓄电池总电压：0.1V/位，0V偏移，数据范围：0~750V";
+CM_ SG_ 2617661172 SPN2821_BCP_SOC "整车动力蓄电池荷电状态，0.1%/位，0%偏移量，数据范围：0-100%";
+CM_ SG_ 2617661172 SPN2820_BCP_Temperature_MAX "最高允许温度，1度/位，-50度偏移量，数据范围：-50-200度";
+CM_ SG_ 2617661172 SPN2819_BCP_ChargeTotalVolt_MAX "最高允许充电总电压，0.1V/位，0V偏移量";
+CM_ SG_ 2617661172 SPN2818_BCP_NominalCapacity "动力蓄电池标称总能量，0.1kW.h/位，0kW.h偏移量，数据范围0-1000W.h";
+CM_ SG_ 2617661172 SPN2817_BCP_ChargeCurrent_MAX "最高允许充电电流，0.1A/位，-400A偏移量，数据范围-400A-0A";
+CM_ SG_ 2617661172 SPN2816_BCP_CellChargeVolt_MAX "单体动力蓄电池最高允许充电电压，0.01V/位，0V偏移量，数据范围0-24V";
+CM_ BO_ 2617399028 "BMS和车辆辨识报文";
+CM_ SG_ 2617399028 SPN2576_BRM_BMSSoftwareVer_Num "BMS软件版本号，共8个字节，这是第1字节，表示版本流水号";
+CM_ SG_ 2617399028 SPN2576_BRM_BMSSoftwareVer_Date "BMS软件版本号，共8个字节，这是第2/3/4/5字节，表示年月日，其中字节4/5表示年，字节3表示月，字节2表示日";
+CM_ SG_ 2617399028 SPN2576_BRM_BMSSoftVer_Reserved "BMS软件版本号，共8个字节，这是第6/7/8字节，用于预留";
+CM_ SG_ 2617399028 SPN2575_BRM_VINPart3 "车辆识别码（VIN）";
+CM_ SG_ 2617399028 SPN2575_BRM_VINPart2 "车辆识别码（VIN）";
+CM_ SG_ 2617399028 SPN2575_BRM_VINPart1 "车辆识别码（VIN）";
+CM_ SG_ 2617399028 SPN2574_BRM_BRMReserved "预留";
+CM_ SG_ 2617399028 SPN2573_BRM_Ownership "电池组产权标识0：租赁1：车自有";
+CM_ SG_ 2617399028 SPN2572_BRM_BatteryChargedTimes "电池组充电次数，1次/位，0次偏移量，以BMS统计为准";
+CM_ SG_ 2617399028 SPN2571_BRM_ManufactureDate "电池组生产日期：日，1日/位，0日偏移量，数据范围：1~31日";
+CM_ SG_ 2617399028 SPN2571_BRM_ManufactureMonth "电池组生产日期：月，1月/位，0月偏移量，数据范围：1~12月";
+CM_ SG_ 2617399028 SPN2571_BRM_ManufactureYear "电池组生产日期：年，1年/位，1985年偏移量，数据范围：1985~2235年";
+CM_ SG_ 2617399028 SPN2570_BRM_BatterySN "电池组序号，预留，由厂商自定义";
+CM_ SG_ 2617399028 SPN2569_BRM_BatteryProducer "电池生产厂商名称，标准ASCII码";
+CM_ SG_ 2617399028 SPN2568_BRM_BatteryVoltage "整车动力蓄电池系统额定总电压，0.1V/位，0V偏移，数据范围：0~750V";
+CM_ SG_ 2617399028 SPN2567_BRM_BatteryCapacity "整车动力蓄电池系统额定容量，0.1Ah/位，0Ah/偏移量，数据范围：0~1000Ah";
+CM_ SG_ 2617399028 SPN2566_BRM_BatteryType "电池类型
+0x01：铅酸电池
+0x02：镍氢电池
+0x03：磷酸铁锂电池
+0x04：锰酸锂电池
+0x05：钴酸锂电池
+0x06：三元材料电池
+0x07：聚合物锂离子电池
+0x08：钛酸锂电池
+0xFF：其他电池";
+CM_ SG_ 2617399028 SPN2565_BRM_ProtocolVer "BMS通信协议版本号，V1.0表示为0x000100";
+CM_ BO_ 2550264918 "充电机辨识";
+CM_ SG_ 2550264918 SPN2562_CRM_ChargerLocationCode "充电机/充电站所在区域编码，标准ASCII码";
+CM_ SG_ 2550264918 SPN2561_CRM_ChargerIndex "充电机编号，1/位，0偏移量，数据范围：0~0xFFFFFFFF";
+CM_ SG_ 2550264918 SPN2560_CRM_BMSIdentify "辨识结果
+0x00——BMS不能辨识
+0xAA——BMS能辨识";
+CM_ BO_ 2416637014 "充电机输出准备就绪报文（BRO）";
+CM_ SG_ 2416637014 SPN2830_CRO_ChargerReadyOrNot "充电机是否充电准备好（<0x00>：=充电机未完成充电准备；<0xAA>：=充电机完成充电准备；<0xFF>：=无效）";
+CM_ BO_ 2416531188 "BMS充电准备就绪报文（BRO）";
+CM_ SG_ 2416531188 SPN2829_BRO_BMSReadyOrNot "BMS是否充电准备好（<0x00>：=BMS未做好充电准备；<0xAA>：=BMS完成充电准备；<0xFF>：=无效）";
+CM_ BO_ 2551404276 "BMS发送动力蓄电池电池状态信息报文（BSM）";
+CM_ SG_ 2551404276 SPN3096_BSM_ChargingPermit "充电允许（<00>：=禁止；<01>：=允许）";
+CM_ SG_ 2551404276 SPN3095_BSM_BatOutputConState "动力蓄电池组输出连接器连接状态（<00>：正常；<01>：不正常；<10>：不可信）";
+CM_ SG_ 2551404276 SPN3094_BSM_BatInsulationState "动力蓄电池绝缘状态（<00>：正常；<01>：不正常；<10>：不可信）";
+CM_ SG_ 2551404276 SPN3093_BSM_BatteryTemState "动力蓄电池温度过高（<00>：正常；<01>：过高；<10>：不可信）";
+CM_ SG_ 2551404276 SPN3092_BSM_ChargingOverCurrent "动力蓄电池充电过电流（<00>：正常；<01>：过流；<10>：不可信）";
+CM_ SG_ 2551404276 SPN3091_BSM_VehicleBatterySOC "整车动力蓄电池电荷状态SOC过高/过低（<00>：正常；<01>：过高；<10>：过低）";
+CM_ SG_ 2551404276 SPN3090_BSM_CellVoltageState "单体动力蓄电池电压过高/过低（<00>：正常；<01>：过高；<10>：过低）";
+CM_ SG_ 2551404276 SPN3089_BSM_NumLTemTestingPoint "最低温度测量点编号";
+CM_ SG_ 2551404276 SPN3088_BSM_BatteryLowestTemp "最低动力蓄电池温度";
+CM_ SG_ 2551404276 SPN3087_BSM_NumHTemTestingPoint "最高温度检测点编号";
+CM_ SG_ 2551404276 SPN3086_BSM_BatteryHighsestTemp "最高动力蓄电池温度";
+CM_ SG_ 2551404276 SPN3085_BSM_NumberHighestVB "最高单体动力蓄电池电压所在编号";
+CM_ BO_ 2551379030 "充电机充电状态报文（CCS）";
+CM_ SG_ 2551379030 SPN3929_CCS_ChargingAllow "充电允许，<00>暂停<01>允许";
+CM_ SG_ 2551379030 SPN3083_CCS_CumulativeChargeTime "累计充电时间（min）";
+CM_ SG_ 2551379030 SPN3082_CCS_ChargingCurrentValue "电流输出值（A）";
+CM_ SG_ 2551379030 SPN3081_CCS_VoltageOutputValue "电压输出值（V）";
+CM_ BO_ 2618382068 "电池充电总状态（BCS）";
+CM_ SG_ 2618382068 SPN3079_BCS_ChargeTimeRest "估算剩余充电时间（min）";
+CM_ SG_ 2618382068 SPN3078_BCS_SOC "当前荷电状态SOC（%）";
+CM_ SG_ 2618382068 SPN3077_BCS_Max_CellVoltage_Num "最高单体电压的单体组号";
+CM_ SG_ 2618382068 SPN3077_BCS_Max_CellVoltage "最高单体电压";
+CM_ SG_ 2618382068 SPN3075_BCS_ChargEVoltMeasure "充电电压测量值（V）";
+CM_ SG_ 2618382068 SPN3076_BCS_ChargeCurrentMeasure "充电电流测量值（A）";
+CM_ BO_ 2551207668 "电池充电需求（BCL）";
+CM_ SG_ 2551207668 SPN3073_BCL_CurrentRequirement "电流需求（A）
+Current Requirement ( A )";
+CM_ SG_ 2551207668 SPN3072_BCL_VoltageRequirement "电压需求（V）
+Voltage Requirement ( V )";
+CM_ SG_ 2551207668 SPN3074_BCL_ChargingModel "充电模式（0x01：恒压充电；0x02恒流充电）
+Charging Model(0x01: constant voltage charging model; 0x02: constant current charging model) ";
+CM_ BO_ 2417685590 "PGN6656充电机中止充电报文（CST）";
+CM_ SG_ 2417685590 SPN3523_CST_PauseChrgErr_Vol "充电机中止充电错误原因_电压异常";
+CM_ SG_ 2417685590 SPN3523_CST_PauseChrgErr_Cur "充电机中止充电错误原因_电流不匹配";
+CM_ SG_ 2417685590 SPN3522_CST_PauseChrgflt_Tem "充电机中止充电故障原因_充电机过温故障";
+CM_ SG_ 2417685590 SPN3522_CST_PauseChrgflt_Sud "充电机中止充电故障原因_充电机急停故障";
+CM_ SG_ 2417685590 SPN3522_CST_PauseChrgflt_Qua "充电机中止充电故障原因_所需电量不能传送";
+CM_ SG_ 2417685590 SPN3522_CST_PauseChrgflt_Oth "充电机中止充电故障原因_其他故障";
+CM_ SG_ 2417685590 SPN3522_CST_PauseChrgflt_IntTem "充电机中止充电故障原因_充电器内部过温故障";
+CM_ SG_ 2417685590 SPN3522_CST_PauseChrgflt_Con "充电机中止充电故障原因_充电连接器故障";
+CM_ SG_ 2417685590 SPN3521_CST_PauseChrgRes_Active "充电机中止充电原因_主动中止";
+CM_ SG_ 2417685590 SPN3521_CST_PauseChrgRes_Man "充电机中止充电原因_人工中止";
+CM_ SG_ 2417685590 SPN3521_CST_PauseChrgRes_Flt "充电机中止充电原因_故障中止";
+CM_ SG_ 2417685590 SPN3521_CST_PauseChrgRes_Cond "充电机中止充电原因_达到充电机设定的条件中止";
+CM_ BO_ 2417579764 "PGN6400BMS中止充电报文（BST）";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_Oth "BMS中止充电故障原因_其他故障";
+CM_ SG_ 2417579764 SPN3513_BST_PauseChrgErr_Vol "BMS中止充电错误原因_电压异常";
+CM_ SG_ 2417579764 SPN3513_BST_PauseChrgErr_Cur "BMS中止充电错误原因_电流过大";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_TPoint2 "BMS中止充电故障原因_监测点2电压检测故障";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_BMS "BMS中止充电故障原因_BMS元件、输出连接器过温";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_OutCon "BMS中止充电故障原因_输出连接器过温故障";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_HVRelay "BMS中止充电故障原因_高压继电器故障";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_Ins "BMS中止充电故障原因_绝缘故障";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_Con "BMS中止充电故障原因_充电连接器故障";
+CM_ SG_ 2417579764 SPN3512_BST_PauseChrgflt_OverT "BMS中止充电故障原因_电池组温度过高故障";
+CM_ SG_ 2417579764 SPN3511_BST_PauseChrgRes_ToVol "BMS中止充电原因_总电压设定值原因";
+CM_ SG_ 2417579764 SPN3511_BST_PauseChrgRes_SOC "BMS中止充电原因_SOC目标值原因";
+CM_ SG_ 2417579764 SPN3511_BST_PauseChrgRes_Active "BMS中止充电原因_主动中止";
+CM_ SG_ 2417579764 SPN3511_BST_PauseChrgRes_CeVol "BMS中止充电原因_单体电压原因";
+CM_ BO_ 2618775284 "PGN5888动力蓄电池预留报文（BSP）";
+CM_ SG_ 2618775284 SPN3506_BSP_BatteryReserved16 "动力蓄电池预留字段16";
+CM_ SG_ 2618775284 SPN3505_BSP_BatteryReserved15 "动力蓄电池预留字段15";
+CM_ SG_ 2618775284 SPN3504_BSP_BatteryReserved14 "动力蓄电池预留字段14";
+CM_ SG_ 2618775284 SPN3503_BSP_BatteryReserved13 "动力蓄电池预留字段13";
+CM_ SG_ 2618775284 SPN3502_BSP_BatteryReserved12 "动力蓄电池预留字段12";
+CM_ SG_ 2618775284 SPN3501_BSP_BatteryReserved11 "动力蓄电池预留字段11";
+CM_ SG_ 2618775284 SPN3500_BSP_BatteryReserved10 "动力蓄电池预留字段10";
+CM_ SG_ 2618775284 SPN3499_BSP_BatteryReserved09 "动力蓄电池预留字段09";
+CM_ SG_ 2618775284 SPN3498_BSP_BatteryReserved08 "动力蓄电池预留字段08";
+CM_ SG_ 2618775284 SPN3497_BSP_BatteryReserved07 "动力蓄电池预留字段07";
+CM_ SG_ 2618775284 SPN3496_BSP_BatteryReserved06 "动力蓄电池预留字段06";
+CM_ SG_ 2618775284 SPN3495_BSP_BatteryReserved05 "动力蓄电池预留字段05";
+CM_ SG_ 2618775284 SPN3494_BSP_BatteryReserved04 "动力蓄电池预留字段04";
+CM_ SG_ 2618775284 SPN3493_BSP_BatteryReserved03 "动力蓄电池预留字段03";
+CM_ SG_ 2618775284 SPN3492_BSP_BatteryReserved02 "动力蓄电池预留字段02";
+CM_ SG_ 2618775284 SPN3491_BSP_BatteryReserved01 "动力蓄电池预留字段01";
+CM_ BO_ 2283795542 "充电机错误报文";
+CM_ SG_ 2283795542 NOSPN_CEM_Other "接收BMS充电统计报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3926_CEM_BST_OverTim "接收BMS中止充电报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3927_CEM_BSD_OverTim "接收BMS充电统计报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3923_CEM_BRO_OverTim "接收BMS完成充电准备报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3921_CEM_BRM_OverTim "接收BMS和车辆辨识报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3924_CEM_BCS_OverTim "接收电池充电总状态报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3922_CEM_BCP_OverTim "接收电池充电参数报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ SG_ 2283795542 SPN3925_CEM_BCL_OverTim "接收电池充电请求报文超时，<00>正常，<01>超时，<10>不可信";
+CM_ BO_ 2552099926 "充电机统计数据";
+CM_ SG_ 2552099926 SPN3612_CSD_Energy_OutPower "输出能量（kW.h）";
+CM_ SG_ 2552099926 SPN3613_CSD_ChrgNum "充电机编号";
+CM_ SG_ 2552099926 SPN3611_CSD_ChrgTime "累计充电时间（min）";
+CM_ BO_ 2283689716 "BMS错误报文";
+CM_ SG_ 2283689716 NOSPN_BEM_Other "其他";
+CM_ SG_ 2283689716 SPN3902_BEM_RSPN2560AA_OverTim "接收SPN2560=0XAA的充电机辨识报文超时，00正常，01超时，10不可信；";
+CM_ SG_ 2283689716 SPN3901_BEM_RSPN256000_OverTim "接收SPN2560=0X00的充电机辨识报文超时，00正常，01超时，10不可信；";
+CM_ SG_ 2283689716 SPN3903_BEM_CTSCML_OverTim "接受充电机的时间同步和充电机最大输出能力报文超时，00正常，01超时，10不可信；";
+CM_ SG_ 2283689716 SPN3906_BEM_CST_OverTim "接收充电机中止充电报文超时，00正常，01超时，10不可信；";
+CM_ SG_ 2283689716 SPN3907_BEM_CSD_OverTim "接收充电机充电统计报文超时，00正常，01超时，10不可信；";
+CM_ SG_ 2283689716 SPN3904_BEM_CRO_OverTim "接收充电机完成充电准备报文超时，00正常，01超时，10不可信；";
+CM_ SG_ 2283689716 SPN3905_BEM_CCS_OverTim "接收充电机充电状态报文超时，00正常，01超时，10不可信；";
+CM_ BO_ 2551994100 "BMS统计数据";
+CM_ SG_ 2551994100 SPN3604_BSD_MinBatT "动力蓄电池最低温度（°C)";
+CM_ SG_ 2551994100 SPN3605_BSD_MaxBatT "动力蓄电池最高温度（°C)";
+CM_ SG_ 2551994100 SPN3602_BSD_MinCellU "动力蓄电池单体最低电压（V)";
+CM_ SG_ 2551994100 SPN3603_BSD_MaxCellU "动力蓄电池单体最高电压（V)";
+CM_ SG_ 2551994100 SPN3601_BSD_SOC_end "中止荷电状态SOC（%）";
+CM_ BO_ 2618644212 "单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3101_BMV_CellVoltage1 "#1单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3102_BMV_CellVoltage2 "#2单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3103_BMV_CellVoltage3 "#3单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3104_BMV_CellVoltage4 "#4单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3105_BMV_CellVoltage5 "#5单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3106_BMV_CellVoltage6 "#6单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3107_BMV_CellVoltage7 "#7单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3108_BMV_CellVoltage8 "#8单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3109_BMV_CellVoltage9 "#9单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3110_BMV_CellVoltage10 "#10单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3111_BMV_CellVoltage11 "#11单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3112_BMV_CellVoltage12 "#12单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3113_BMV_CellVoltage13 "#13单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3114_BMV_CellVoltage14 "#14单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3115_BMV_CellVoltage15 "#15单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3116_BMV_CellVoltage16 "#16单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3117_BMV_CellVoltage17 "#17单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3118_BMV_CellVoltage18 "#18单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3119_BMV_CellVoltage19 "#19单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3120_BMV_CellVoltage20 "#20单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3121_BMV_CellVoltage21 "#21单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3122_BMV_CellVoltage22 "#22单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3123_BMV_CellVoltage23 "#23单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3124_BMV_CellVoltage24 "#24单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3125_BMV_CellVoltage25 "#25单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3126_BMV_CellVoltage26 "#26单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3127_BMV_CellVoltage27 "#27单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3128_BMV_CellVoltage28 "#28单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3129_BMV_CellVoltage29 "#29单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3130_BMV_CellVoltage30 "#30单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3131_BMV_CellVoltage31 "#31单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3132_BMV_CellVoltage32 "#32单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3133_BMV_CellVoltage33 "#33单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3134_BMV_CellVoltage34 "#34单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3135_BMV_CellVoltage35 "#35单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3136_BMV_CellVoltage36 "#36单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3137_BMV_CellVoltage37 "#37单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3138_BMV_CellVoltage38 "#38单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3139_BMV_CellVoltage39 "#39单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3140_BMV_CellVoltage40 "#40单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3141_BMV_CellVoltage41 "#41单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3142_BMV_CellVoltage42 "#42单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3143_BMV_CellVoltage43 "#43单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3144_BMV_CellVoltage44 "#44单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3145_BMV_CellVoltage45 "#45单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3146_BMV_CellVoltage46 "#46单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3147_BMV_CellVoltage47 "#47单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3148_BMV_CellVoltage48 "#48单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3149_BMV_CellVoltage49 "#49单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3150_BMV_CellVoltage50 "#50单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3151_BMV_CellVoltage51 "#51单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3152_BMV_CellVoltage52 "#52单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3153_BMV_CellVoltage53 "#53单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3154_BMV_CellVoltage54 "#54单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3155_BMV_CellVoltage55 "#55单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3156_BMV_CellVoltage56 "#56单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3157_BMV_CellVoltage57 "#57单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3158_BMV_CellVoltage58 "#58单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3159_BMV_CellVoltage59 "#59单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3160_BMV_CellVoltage60 "#60单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3161_BMV_CellVoltage61 "#61单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3162_BMV_CellVoltage62 "#62单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3163_BMV_CellVoltage63 "#63单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3164_BMV_CellVoltage64 "#64单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3165_BMV_CellVoltage65 "#65单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3166_BMV_CellVoltage66 "#66单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3167_BMV_CellVoltage67 "#67单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3168_BMV_CellVoltage68 "#68单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3169_BMV_CellVoltage69 "#69单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3170_BMV_CellVoltage70 "#70单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3171_BMV_CellVoltage71 "#71单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3172_BMV_CellVoltage72 "#72单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3173_BMV_CellVoltage73 "#73单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3174_BMV_CellVoltage74 "#74单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3175_BMV_CellVoltage75 "#75单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3176_BMV_CellVoltage76 "#76单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3177_BMV_CellVoltage77 "#77单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3178_BMV_CellVoltage78 "#78单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3179_BMV_CellVoltage79 "#79单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3180_BMV_CellVoltage80 "#80单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3181_BMV_CellVoltage81 "#81单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3182_BMV_CellVoltage82 "#82单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3183_BMV_CellVoltage83 "#83单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3184_BMV_CellVoltage84 "#84单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3185_BMV_CellVoltage85 "#85单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3186_BMV_CellVoltage86 "#86单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3187_BMV_CellVoltage87 "#87单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3188_BMV_CellVoltage88 "#88单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3189_BMV_CellVoltage89 "#89单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3190_BMV_CellVoltage90 "#90单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3191_BMV_CellVoltage91 "#91单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3192_BMV_CellVoltage92 "#92单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3193_BMV_CellVoltage93 "#93单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3194_BMV_CellVoltage94 "#94单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3195_BMV_CellVoltage95 "#95单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3196_BMV_CellVoltage96 "#96单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3197_BMV_CellVoltage97 "#97单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3198_BMV_CellVoltage98 "#98单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3199_BMV_CellVoltage99 "#99单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3200_BMV_CellVoltage100 "#100单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3201_BMV_CellVoltage101 "#101单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3202_BMV_CellVoltage102 "#102单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3203_BMV_CellVoltage103 "#103单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3204_BMV_CellVoltage104 "#104单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3205_BMV_CellVoltage105 "#105单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3206_BMV_CellVoltage106 "#106单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3207_BMV_CellVoltage107 "#107单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3208_BMV_CellVoltage108 "#108单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3209_BMV_CellVoltage109 "#109单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3210_BMV_CellVoltage110 "#110单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3211_BMV_CellVoltage111 "#111单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3212_BMV_CellVoltage112 "#112单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3213_BMV_CellVoltage113 "#113单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3214_BMV_CellVoltage114 "#114单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3215_BMV_CellVoltage115 "#115单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3216_BMV_CellVoltage116 "#116单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3217_BMV_CellVoltage117 "#117单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3218_BMV_CellVoltage118 "#118单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3219_BMV_CellVoltage119 "#119单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3220_BMV_CellVoltage120 "#120单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3221_BMV_CellVoltage121 "#121单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3222_BMV_CellVoltage122 "#122单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3223_BMV_CellVoltage123 "#123单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3224_BMV_CellVoltage124 "#124单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3225_BMV_CellVoltage125 "#125单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3226_BMV_CellVoltage126 "#126单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3227_BMV_CellVoltage127 "#127单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3228_BMV_CellVoltage128 "#128单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3229_BMV_CellVoltage129 "#129单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3230_BMV_CellVoltage130 "#130单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3231_BMV_CellVoltage131 "#131单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3232_BMV_CellVoltage132 "#132单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3233_BMV_CellVoltage133 "#133单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3234_BMV_CellVoltage134 "#134单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3235_BMV_CellVoltage135 "#135单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3236_BMV_CellVoltage136 "#136单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3237_BMV_CellVoltage137 "#137单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3238_BMV_CellVoltage138 "#138单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3239_BMV_CellVoltage139 "#139单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3240_BMV_CellVoltage140 "#140单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3241_BMV_CellVoltage141 "#141单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3242_BMV_CellVoltage142 "#142单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3243_BMV_CellVoltage143 "#143单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3244_BMV_CellVoltage144 "#144单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3245_BMV_CellVoltage145 "#145单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3246_BMV_CellVoltage146 "#146单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3247_BMV_CellVoltage147 "#147单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3248_BMV_CellVoltage148 "#148单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3249_BMV_CellVoltage149 "#149单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3250_BMV_CellVoltage150 "#150单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3251_BMV_CellVoltage151 "#151单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3252_BMV_CellVoltage152 "#152单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3253_BMV_CellVoltage153 "#153单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3254_BMV_CellVoltage154 "#154单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3255_BMV_CellVoltage155 "#155单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3256_BMV_CellVoltage156 "#156单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3257_BMV_CellVoltage157 "#157单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3258_BMV_CellVoltage158 "#158单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3259_BMV_CellVoltage159 "#159单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3260_BMV_CellVoltage160 "#160单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3261_BMV_CellVoltage161 "#161单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3262_BMV_CellVoltage162 "#162单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3263_BMV_CellVoltage163 "#163单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3264_BMV_CellVoltage164 "#164单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3265_BMV_CellVoltage165 "#165单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3266_BMV_CellVoltage166 "#166单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3267_BMV_CellVoltage167 "#167单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3268_BMV_CellVoltage168 "#168单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3269_BMV_CellVoltage169 "#169单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3270_BMV_CellVoltage170 "#170单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3271_BMV_CellVoltage171 "#171单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3272_BMV_CellVoltage172 "#172单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3273_BMV_CellVoltage173 "#173单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3274_BMV_CellVoltage174 "#174单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3275_BMV_CellVoltage175 "#175单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3276_BMV_CellVoltage176 "#176单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3277_BMV_CellVoltage177 "#177单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3278_BMV_CellVoltage178 "#178单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3279_BMV_CellVoltage179 "#179单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3280_BMV_CellVoltage180 "#180单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3281_BMV_CellVoltage181 "#181单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3282_BMV_CellVoltage182 "#182单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3283_BMV_CellVoltage183 "#183单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3284_BMV_CellVoltage184 "#184单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3285_BMV_CellVoltage185 "#185单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3286_BMV_CellVoltage186 "#186单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3287_BMV_CellVoltage187 "#187单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3288_BMV_CellVoltage188 "#188单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3289_BMV_CellVoltage189 "#189单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3290_BMV_CellVoltage190 "#190单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3291_BMV_CellVoltage191 "#191单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3292_BMV_CellVoltage192 "#192单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3293_BMV_CellVoltage193 "#193单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3294_BMV_CellVoltage194 "#194单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3295_BMV_CellVoltage195 "#195单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3296_BMV_CellVoltage196 "#196单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3297_BMV_CellVoltage197 "#197单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3298_BMV_CellVoltage198 "#198单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3299_BMV_CellVoltage199 "#199单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3300_BMV_CellVoltage200 "#200单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3301_BMV_CellVoltage201 "#201单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3302_BMV_CellVoltage202 "#202单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3303_BMV_CellVoltage203 "#203单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3304_BMV_CellVoltage204 "#204单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3305_BMV_CellVoltage205 "#205单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3306_BMV_CellVoltage206 "#206单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3307_BMV_CellVoltage207 "#207单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3308_BMV_CellVoltage208 "#208单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3309_BMV_CellVoltage209 "#209单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3310_BMV_CellVoltage210 "#210单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3311_BMV_CellVoltage211 "#211单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3312_BMV_CellVoltage212 "#212单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3313_BMV_CellVoltage213 "#213单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3314_BMV_CellVoltage214 "#214单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3315_BMV_CellVoltage215 "#215单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3316_BMV_CellVoltage216 "#216单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3317_BMV_CellVoltage217 "#217单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3318_BMV_CellVoltage218 "#218单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3319_BMV_CellVoltage219 "#219单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3320_BMV_CellVoltage220 "#220单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3321_BMV_CellVoltage221 "#221单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3322_BMV_CellVoltage222 "#222单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3323_BMV_CellVoltage223 "#223单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3324_BMV_CellVoltage224 "#224单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3325_BMV_CellVoltage225 "#225单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3326_BMV_CellVoltage226 "#226单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3327_BMV_CellVoltage227 "#227单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3328_BMV_CellVoltage228 "#228单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3329_BMV_CellVoltage229 "#229单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3330_BMV_CellVoltage230 "#230单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3331_BMV_CellVoltage231 "#231单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3332_BMV_CellVoltage232 "#232单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3333_BMV_CellVoltage233 "#233单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3334_BMV_CellVoltage234 "#234单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3335_BMV_CellVoltage235 "#235单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3336_BMV_CellVoltage236 "#236单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3337_BMV_CellVoltage237 "#237单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3338_BMV_CellVoltage238 "#238单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3339_BMV_CellVoltage239 "#239单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3340_BMV_CellVoltage240 "#240单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3341_BMV_CellVoltage241 "#241单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3342_BMV_CellVoltage242 "#242单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3343_BMV_CellVoltage243 "#243单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3344_BMV_CellVoltage244 "#244单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3345_BMV_CellVoltage245 "#245单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3346_BMV_CellVoltage246 "#246单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3347_BMV_CellVoltage247 "#247单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3348_BMV_CellVoltage248 "#248单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3349_BMV_CellVoltage249 "#249单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3350_BMV_CellVoltage250 "#250单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3351_BMV_CellVoltage251 "#251单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3352_BMV_CellVoltage252 "#252单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3353_BMV_CellVoltage253 "#253单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3354_BMV_CellVoltage254 "#254单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3355_BMV_CellVoltage255 "#255单体动力蓄电池电压";
+CM_ SG_ 2618644212 SPN3356_BMV_CellVoltage256 "#256单体动力蓄电池电压";
+CM_ BO_ 2618709748 "动力蓄电池温度";
+CM_ SG_ 2618709748 SPN3361_BMT_Temperature1 "动力蓄电池温度1";
+CM_ SG_ 2618709748 SPN3362_BMT_Temperature2 "动力蓄电池温度2";
+CM_ SG_ 2618709748 SPN3363_BMT_Temperature3 "动力蓄电池温度3";
+CM_ SG_ 2618709748 SPN3364_BMT_Temperature4 "动力蓄电池温度4";
+CM_ SG_ 2618709748 SPN3365_BMT_Temperature5 "动力蓄电池温度5";
+CM_ SG_ 2618709748 SPN3366_BMT_Temperature6 "动力蓄电池温度6";
+CM_ SG_ 2618709748 SPN3367_BMT_Temperature7 "动力蓄电池温度7";
+CM_ SG_ 2618709748 SPN3368_BMT_Temperature8 "动力蓄电池温度8";
+CM_ SG_ 2618709748 SPN3369_BMT_Temperature9 "动力蓄电池温度9";
+CM_ SG_ 2618709748 SPN3370_BMT_Temperature10 "动力蓄电池温度10";
+CM_ SG_ 2618709748 SPN3371_BMT_Temperature11 "动力蓄电池温度11";
+CM_ SG_ 2618709748 SPN3372_BMT_Temperature12 "动力蓄电池温度12";
+CM_ SG_ 2618709748 SPN3373_BMT_Temperature13 "动力蓄电池温度13";
+CM_ SG_ 2618709748 SPN3374_BMT_Temperature14 "动力蓄电池温度14";
+CM_ SG_ 2618709748 SPN3375_BMT_Temperature15 "动力蓄电池温度15";
+CM_ SG_ 2618709748 SPN3376_BMT_Temperature16 "动力蓄电池温度16";
+CM_ SG_ 2618709748 SPN3377_BMT_Temperature17 "动力蓄电池温度17";
+CM_ SG_ 2618709748 SPN3378_BMT_Temperature18 "动力蓄电池温度18";
+CM_ SG_ 2618709748 SPN3379_BMT_Temperature19 "动力蓄电池温度19";
+CM_ SG_ 2618709748 SPN3380_BMT_Temperature20 "动力蓄电池温度20";
+CM_ SG_ 2618709748 SPN3381_BMT_Temperature21 "动力蓄电池温度21";
+CM_ SG_ 2618709748 SPN3382_BMT_Temperature22 "动力蓄电池温度22";
+CM_ SG_ 2618709748 SPN3383_BMT_Temperature23 "动力蓄电池温度23";
+CM_ SG_ 2618709748 SPN3384_BMT_Temperature24 "动力蓄电池温度24";
+CM_ SG_ 2618709748 SPN3385_BMT_Temperature25 "动力蓄电池温度25";
+CM_ SG_ 2618709748 SPN3386_BMT_Temperature26 "动力蓄电池温度26";
+CM_ SG_ 2618709748 SPN3387_BMT_Temperature27 "动力蓄电池温度27";
+CM_ SG_ 2618709748 SPN3388_BMT_Temperature28 "动力蓄电池温度28";
+CM_ SG_ 2618709748 SPN3389_BMT_Temperature29 "动力蓄电池温度29";
+CM_ SG_ 2618709748 SPN3390_BMT_Temperature30 "动力蓄电池温度30";
+CM_ SG_ 2618709748 SPN3391_BMT_Temperature31 "动力蓄电池温度31";
+CM_ SG_ 2618709748 SPN3392_BMT_Temperature32 "动力蓄电池温度32";
+CM_ SG_ 2618709748 SPN3393_BMT_Temperature33 "动力蓄电池温度33";
+CM_ SG_ 2618709748 SPN3394_BMT_Temperature34 "动力蓄电池温度34";
+CM_ SG_ 2618709748 SPN3395_BMT_Temperature35 "动力蓄电池温度35";
+CM_ SG_ 2618709748 SPN3396_BMT_Temperature36 "动力蓄电池温度36";
+CM_ SG_ 2618709748 SPN3397_BMT_Temperature37 "动力蓄电池温度37";
+CM_ SG_ 2618709748 SPN3398_BMT_Temperature38 "动力蓄电池温度38";
+CM_ SG_ 2618709748 SPN3399_BMT_Temperature39 "动力蓄电池温度39";
+CM_ SG_ 2618709748 SPN3400_BMT_Temperature40 "动力蓄电池温度40";
+CM_ SG_ 2618709748 SPN3401_BMT_Temperature41 "动力蓄电池温度41";
+CM_ SG_ 2618709748 SPN3402_BMT_Temperature42 "动力蓄电池温度42";
+CM_ SG_ 2618709748 SPN3403_BMT_Temperature43 "动力蓄电池温度43";
+CM_ SG_ 2618709748 SPN3404_BMT_Temperature44 "动力蓄电池温度44";
+CM_ SG_ 2618709748 SPN3405_BMT_Temperature45 "动力蓄电池温度45";
+CM_ SG_ 2618709748 SPN3406_BMT_Temperature46 "动力蓄电池温度46";
+CM_ SG_ 2618709748 SPN3407_BMT_Temperature47 "动力蓄电池温度47";
+CM_ SG_ 2618709748 SPN3408_BMT_Temperature48 "动力蓄电池温度48";
+CM_ SG_ 2618709748 SPN3409_BMT_Temperature49 "动力蓄电池温度49";
+CM_ SG_ 2618709748 SPN3410_BMT_Temperature50 "动力蓄电池温度50";
+CM_ SG_ 2618709748 SPN3411_BMT_Temperature51 "动力蓄电池温度51";
+CM_ SG_ 2618709748 SPN3412_BMT_Temperature52 "动力蓄电池温度52";
+CM_ SG_ 2618709748 SPN3413_BMT_Temperature53 "动力蓄电池温度53";
+CM_ SG_ 2618709748 SPN3414_BMT_Temperature54 "动力蓄电池温度54";
+CM_ SG_ 2618709748 SPN3415_BMT_Temperature55 "动力蓄电池温度55";
+CM_ SG_ 2618709748 SPN3416_BMT_Temperature56 "动力蓄电池温度56";
+CM_ SG_ 2618709748 SPN3417_BMT_Temperature57 "动力蓄电池温度57";
+CM_ SG_ 2618709748 SPN3418_BMT_Temperature58 "动力蓄电池温度58";
+CM_ SG_ 2618709748 SPN3419_BMT_Temperature59 "动力蓄电池温度59";
+CM_ SG_ 2618709748 SPN3420_BMT_Temperature60 "动力蓄电池温度60";
+CM_ SG_ 2618709748 SPN3421_BMT_Temperature61 "动力蓄电池温度61";
+CM_ SG_ 2618709748 SPN3422_BMT_Temperature62 "动力蓄电池温度62";
+CM_ SG_ 2618709748 SPN3423_BMT_Temperature63 "动力蓄电池温度63";
+CM_ SG_ 2618709748 SPN3424_BMT_Temperature64 "动力蓄电池温度64";
+CM_ SG_ 2618709748 SPN3425_BMT_Temperature65 "动力蓄电池温度65";
+CM_ SG_ 2618709748 SPN3426_BMT_Temperature66 "动力蓄电池温度66";
+CM_ SG_ 2618709748 SPN3427_BMT_Temperature67 "动力蓄电池温度67";
+CM_ SG_ 2618709748 SPN3428_BMT_Temperature68 "动力蓄电池温度68";
+CM_ SG_ 2618709748 SPN3429_BMT_Temperature69 "动力蓄电池温度69";
+CM_ SG_ 2618709748 SPN3430_BMT_Temperature70 "动力蓄电池温度70";
+CM_ SG_ 2618709748 SPN3431_BMT_Temperature71 "动力蓄电池温度71";
+CM_ SG_ 2618709748 SPN3432_BMT_Temperature72 "动力蓄电池温度72";
+CM_ SG_ 2618709748 SPN3433_BMT_Temperature73 "动力蓄电池温度73";
+CM_ SG_ 2618709748 SPN3434_BMT_Temperature74 "动力蓄电池温度74";
+CM_ SG_ 2618709748 SPN3435_BMT_Temperature75 "动力蓄电池温度75";
+CM_ SG_ 2618709748 SPN3436_BMT_Temperature76 "动力蓄电池温度76";
+CM_ SG_ 2618709748 SPN3437_BMT_Temperature77 "动力蓄电池温度77";
+CM_ SG_ 2618709748 SPN3438_BMT_Temperature78 "动力蓄电池温度78";
+CM_ SG_ 2618709748 SPN3439_BMT_Temperature79 "动力蓄电池温度79";
+CM_ SG_ 2618709748 SPN3440_BMT_Temperature80 "动力蓄电池温度80";
+CM_ SG_ 2618709748 SPN3441_BMT_Temperature81 "动力蓄电池温度81";
+CM_ SG_ 2618709748 SPN3442_BMT_Temperature82 "动力蓄电池温度82";
+CM_ SG_ 2618709748 SPN3443_BMT_Temperature83 "动力蓄电池温度83";
+CM_ SG_ 2618709748 SPN3444_BMT_Temperature84 "动力蓄电池温度84";
+CM_ SG_ 2618709748 SPN3445_BMT_Temperature85 "动力蓄电池温度85";
+CM_ SG_ 2618709748 SPN3446_BMT_Temperature86 "动力蓄电池温度86";
+CM_ SG_ 2618709748 SPN3447_BMT_Temperature87 "动力蓄电池温度87";
+CM_ SG_ 2618709748 SPN3448_BMT_Temperature88 "动力蓄电池温度88";
+CM_ SG_ 2618709748 SPN3449_BMT_Temperature89 "动力蓄电池温度89";
+CM_ SG_ 2618709748 SPN3450_BMT_Temperature90 "动力蓄电池温度90";
+CM_ SG_ 2618709748 SPN3451_BMT_Temperature91 "动力蓄电池温度91";
+CM_ SG_ 2618709748 SPN3452_BMT_Temperature92 "动力蓄电池温度92";
+CM_ SG_ 2618709748 SPN3453_BMT_Temperature93 "动力蓄电池温度93";
+CM_ SG_ 2618709748 SPN3454_BMT_Temperature94 "动力蓄电池温度94";
+CM_ SG_ 2618709748 SPN3455_BMT_Temperature95 "动力蓄电池温度95";
+CM_ SG_ 2618709748 SPN3456_BMT_Temperature96 "动力蓄电池温度96";
+CM_ SG_ 2618709748 SPN3457_BMT_Temperature97 "动力蓄电池温度97";
+CM_ SG_ 2618709748 SPN3458_BMT_Temperature98 "动力蓄电池温度98";
+CM_ SG_ 2618709748 SPN3459_BMT_Temperature99 "动力蓄电池温度99";
+CM_ SG_ 2618709748 SPN3460_BMT_Temperature100 "动力蓄电池温度100";
+CM_ SG_ 2618709748 SPN3461_BMT_Temperature101 "动力蓄电池温度101";
+CM_ SG_ 2618709748 SPN3462_BMT_Temperature102 "动力蓄电池温度102";
+CM_ SG_ 2618709748 SPN3463_BMT_Temperature103 "动力蓄电池温度103";
+CM_ SG_ 2618709748 SPN3464_BMT_Temperature104 "动力蓄电池温度104";
+CM_ SG_ 2618709748 SPN3465_BMT_Temperature105 "动力蓄电池温度105";
+CM_ SG_ 2618709748 SPN3466_BMT_Temperature106 "动力蓄电池温度106";
+CM_ SG_ 2618709748 SPN3467_BMT_Temperature107 "动力蓄电池温度107";
+CM_ SG_ 2618709748 SPN3468_BMT_Temperature108 "动力蓄电池温度108";
+CM_ SG_ 2618709748 SPN3469_BMT_Temperature109 "动力蓄电池温度109";
+CM_ SG_ 2618709748 SPN3470_BMT_Temperature110 "动力蓄电池温度110";
+CM_ SG_ 2618709748 SPN3471_BMT_Temperature111 "动力蓄电池温度111";
+CM_ SG_ 2618709748 SPN3472_BMT_Temperature112 "动力蓄电池温度112";
+CM_ SG_ 2618709748 SPN3473_BMT_Temperature113 "动力蓄电池温度113";
+CM_ SG_ 2618709748 SPN3474_BMT_Temperature114 "动力蓄电池温度114";
+CM_ SG_ 2618709748 SPN3475_BMT_Temperature115 "动力蓄电池温度115";
+CM_ SG_ 2618709748 SPN3476_BMT_Temperature116 "动力蓄电池温度116";
+CM_ SG_ 2618709748 SPN3477_BMT_Temperature117 "动力蓄电池温度117";
+CM_ SG_ 2618709748 SPN3478_BMT_Temperature118 "动力蓄电池温度118";
+CM_ SG_ 2618709748 SPN3479_BMT_Temperature119 "动力蓄电池温度119";
+CM_ SG_ 2618709748 SPN3480_BMT_Temperature120 "动力蓄电池温度120";
+CM_ SG_ 2618709748 SPN3481_BMT_Temperature121 "动力蓄电池温度121";
+CM_ SG_ 2618709748 SPN3482_BMT_Temperature122 "动力蓄电池温度122";
+CM_ SG_ 2618709748 SPN3483_BMT_Temperature123 "动力蓄电池温度123";
+CM_ SG_ 2618709748 SPN3484_BMT_Temperature124 "动力蓄电池温度124";
+CM_ SG_ 2618709748 SPN3485_BMT_Temperature125 "动力蓄电池温度125";
+CM_ SG_ 2618709748 SPN3486_BMT_Temperature126 "动力蓄电池温度126";
+CM_ SG_ 2618709748 SPN3487_BMT_Temperature127 "动力蓄电池温度127";
+CM_ SG_ 2618709748 SPN3488_BMT_Temperature128 "动力蓄电池温度128";
+CM_ BO_ 2553607254 "充电机-长消息";
+CM_ SG_ 2553607254 LM_SECC_TotalNum "待发长消息总帧数";
+CM_ SG_ 2553607254 LM_SECC_TotalBytes "待发长消息总字节数";
+CM_ SG_ 2553607254 LM_SECC_Byte0 "长消息序号";
+CM_ BO_ 2553566964 "车辆-长消息";
+CM_ SG_ 2553566964 LM_EVCC_TotalNum "待发长消息总帧数";
+CM_ SG_ 2553566964 LM_EVCC_TotalBytes "待发长消息总字节数";
+CM_ SG_ 2553566964 LM_EVCC_Byte0 "长消息序号";
+CM_ BO_ 2553698036 "车辆-不需要确认短消息";
+CM_ SG_ 2553698036 PGI32_VAuthenStatus "车辆当前扫码刷卡的状态";
+CM_ SG_ 2553698036 PGI77_SingleBattV_Min "动力蓄电池最小并联单元最低电压";
+CM_ SG_ 2553698036 PGI77_SingleBattV_Max "动力蓄电池最小并联单元最高电压";
+CM_ SG_ 2553698036 PGI77_SingleBattTemp_Min "动力蓄电池单体最低温度";
+CM_ SG_ 2553698036 PGI77_SingleBattTemp_Max "动力蓄电池单体最高温度";
+CM_ SG_ 2553698036 PGI74_TimeRemain "剩余估算时间min";
+CM_ SG_ 2553698036 PGI74_SOC "当前荷电状态";
+CM_ SG_ 2553698036 PGI73_V "整车充电电压需求";
+CM_ SG_ 2553698036 PGI73_PowerMode "车辆期待的充电模式";
+CM_ SG_ 2553698036 PGI73_A "整车充电电流需求";
+CM_ SG_ 2553698036 PGI72_EVCCReady "车辆准备就绪状态";
+CM_ SG_ 2553698036 PGI72_EVCC_V_Exe "整车充电系统当前电压";
+CM_ SG_ 2553698036 PGI91_EVCCDetectSta "粘连检测状态信息";
+CM_ SG_ 2553698036 PGI06_K6 "车辆供电回路接触器 K6 状态";
+CM_ SG_ 2553698036 PGI06_K5 "车辆供电回路接触器 K5 状态";
+CM_ SG_ 2553698036 SU_EVCC_PGI "参数组标识";
+CM_ BO_ 2553738326 "充电机-不需要确认短消息";
+CM_ SG_ 2553738326 PGI31_MTime2 "总鉴权等待时间";
+CM_ SG_ 2553738326 PGI31_CAuthenStatus "充电机当前扫码刷卡的状态";
+CM_ SG_ 2553738326 PGI92_AllowDetectCheck "充电机允许粘连检测";
+CM_ SG_ 2553738326 PGI76_V_Exe "充电机当前输出电压(V)";
+CM_ SG_ 2553738326 PGI76_A_Exe "充电机当前充电电流(A)";
+CM_ SG_ 2553738326 PGI75_OutputChangeReason "充电机当前输出能力变化原因";
+CM_ SG_ 2553738326 PGI75_MaxOutput_A "充电机当前最大输出电流能力";
+CM_ SG_ 2553738326 PGI71_ChargerReady "充电机准备就绪状态";
+CM_ SG_ 2553738326 PGI51_ShortCircuit "短路检测状态信息";
+CM_ SG_ 2553738326 PGI51_Insulation "绝缘检测状态信息";
+CM_ SG_ 2553738326 PGI51_Discharge "泄放状态信息";
+CM_ SG_ 2553738326 PGI51_DetectTest "粘连检测状态信息";
+CM_ SG_ 2553738326 PGI07_ELock "充电机电子锁状态";
+CM_ SG_ 2553738326 PGI05_K2 "直流供电回路接触器 K2 状态";
+CM_ SG_ 2553738326 PGI05_K1 "直流供电回路接触器 K1 状态";
+CM_ SG_ 2553738326 SU_SECC_PGI "参数组标识";
+CM_ BO_ 2419414772 "车辆-需要确认短消息";
+CM_ SG_ 2419414772 PGI3A_FDCType "即将进入本功能模块的新FDC";
+CM_ SG_ 2419414772 PGI36_FDCType "即将进入本功能模块的新FDC";
+CM_ SG_ 2419414772 PGI09_wakeup "车辆唤醒标识";
+CM_ SG_ 2419414772 PGI04_STOP_type "车辆中止类型";
+CM_ SG_ 2419414772 PGI04_STOP_reason1 "车辆中止原因1";
+CM_ SG_ 2419414772 PGI04_STOP_reason0 "车辆中止原因0";
+CM_ SG_ 2419414772 PGI04_reLink "车辆请求重连";
+CM_ SG_ 2419414772 PGI02_check "车辆确认结果";
+CM_ SG_ 2419414772 PGI94_SOC "车辆荷电状态";
+CM_ SG_ 2419414772 PGI79_Pause "车辆暂停";
+CM_ SG_ 2419414772 PGI52_CheckState "确认检测完成状态";
+CM_ SG_ 2419414772 PGI12_Scheduled "FDC-预约充电";
+CM_ SG_ 2419414772 PGI12_PreChgEnTrans "FDC-预充及能量传输";
+CM_ SG_ 2419414772 PGI12_PowerMode "FDC-供电模式";
+CM_ SG_ 2419414772 PGI12_ParmCfg "FDC-参数配置";
+CM_ SG_ 2419414772 PGI12_OutLoopDete "FDC-输出回路检测";
+CM_ SG_ 2419414772 PGI12_EndOfCharge "FDC-结束";
+CM_ SG_ 2419414772 PGI12_Authentic "FDC-鉴权";
+CM_ SG_ 2419414772 S_EVCC_PGI "参数组标识";
+CM_ BO_ 2419455062 "充电机-需要确认短消息";
+CM_ SG_ 2419455062 PGI39_SAuthenFDC "成功鉴权的FDC-云端";
+CM_ SG_ 2419455062 PGI39_AuthenResult "身份鉴权结果-云端";
+CM_ SG_ 2419455062 PGI35_SAuthenFDC "成功鉴权的FDC-EVIN";
+CM_ SG_ 2419455062 PGI35_AuthenResult "身份鉴权结果-EVIN";
+CM_ SG_ 2419455062 PGI33_SAuthenFDC "成功鉴权的FDC-扫码刷卡";
+CM_ SG_ 2419455062 PGI33_AuthenResult "身份鉴权结果-扫码刷卡";
+CM_ SG_ 2419455062 PGI08_wakeup "充电机唤醒标识";
+CM_ SG_ 2419455062 PGI93_DishargeCapacity "本次总放电能量";
+CM_ SG_ 2419455062 PGI93_ChargeCapacity "本次总充电能量";
+CM_ SG_ 2419455062 PGI78_Pause "充电机暂停";
+CM_ SG_ 2419455062 PGI03_STOP_type "充电机中止类型";
+CM_ SG_ 2419455062 PGI03_STOP_reason1 "充电机中止原因1";
+CM_ SG_ 2419455062 PGI03_STOP_reason0 "充电机中止原因0";
+CM_ SG_ 2419455062 PGI03_reLink "充电机请求重连";
+CM_ SG_ 2419455062 PGI01_FDC "即将进入功能模块的 FDC";
+CM_ SG_ 2419455062 PGI01_FC "即将进入功能模块的 FC";
+CM_ SG_ 2419455062 S_SECC_PGI "参数组标识";
+CM_ BO_ 2352436980 "车辆-控制帧";
+CM_ SG_ 2352436980 waitRecvNumTotal "本次待接收长消息数量";
+CM_ SG_ 2352436980 waitRecvNumStart "本次待接收长消息起始序号";
+CM_ SG_ 2352436980 recvedNumTotal "已接收长消息总帧数";
+CM_ SG_ 2352436980 recvedByteTotal "已接收长消息总字节数";
+CM_ SG_ 2352436980 confirmPGI "被确认短消息的PGI";
+CM_ SG_ 2352436980 Ctrl_EVCC_Byte0 "本次控制类型";
+CM_ BO_ 2352477270 "充电机-控制帧";
+CM_ SG_ 2352477270 waitRecvNumTotal "本次待接收长消息数量";
+CM_ SG_ 2352477270 waitRecvNumStart "本次待接收长消息起始序号";
+CM_ SG_ 2352477270 recvedNumTotal "已接收长消息总帧数";
+CM_ SG_ 2352477270 recvedByteTotal "已接收长消息总字节数";
+CM_ SG_ 2352477270 confirmPGI "被确认短消息的PGI";
+CM_ SG_ 2352477270 Ctrl_SECC_Byte0 "本次控制类型";
+CM_ BO_ 2352568052 "车辆-版本协商";
+CM_ SG_ 2352568052 EVCC_ProtocolVersion2 "协议版本号 :  临时版本号";
+CM_ SG_ 2352568052 EVCC_ProtocolVersion1 "协议版本号 :  次版本号";
+CM_ SG_ 2352568052 EVCC_ProtocolVersion0 "协议版本号 :  主版本号";
+CM_ SG_ 2352568052 EVCC_VersionResult "协商结果";
+CM_ SG_ 2352568052 EVCC_TLVersion "充电机传输层版本";
+CM_ SG_ 2352568052 EVCC_Reserved "保留位";
+CM_ SG_ 2352568052 EVCC_CPVersoin "充电机控制导引版本";
+CM_ SG_ 2352568052 EVCC_CANType "CAN类型";
+CM_ BO_ 2352542806 "充电机-版本协商";
+CM_ SG_ 2352542806 SECC_ProtocolVersion2 "协议版本号 :  临时版本号";
+CM_ SG_ 2352542806 SECC_ProtocolVersion1 "协议版本号 :  次版本号";
+CM_ SG_ 2352542806 SECC_ProtocolVersion0 "协议版本号 :  主版本号";
+CM_ SG_ 2352542806 SECC_VersionResult "协商结果";
+CM_ SG_ 2352542806 SECC_TLVersion "车辆传输层版本";
+CM_ SG_ 2352542806 SECC_Reserved "保留位";
+CM_ SG_ 2352542806 SECC_CPVersoin "车辆控制导引版本";
+CM_ SG_ 2352542806 SECC_CANType "CAN类型";
+CM_ BO_ 2147483681 "充电机-参数配置";
+CM_ SG_ 2147483681 PGI_Num "参数组标识";
+CM_ SG_ 2147483681 PGI21_V_Min "充电机最低充电输出电压值(V)";
+CM_ SG_ 2147483681 PGI21_V_Max "充电机最高充电输出电压值(V)";
+CM_ SG_ 2147483681 PGI21_RebotTimes "充电机当前支持重新启动次数";
+CM_ SG_ 2147483681 PGI21_A_Min "充电机最小充电输出电流值(A)";
+CM_ SG_ 2147483681 PGI21_A_Max "充电机最大充电输出电流值(A)";
+CM_ BO_ 2147483665 "充电机-功能协商";
+CM_ SG_ 2147483665 PGI_Num "参数组标识";
+CM_ SG_ 2147483665 PGI11_Scheduled_MIX "支持的FDC：预约充电";
+CM_ SG_ 2147483665 PGI11_PreChgEnTrans_MIX "支持的FDC：预充及能量传输";
+CM_ SG_ 2147483665 PGI11_PowerMode_MIX "支持的FDC：供电模式";
+CM_ SG_ 2147483665 PGI11_ParmCfg_MIX "支持的FDC：参数配置";
+CM_ SG_ 2147483665 PGI11_OutLoopDete_MIX "支持的FDC：输出回路检测";
+CM_ SG_ 2147483665 PGI11_EndOfCharge_MIX "支持的FDC：结束";
+CM_ SG_ 2147483665 PGI11_Authentic_MIX "支持的FDC：鉴权";
+CM_ BO_ 2147483682 "车辆-参数配置";
+CM_ SG_ 2147483682 PGI_Num "参数组标识";
+CM_ SG_ 2147483682 PGI22_Voltage2 "动力蓄电池最小并联单元最高允许电厢";
+CM_ SG_ 2147483682 PGI22_Voltage "车辆最高允许充电总电压";
+CM_ SG_ 2147483682 PGI22_Temp "动力蓄电池单体最高允许温度";
+CM_ SG_ 2147483682 PGI22_SOC "整车动力蓄电池当前荷电状态";
+CM_ SG_ 2147483682 PGI22_RestartNum "车辆当前支持重新启动次数";
+CM_ SG_ 2147483682 PGI22_Current "车辆最大允许充电电流";
+CM_ SG_ 2147483682 PGI22_Capacity "车辆最高允许输入总能量";
+CM_ SG_ 2147483682 PGI22_BatteryType "动力蓄电池类型";
+BA_DEF_ BO_  "J1939Mapping" STRING ;
+BA_DEF_ SG_  "SigType" ENUM  "Default","Range","RangeSigned","ASCII","Discrete","Control","ReferencePGN","DTC","StringDelimiter","StringLength","StringLengthControl","MessageCounter","MessageChecksum";
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "GenSigILSupport" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 100000;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 3600000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 1000000;
+BA_DEF_ SG_  "GenSigStartValue" INT 0 10000;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "NmJ1939SystemInstance" INT 0 15;
+BA_DEF_ BU_  "NmJ1939System" INT 0 127;
+BA_DEF_ BU_  "NmJ1939ManufacturerCode" INT 0 2047;
+BA_DEF_ BU_  "NmJ1939IndustryGroup" INT 0 7;
+BA_DEF_ BU_  "NmJ1939IdentityNumber" INT 0 2097151;
+BA_DEF_ BU_  "NmJ1939FunctionInstance" INT 0 7;
+BA_DEF_ BU_  "NmJ1939Function" INT 0 255;
+BA_DEF_ BU_  "NmJ1939ECUInstance" INT 0 3;
+BA_DEF_ BU_  "NmJ1939AAC" INT 0 1;
+BA_DEF_ BU_  "NmStationAddress" INT 0 255;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","NotUsed","IfActive","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","noMsgSendType";
+BA_DEF_ BO_  "GenMsgRequestable" INT 0 1;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 3600000;
+BA_DEF_ SG_  "SPN" INT 0 524287;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "ProtocolType" STRING ;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
+BA_DEF_DEF_  "J1939Mapping" "";
+BA_DEF_DEF_  "SigType" "Default";
+BA_DEF_DEF_  "GenSigEVName" "Env@Nodename_@Signame";
+BA_DEF_DEF_  "GenSigILSupport" "Yes";
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "NmJ1939SystemInstance" 0;
+BA_DEF_DEF_  "NmJ1939System" 0;
+BA_DEF_DEF_  "NmJ1939ManufacturerCode" 0;
+BA_DEF_DEF_  "NmJ1939IndustryGroup" 0;
+BA_DEF_DEF_  "NmJ1939IdentityNumber" 0;
+BA_DEF_DEF_  "NmJ1939FunctionInstance" 0;
+BA_DEF_DEF_  "NmJ1939Function" 0;
+BA_DEF_DEF_  "NmJ1939ECUInstance" 0;
+BA_DEF_DEF_  "NmJ1939AAC" 0;
+BA_DEF_DEF_  "NmStationAddress" 254;
+BA_DEF_DEF_  "GenMsgSendType" "noMsgSendType";
+BA_DEF_DEF_  "GenMsgRequestable" 1;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "SPN" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "ProtocolType" "J1939";
+BA_DEF_DEF_  "VFrameFormat" "J1939PG";
+BA_ "DBName" "gbt279302011";
+BA_ "NmStationAddress" BU_ BMS 244;
+BA_ "NmStationAddress" BU_ Charger 86;
+BA_ "GenMsgCycleTime" BO_ 2552714996 250;
+BA_ "GenMsgSendType" BO_ 2552714996 1;
+BA_ "VFrameFormat" BO_ 2552714996 3;
+BA_ "GenMsgCycleTime" BO_ 2552689750 250;
+BA_ "GenMsgSendType" BO_ 2552689750 1;
+BA_ "VFrameFormat" BO_ 2552689750 3;
+BA_ "GenMsgCycleTime" BO_ 2550723670 250;
+BA_ "GenMsgSendType" BO_ 2550723670 1;
+BA_ "VFrameFormat" BO_ 2550723670 3;
+BA_ "GenMsgCycleTime" BO_ 2550658134 500;
+BA_ "GenMsgSendType" BO_ 2550658134 1;
+BA_ "VFrameFormat" BO_ 2550658134 3;
+BA_ "GenMsgCycleTime" BO_ 2617661172 500;
+BA_ "J1939Mapping" BO_ 2617661172 "BMS-Charger";
+BA_ "VFrameFormat" BO_ 2617661172 3;
+BA_ "GenMsgCycleTime" BO_ 2617399028 250;
+BA_ "J1939Mapping" BO_ 2617399028 "BMS-Charger";
+BA_ "VFrameFormat" BO_ 2617399028 3;
+BA_ "GenMsgSendType" BO_ 2632668916 2;
+BA_ "GenMsgCycleTime" BO_ 2632668916 10;
+BA_ "VFrameFormat" BO_ 2632668916 3;
+BA_ "GenMsgSendType" BO_ 2632774742 2;
+BA_ "GenMsgCycleTime" BO_ 2632774742 10;
+BA_ "VFrameFormat" BO_ 2632774742 3;
+BA_ "GenMsgSendType" BO_ 2632734452 2;
+BA_ "GenMsgCycleTime" BO_ 2632734452 10;
+BA_ "VFrameFormat" BO_ 2632734452 3;
+BA_ "GenMsgCycleTime" BO_ 2550264918 250;
+BA_ "GenMsgSendType" BO_ 2550264918 1;
+BA_ "VFrameFormat" BO_ 2550264918 3;
+BA_ "GenMsgCycleTime" BO_ 2416637014 250;
+BA_ "GenMsgSendType" BO_ 2416637014 1;
+BA_ "VFrameFormat" BO_ 2416637014 3;
+BA_ "GenMsgCycleTime" BO_ 2416531188 250;
+BA_ "GenMsgSendType" BO_ 2416531188 1;
+BA_ "VFrameFormat" BO_ 2416531188 3;
+BA_ "GenMsgCycleTime" BO_ 2551404276 250;
+BA_ "GenMsgSendType" BO_ 2551404276 1;
+BA_ "VFrameFormat" BO_ 2551404276 3;
+BA_ "GenMsgCycleTime" BO_ 2551379030 50;
+BA_ "GenMsgSendType" BO_ 2551379030 1;
+BA_ "VFrameFormat" BO_ 2551379030 3;
+BA_ "GenMsgCycleTime" BO_ 2618382068 250;
+BA_ "VFrameFormat" BO_ 2618382068 3;
+BA_ "GenMsgCycleTime" BO_ 2551207668 50;
+BA_ "GenMsgSendType" BO_ 2551207668 1;
+BA_ "VFrameFormat" BO_ 2551207668 3;
+BA_ "GenMsgCycleTime" BO_ 2417685590 10;
+BA_ "GenMsgSendType" BO_ 2417685590 1;
+BA_ "VFrameFormat" BO_ 2417685590 3;
+BA_ "GenMsgCycleTime" BO_ 2417579764 10;
+BA_ "GenMsgSendType" BO_ 2417579764 1;
+BA_ "VFrameFormat" BO_ 2417579764 3;
+BA_ "GenMsgCycleTime" BO_ 2618775284 10000;
+BA_ "J1939Mapping" BO_ 2618775284 "BMS-Charger";
+BA_ "VFrameFormat" BO_ 2618775284 3;
+BA_ "GenMsgCycleTime" BO_ 2283795542 250;
+BA_ "GenMsgSendType" BO_ 2283795542 1;
+BA_ "VFrameFormat" BO_ 2283795542 3;
+BA_ "GenMsgCycleTime" BO_ 2552099926 250;
+BA_ "GenMsgSendType" BO_ 2552099926 1;
+BA_ "VFrameFormat" BO_ 2552099926 3;
+BA_ "GenMsgCycleTime" BO_ 2283689716 250;
+BA_ "GenMsgSendType" BO_ 2283689716 1;
+BA_ "VFrameFormat" BO_ 2283689716 3;
+BA_ "GenMsgCycleTime" BO_ 2551994100 250;
+BA_ "GenMsgSendType" BO_ 2551994100 1;
+BA_ "VFrameFormat" BO_ 2551994100 3;
+BA_ "GenMsgCycleTime" BO_ 2618644212 10000;
+BA_ "J1939Mapping" BO_ 2618644212 "BMS-Charger";
+BA_ "VFrameFormat" BO_ 2618644212 3;
+BA_ "GenMsgCycleTime" BO_ 2618709748 10000;
+BA_ "J1939Mapping" BO_ 2618709748 "BMS-Charger";
+BA_ "VFrameFormat" BO_ 2618709748 3;
+BA_ "GenMsgSendType" BO_ 2553607254 1;
+BA_ "GenMsgCycleTime" BO_ 2553607254 10;
+BA_ "VFrameFormat" BO_ 2553607254 3;
+BA_ "GenMsgSendType" BO_ 2553566964 1;
+BA_ "GenMsgCycleTime" BO_ 2553566964 10;
+BA_ "VFrameFormat" BO_ 2553566964 3;
+BA_ "GenMsgSendType" BO_ 2553698036 1;
+BA_ "GenMsgCycleTime" BO_ 2553698036 50;
+BA_ "VFrameFormat" BO_ 2553698036 3;
+BA_ "GenMsgSendType" BO_ 2553738326 1;
+BA_ "GenMsgCycleTime" BO_ 2553738326 50;
+BA_ "VFrameFormat" BO_ 2553738326 3;
+BA_ "GenMsgSendType" BO_ 2419414772 1;
+BA_ "GenMsgCycleTime" BO_ 2419414772 50;
+BA_ "VFrameFormat" BO_ 2419414772 3;
+BA_ "GenMsgSendType" BO_ 2419455062 1;
+BA_ "GenMsgCycleTime" BO_ 2419455062 50;
+BA_ "VFrameFormat" BO_ 2419455062 3;
+BA_ "GenMsgSendType" BO_ 2352436980 1;
+BA_ "GenMsgCycleTime" BO_ 2352436980 50;
+BA_ "VFrameFormat" BO_ 2352436980 3;
+BA_ "GenMsgSendType" BO_ 2352477270 1;
+BA_ "GenMsgCycleTime" BO_ 2352477270 10;
+BA_ "VFrameFormat" BO_ 2352477270 3;
+BA_ "GenMsgSendType" BO_ 2352568052 1;
+BA_ "GenMsgCycleTime" BO_ 2352568052 50;
+BA_ "VFrameFormat" BO_ 2352568052 3;
+BA_ "GenMsgSendType" BO_ 2352542806 1;
+BA_ "GenMsgCycleTime" BO_ 2352542806 50;
+BA_ "VFrameFormat" BO_ 2352542806 3;
+BA_ "VFrameFormat" BO_ 2147483681 3;
+BA_ "VFrameFormat" BO_ 2147483665 3;
+BA_ "VFrameFormat" BO_ 2147483682 3;
+BA_ "GenSigStartValue" SG_ 2552714996 SPN2601_BHM_ChargeTotalVolt_MAX 1000;
+BA_ "SPN" SG_ 2552714996 SPN2601_BHM_ChargeTotalVolt_MAX 2819;
+BA_ "SPN" SG_ 2552689750 SPN2600_CHM_ProtocolVer 2565;
+BA_ "GenSigStartValue" SG_ 2552689750 SPN2600_CHM_ProtocolVer 257;
+BA_ "SigType" SG_ 2552689750 SPN2600_CHM_ProtocolVer 4;
+BA_ "GenSigStartValue" SG_ 2550723670 SPN2827_CML_OutputCurrent_MIN 3900;
+BA_ "SPN" SG_ 2550723670 SPN2827_CML_OutputCurrent_MIN 2826;
+BA_ "GenSigStartValue" SG_ 2550723670 SPN2826_CML_OutputCurrent_MAX 1000;
+BA_ "SPN" SG_ 2550723670 SPN2826_CML_OutputCurrent_MAX 2826;
+BA_ "GenSigStartValue" SG_ 2550723670 SPN2825_CML_OutputVoltage_MIN 100;
+BA_ "SPN" SG_ 2550723670 SPN2825_CML_OutputVoltage_MIN 2825;
+BA_ "GenSigStartValue" SG_ 2550723670 SPN2824_CML_OutputVoltage_MAX 7500;
+BA_ "SPN" SG_ 2550723670 SPN2824_CML_OutputVoltage_MAX 2824;
+BA_ "SPN" SG_ 2550658134 SPN2823_CTS_TimeInfo_Year 2823;
+BA_ "SPN" SG_ 2550658134 SPN2823_CTS_TimeInfo_Month 2823;
+BA_ "SPN" SG_ 2550658134 SPN2823_CTS_TimeInfo_Date 2823;
+BA_ "SPN" SG_ 2550658134 SPN2823_CTS_TimeInfo_Hour 2823;
+BA_ "SPN" SG_ 2550658134 SPN2823_CTS_TimeInfo_Minute 2823;
+BA_ "SPN" SG_ 2550658134 SPN2823_CTS_TimeInfo_Second 2823;
+BA_ "GenSigStartValue" SG_ 2617661172 SPN2822_BCP_BatteryTotalVoltage 1000;
+BA_ "SPN" SG_ 2617661172 SPN2822_BCP_BatteryTotalVoltage 2822;
+BA_ "SPN" SG_ 2617661172 SPN2821_BCP_SOC 2821;
+BA_ "GenSigStartValue" SG_ 2617661172 SPN2820_BCP_Temperature_MAX 50;
+BA_ "SPN" SG_ 2617661172 SPN2820_BCP_Temperature_MAX 2820;
+BA_ "GenSigStartValue" SG_ 2617661172 SPN2819_BCP_ChargeTotalVolt_MAX 1000;
+BA_ "SPN" SG_ 2617661172 SPN2819_BCP_ChargeTotalVolt_MAX 2819;
+BA_ "GenSigStartValue" SG_ 2617661172 SPN2818_BCP_NominalCapacity 1000;
+BA_ "SPN" SG_ 2617661172 SPN2818_BCP_NominalCapacity 2818;
+BA_ "GenSigStartValue" SG_ 2617661172 SPN2817_BCP_ChargeCurrent_MAX 2000;
+BA_ "SPN" SG_ 2617661172 SPN2817_BCP_ChargeCurrent_MAX 2817;
+BA_ "GenSigStartValue" SG_ 2617661172 SPN2816_BCP_CellChargeVolt_MAX 500;
+BA_ "SPN" SG_ 2617661172 SPN2816_BCP_CellChargeVolt_MAX 2186;
+BA_ "SPN" SG_ 2617399028 SPN2576_BRM_BMSSoftwareVer_Num 2576;
+BA_ "SPN" SG_ 2617399028 SPN2576_BRM_BMSSoftwareVer_Date 2576;
+BA_ "SPN" SG_ 2617399028 SPN2576_BRM_BMSSoftVer_Reserved 2576;
+BA_ "SigType" SG_ 2617399028 SPN2575_BRM_VINPart3 3;
+BA_ "SPN" SG_ 2617399028 SPN2575_BRM_VINPart3 2575;
+BA_ "SigType" SG_ 2617399028 SPN2575_BRM_VINPart2 3;
+BA_ "SPN" SG_ 2617399028 SPN2575_BRM_VINPart2 2575;
+BA_ "SigType" SG_ 2617399028 SPN2575_BRM_VINPart1 3;
+BA_ "SPN" SG_ 2617399028 SPN2575_BRM_VINPart1 2575;
+BA_ "SPN" SG_ 2617399028 SPN2574_BRM_BRMReserved 2574;
+BA_ "SPN" SG_ 2617399028 SPN2573_BRM_Ownership 2573;
+BA_ "SPN" SG_ 2617399028 SPN2572_BRM_BatteryChargedTimes 2572;
+BA_ "SPN" SG_ 2617399028 SPN2571_BRM_ManufactureDate 2571;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2571_BRM_ManufactureDate 1;
+BA_ "SPN" SG_ 2617399028 SPN2571_BRM_ManufactureMonth 2571;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2571_BRM_ManufactureMonth 1;
+BA_ "SPN" SG_ 2617399028 SPN2571_BRM_ManufactureYear 2571;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2571_BRM_ManufactureYear 30;
+BA_ "SPN" SG_ 2617399028 SPN2570_BRM_BatterySN 2570;
+BA_ "SPN" SG_ 2617399028 SPN2569_BRM_BatteryProducer 2569;
+BA_ "SigType" SG_ 2617399028 SPN2569_BRM_BatteryProducer 3;
+BA_ "SPN" SG_ 2617399028 SPN2568_BRM_BatteryVoltage 2568;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2568_BRM_BatteryVoltage 1000;
+BA_ "SPN" SG_ 2617399028 SPN2567_BRM_BatteryCapacity 2567;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2567_BRM_BatteryCapacity 1000;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2566_BRM_BatteryType 6;
+BA_ "SPN" SG_ 2617399028 SPN2566_BRM_BatteryType 2566;
+BA_ "SPN" SG_ 2617399028 SPN2565_BRM_ProtocolVer 2565;
+BA_ "SigType" SG_ 2617399028 SPN2565_BRM_ProtocolVer 4;
+BA_ "GenSigStartValue" SG_ 2617399028 SPN2565_BRM_ProtocolVer 256;
+BA_ "SPN" SG_ 2550264918 SPN2562_CRM_ChargerLocationCode 2562;
+BA_ "SigType" SG_ 2550264918 SPN2562_CRM_ChargerLocationCode 3;
+BA_ "GenSigStartValue" SG_ 2550264918 SPN2561_CRM_ChargerIndex 1;
+BA_ "SPN" SG_ 2550264918 SPN2561_CRM_ChargerIndex 2561;
+BA_ "SPN" SG_ 2550264918 SPN2560_CRM_BMSIdentify 2560;
+BA_ "SPN" SG_ 2416637014 SPN2830_CRO_ChargerReadyOrNot 2830;
+BA_ "SPN" SG_ 2416531188 SPN2829_BRO_BMSReadyOrNot 2829;
+BA_ "GenSigStartValue" SG_ 2551404276 SPN3096_BSM_ChargingPermit 1;
+BA_ "SPN" SG_ 2551404276 SPN3096_BSM_ChargingPermit 3096;
+BA_ "SPN" SG_ 2551404276 SPN3095_BSM_BatOutputConState 3095;
+BA_ "SPN" SG_ 2551404276 SPN3094_BSM_BatInsulationState 3094;
+BA_ "SPN" SG_ 2551404276 SPN3093_BSM_BatteryTemState 3093;
+BA_ "SPN" SG_ 2551404276 SPN3092_BSM_ChargingOverCurrent 3092;
+BA_ "SPN" SG_ 2551404276 SPN3091_BSM_VehicleBatterySOC 3091;
+BA_ "SPN" SG_ 2551404276 SPN3090_BSM_CellVoltageState 3090;
+BA_ "SPN" SG_ 2551404276 SPN3089_BSM_NumLTemTestingPoint 3089;
+BA_ "SPN" SG_ 2551404276 SPN3088_BSM_BatteryLowestTemp 3088;
+BA_ "GenSigStartValue" SG_ 2551404276 SPN3088_BSM_BatteryLowestTemp 50;
+BA_ "SPN" SG_ 2551404276 SPN3087_BSM_NumHTemTestingPoint 3087;
+BA_ "GenSigStartValue" SG_ 2551404276 SPN3087_BSM_NumHTemTestingPoint 0;
+BA_ "SPN" SG_ 2551404276 SPN3086_BSM_BatteryHighsestTemp 3086;
+BA_ "GenSigStartValue" SG_ 2551404276 SPN3086_BSM_BatteryHighsestTemp 50;
+BA_ "SPN" SG_ 2551404276 SPN3085_BSM_NumberHighestVB 3085;
+BA_ "GenSigStartValue" SG_ 2551404276 SPN3085_BSM_NumberHighestVB 0;
+BA_ "SPN" SG_ 2551379030 SPN3929_CCS_ChargingAllow 3929;
+BA_ "SPN" SG_ 2551379030 SPN3083_CCS_CumulativeChargeTime 3083;
+BA_ "SPN" SG_ 2551379030 SPN3082_CCS_ChargingCurrentValue 3082;
+BA_ "GenSigStartValue" SG_ 2551379030 SPN3082_CCS_ChargingCurrentValue 4000;
+BA_ "SPN" SG_ 2551379030 SPN3081_CCS_VoltageOutputValue 3081;
+BA_ "SPN" SG_ 2618382068 SPN3079_BCS_ChargeTimeRest 3079;
+BA_ "SPN" SG_ 2618382068 SPN3078_BCS_SOC 3078;
+BA_ "GenSigStartValue" SG_ 2618382068 SPN3077_BCS_Max_CellVoltage_Num 0;
+BA_ "SPN" SG_ 2618382068 SPN3077_BCS_Max_CellVoltage_Num 3077;
+BA_ "SPN" SG_ 2618382068 SPN3077_BCS_Max_CellVoltage 3077;
+BA_ "SPN" SG_ 2618382068 SPN3075_BCS_ChargEVoltMeasure 3075;
+BA_ "GenSigStartValue" SG_ 2618382068 SPN3076_BCS_ChargeCurrentMeasure 4000;
+BA_ "SPN" SG_ 2618382068 SPN3076_BCS_ChargeCurrentMeasure 3076;
+BA_ "GenSigStartValue" SG_ 2551207668 SPN3073_BCL_CurrentRequirement 4000;
+BA_ "SPN" SG_ 2551207668 SPN3073_BCL_CurrentRequirement 3073;
+BA_ "SPN" SG_ 2551207668 SPN3072_BCL_VoltageRequirement 3072;
+BA_ "GenSigStartValue" SG_ 2551207668 SPN3074_BCL_ChargingModel 2;
+BA_ "SPN" SG_ 2551207668 SPN3074_BCL_ChargingModel 3074;
+BA_ "SPN" SG_ 2417685590 SPN3523_CST_PauseChrgErr_Vol 3523;
+BA_ "SPN" SG_ 2417685590 SPN3523_CST_PauseChrgErr_Cur 3523;
+BA_ "SPN" SG_ 2417685590 SPN3522_CST_PauseChrgflt_Tem 3522;
+BA_ "SPN" SG_ 2417685590 SPN3522_CST_PauseChrgflt_Sud 3522;
+BA_ "SPN" SG_ 2417685590 SPN3522_CST_PauseChrgflt_Qua 3522;
+BA_ "SPN" SG_ 2417685590 SPN3522_CST_PauseChrgflt_Oth 3522;
+BA_ "SPN" SG_ 2417685590 SPN3522_CST_PauseChrgflt_IntTem 3522;
+BA_ "SPN" SG_ 2417685590 SPN3522_CST_PauseChrgflt_Con 3522;
+BA_ "SPN" SG_ 2417685590 SPN3521_CST_PauseChrgRes_Active 3521;
+BA_ "SPN" SG_ 2417685590 SPN3521_CST_PauseChrgRes_Man 3521;
+BA_ "SPN" SG_ 2417685590 SPN3521_CST_PauseChrgRes_Flt 3521;
+BA_ "SPN" SG_ 2417685590 SPN3521_CST_PauseChrgRes_Cond 3521;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_Oth 3512;
+BA_ "SPN" SG_ 2417579764 SPN3513_BST_PauseChrgErr_Vol 3513;
+BA_ "SPN" SG_ 2417579764 SPN3513_BST_PauseChrgErr_Cur 3513;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_TPoint2 3512;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_BMS 3512;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_OutCon 3512;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_HVRelay 3512;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_Ins 3512;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_Con 3512;
+BA_ "SPN" SG_ 2417579764 SPN3512_BST_PauseChrgflt_OverT 3512;
+BA_ "SPN" SG_ 2417579764 SPN3511_BST_PauseChrgRes_ToVol 3511;
+BA_ "SPN" SG_ 2417579764 SPN3511_BST_PauseChrgRes_SOC 3511;
+BA_ "SPN" SG_ 2417579764 SPN3511_BST_PauseChrgRes_Active 3511;
+BA_ "SPN" SG_ 2417579764 SPN3511_BST_PauseChrgRes_CeVol 3511;
+BA_ "SPN" SG_ 2618775284 SPN3506_BSP_BatteryReserved16 3506;
+BA_ "SPN" SG_ 2618775284 SPN3505_BSP_BatteryReserved15 3505;
+BA_ "SPN" SG_ 2618775284 SPN3504_BSP_BatteryReserved14 3504;
+BA_ "SPN" SG_ 2618775284 SPN3503_BSP_BatteryReserved13 3503;
+BA_ "SPN" SG_ 2618775284 SPN3502_BSP_BatteryReserved12 3502;
+BA_ "SPN" SG_ 2618775284 SPN3501_BSP_BatteryReserved11 3501;
+BA_ "SPN" SG_ 2618775284 SPN3500_BSP_BatteryReserved10 3500;
+BA_ "SPN" SG_ 2618775284 SPN3499_BSP_BatteryReserved09 3499;
+BA_ "SPN" SG_ 2618775284 SPN3498_BSP_BatteryReserved08 3498;
+BA_ "SPN" SG_ 2618775284 SPN3497_BSP_BatteryReserved07 3497;
+BA_ "SPN" SG_ 2618775284 SPN3496_BSP_BatteryReserved06 3496;
+BA_ "SPN" SG_ 2618775284 SPN3495_BSP_BatteryReserved05 3495;
+BA_ "SPN" SG_ 2618775284 SPN3494_BSP_BatteryReserved04 3494;
+BA_ "SPN" SG_ 2618775284 SPN3493_BSP_BatteryReserved03 3493;
+BA_ "SPN" SG_ 2618775284 SPN3492_BSP_BatteryReserved02 3492;
+BA_ "SPN" SG_ 2618775284 SPN3491_BSP_BatteryReserved01 3491;
+BA_ "SPN" SG_ 2283795542 NOSPN_CEM_Other 3927;
+BA_ "SPN" SG_ 2283795542 SPN3926_CEM_BST_OverTim 3926;
+BA_ "SPN" SG_ 2283795542 SPN3927_CEM_BSD_OverTim 3927;
+BA_ "SPN" SG_ 2283795542 SPN3923_CEM_BRO_OverTim 3923;
+BA_ "SPN" SG_ 2283795542 SPN3921_CEM_BRM_OverTim 3921;
+BA_ "SPN" SG_ 2283795542 SPN3924_CEM_BCS_OverTim 3924;
+BA_ "SPN" SG_ 2283795542 SPN3922_CEM_BCP_OverTim 3922;
+BA_ "SPN" SG_ 2283795542 SPN3925_CEM_BCL_OverTim 3925;
+BA_ "SPN" SG_ 2552099926 SPN3612_CSD_Energy_OutPower 3612;
+BA_ "SPN" SG_ 2552099926 SPN3613_CSD_ChrgNum 3613;
+BA_ "SPN" SG_ 2552099926 SPN3611_CSD_ChrgTime 3611;
+BA_ "SPN" SG_ 2283689716 NOSPN_BEM_Other 3907;
+BA_ "SPN" SG_ 2283689716 SPN3902_BEM_RSPN2560AA_OverTim 3902;
+BA_ "SPN" SG_ 2283689716 SPN3901_BEM_RSPN256000_OverTim 3901;
+BA_ "SPN" SG_ 2283689716 SPN3903_BEM_CTSCML_OverTim 3903;
+BA_ "SPN" SG_ 2283689716 SPN3906_BEM_CST_OverTim 3906;
+BA_ "SPN" SG_ 2283689716 SPN3907_BEM_CSD_OverTim 3907;
+BA_ "SPN" SG_ 2283689716 SPN3904_BEM_CRO_OverTim 3904;
+BA_ "SPN" SG_ 2283689716 SPN3905_BEM_CCS_OverTim 3905;
+BA_ "SPN" SG_ 2551994100 SPN3604_BSD_MinBatT 3604;
+BA_ "SPN" SG_ 2551994100 SPN3605_BSD_MaxBatT 3605;
+BA_ "SPN" SG_ 2551994100 SPN3602_BSD_MinCellU 3602;
+BA_ "SPN" SG_ 2551994100 SPN3603_BSD_MaxCellU 3603;
+BA_ "SPN" SG_ 2551994100 SPN3601_BSD_SOC_end 3601;
+BA_ "SPN" SG_ 2618644212 SPN3101_BMV_CellVoltage1 3101;
+BA_ "SPN" SG_ 2618644212 SPN3102_BMV_CellVoltage2 3102;
+BA_ "SPN" SG_ 2618644212 SPN3103_BMV_CellVoltage3 3103;
+BA_ "SPN" SG_ 2618644212 SPN3104_BMV_CellVoltage4 3104;
+BA_ "SPN" SG_ 2618644212 SPN3105_BMV_CellVoltage5 3105;
+BA_ "SPN" SG_ 2618644212 SPN3106_BMV_CellVoltage6 3106;
+BA_ "SPN" SG_ 2618644212 SPN3107_BMV_CellVoltage7 3107;
+BA_ "SPN" SG_ 2618644212 SPN3108_BMV_CellVoltage8 3108;
+BA_ "SPN" SG_ 2618644212 SPN3109_BMV_CellVoltage9 3109;
+BA_ "SPN" SG_ 2618644212 SPN3110_BMV_CellVoltage10 3110;
+BA_ "SPN" SG_ 2618644212 SPN3111_BMV_CellVoltage11 3111;
+BA_ "SPN" SG_ 2618644212 SPN3112_BMV_CellVoltage12 3112;
+BA_ "SPN" SG_ 2618644212 SPN3113_BMV_CellVoltage13 3113;
+BA_ "SPN" SG_ 2618644212 SPN3114_BMV_CellVoltage14 3114;
+BA_ "SPN" SG_ 2618644212 SPN3115_BMV_CellVoltage15 3115;
+BA_ "SPN" SG_ 2618644212 SPN3116_BMV_CellVoltage16 3116;
+BA_ "SPN" SG_ 2618644212 SPN3117_BMV_CellVoltage17 3117;
+BA_ "SPN" SG_ 2618644212 SPN3118_BMV_CellVoltage18 3118;
+BA_ "SPN" SG_ 2618644212 SPN3119_BMV_CellVoltage19 3119;
+BA_ "SPN" SG_ 2618644212 SPN3120_BMV_CellVoltage20 3120;
+BA_ "SPN" SG_ 2618644212 SPN3121_BMV_CellVoltage21 3121;
+BA_ "SPN" SG_ 2618644212 SPN3122_BMV_CellVoltage22 3122;
+BA_ "SPN" SG_ 2618644212 SPN3123_BMV_CellVoltage23 3123;
+BA_ "SPN" SG_ 2618644212 SPN3124_BMV_CellVoltage24 3124;
+BA_ "SPN" SG_ 2618644212 SPN3125_BMV_CellVoltage25 3125;
+BA_ "SPN" SG_ 2618644212 SPN3126_BMV_CellVoltage26 3126;
+BA_ "SPN" SG_ 2618644212 SPN3127_BMV_CellVoltage27 3127;
+BA_ "SPN" SG_ 2618644212 SPN3128_BMV_CellVoltage28 3128;
+BA_ "SPN" SG_ 2618644212 SPN3129_BMV_CellVoltage29 3129;
+BA_ "SPN" SG_ 2618644212 SPN3130_BMV_CellVoltage30 3130;
+BA_ "SPN" SG_ 2618644212 SPN3131_BMV_CellVoltage31 3131;
+BA_ "SPN" SG_ 2618644212 SPN3132_BMV_CellVoltage32 3132;
+BA_ "SPN" SG_ 2618644212 SPN3133_BMV_CellVoltage33 3133;
+BA_ "SPN" SG_ 2618644212 SPN3134_BMV_CellVoltage34 3134;
+BA_ "SPN" SG_ 2618644212 SPN3135_BMV_CellVoltage35 3135;
+BA_ "SPN" SG_ 2618644212 SPN3136_BMV_CellVoltage36 3136;
+BA_ "SPN" SG_ 2618644212 SPN3137_BMV_CellVoltage37 3137;
+BA_ "SPN" SG_ 2618644212 SPN3138_BMV_CellVoltage38 3138;
+BA_ "SPN" SG_ 2618644212 SPN3139_BMV_CellVoltage39 3139;
+BA_ "SPN" SG_ 2618644212 SPN3140_BMV_CellVoltage40 3140;
+BA_ "SPN" SG_ 2618644212 SPN3141_BMV_CellVoltage41 3141;
+BA_ "SPN" SG_ 2618644212 SPN3142_BMV_CellVoltage42 3142;
+BA_ "SPN" SG_ 2618644212 SPN3143_BMV_CellVoltage43 3143;
+BA_ "SPN" SG_ 2618644212 SPN3144_BMV_CellVoltage44 3144;
+BA_ "SPN" SG_ 2618644212 SPN3145_BMV_CellVoltage45 3145;
+BA_ "SPN" SG_ 2618644212 SPN3146_BMV_CellVoltage46 3146;
+BA_ "SPN" SG_ 2618644212 SPN3147_BMV_CellVoltage47 3147;
+BA_ "SPN" SG_ 2618644212 SPN3148_BMV_CellVoltage48 3148;
+BA_ "SPN" SG_ 2618644212 SPN3149_BMV_CellVoltage49 3149;
+BA_ "SPN" SG_ 2618644212 SPN3150_BMV_CellVoltage50 3150;
+BA_ "SPN" SG_ 2618644212 SPN3151_BMV_CellVoltage51 3151;
+BA_ "SPN" SG_ 2618644212 SPN3152_BMV_CellVoltage52 3152;
+BA_ "SPN" SG_ 2618644212 SPN3153_BMV_CellVoltage53 3153;
+BA_ "SPN" SG_ 2618644212 SPN3154_BMV_CellVoltage54 3154;
+BA_ "SPN" SG_ 2618644212 SPN3155_BMV_CellVoltage55 3155;
+BA_ "SPN" SG_ 2618644212 SPN3156_BMV_CellVoltage56 3156;
+BA_ "SPN" SG_ 2618644212 SPN3157_BMV_CellVoltage57 3157;
+BA_ "SPN" SG_ 2618644212 SPN3158_BMV_CellVoltage58 3158;
+BA_ "SPN" SG_ 2618644212 SPN3159_BMV_CellVoltage59 3159;
+BA_ "SPN" SG_ 2618644212 SPN3160_BMV_CellVoltage60 3160;
+BA_ "SPN" SG_ 2618644212 SPN3161_BMV_CellVoltage61 3161;
+BA_ "SPN" SG_ 2618644212 SPN3162_BMV_CellVoltage62 3162;
+BA_ "SPN" SG_ 2618644212 SPN3163_BMV_CellVoltage63 3163;
+BA_ "SPN" SG_ 2618644212 SPN3164_BMV_CellVoltage64 3164;
+BA_ "SPN" SG_ 2618644212 SPN3165_BMV_CellVoltage65 3165;
+BA_ "SPN" SG_ 2618644212 SPN3166_BMV_CellVoltage66 3166;
+BA_ "SPN" SG_ 2618644212 SPN3167_BMV_CellVoltage67 3167;
+BA_ "SPN" SG_ 2618644212 SPN3168_BMV_CellVoltage68 3168;
+BA_ "SPN" SG_ 2618644212 SPN3169_BMV_CellVoltage69 3169;
+BA_ "SPN" SG_ 2618644212 SPN3170_BMV_CellVoltage70 3170;
+BA_ "SPN" SG_ 2618644212 SPN3171_BMV_CellVoltage71 3171;
+BA_ "SPN" SG_ 2618644212 SPN3172_BMV_CellVoltage72 3172;
+BA_ "SPN" SG_ 2618644212 SPN3173_BMV_CellVoltage73 3173;
+BA_ "SPN" SG_ 2618644212 SPN3174_BMV_CellVoltage74 3174;
+BA_ "SPN" SG_ 2618644212 SPN3175_BMV_CellVoltage75 3175;
+BA_ "SPN" SG_ 2618644212 SPN3176_BMV_CellVoltage76 3176;
+BA_ "SPN" SG_ 2618644212 SPN3177_BMV_CellVoltage77 3177;
+BA_ "SPN" SG_ 2618644212 SPN3178_BMV_CellVoltage78 3178;
+BA_ "SPN" SG_ 2618644212 SPN3179_BMV_CellVoltage79 3179;
+BA_ "SPN" SG_ 2618644212 SPN3180_BMV_CellVoltage80 3180;
+BA_ "SPN" SG_ 2618644212 SPN3181_BMV_CellVoltage81 3181;
+BA_ "SPN" SG_ 2618644212 SPN3182_BMV_CellVoltage82 3182;
+BA_ "SPN" SG_ 2618644212 SPN3183_BMV_CellVoltage83 3183;
+BA_ "SPN" SG_ 2618644212 SPN3184_BMV_CellVoltage84 3184;
+BA_ "SPN" SG_ 2618644212 SPN3185_BMV_CellVoltage85 3185;
+BA_ "SPN" SG_ 2618644212 SPN3186_BMV_CellVoltage86 3186;
+BA_ "SPN" SG_ 2618644212 SPN3187_BMV_CellVoltage87 3187;
+BA_ "SPN" SG_ 2618644212 SPN3188_BMV_CellVoltage88 3188;
+BA_ "SPN" SG_ 2618644212 SPN3189_BMV_CellVoltage89 3189;
+BA_ "SPN" SG_ 2618644212 SPN3190_BMV_CellVoltage90 3190;
+BA_ "SPN" SG_ 2618644212 SPN3191_BMV_CellVoltage91 3191;
+BA_ "SPN" SG_ 2618644212 SPN3192_BMV_CellVoltage92 3192;
+BA_ "SPN" SG_ 2618644212 SPN3193_BMV_CellVoltage93 3193;
+BA_ "SPN" SG_ 2618644212 SPN3194_BMV_CellVoltage94 3194;
+BA_ "SPN" SG_ 2618644212 SPN3195_BMV_CellVoltage95 3195;
+BA_ "SPN" SG_ 2618644212 SPN3196_BMV_CellVoltage96 3196;
+BA_ "SPN" SG_ 2618644212 SPN3197_BMV_CellVoltage97 3197;
+BA_ "SPN" SG_ 2618644212 SPN3198_BMV_CellVoltage98 3198;
+BA_ "SPN" SG_ 2618644212 SPN3199_BMV_CellVoltage99 3199;
+BA_ "SPN" SG_ 2618644212 SPN3200_BMV_CellVoltage100 3200;
+BA_ "SPN" SG_ 2618644212 SPN3201_BMV_CellVoltage101 3201;
+BA_ "SPN" SG_ 2618644212 SPN3202_BMV_CellVoltage102 3202;
+BA_ "SPN" SG_ 2618644212 SPN3203_BMV_CellVoltage103 3203;
+BA_ "SPN" SG_ 2618644212 SPN3204_BMV_CellVoltage104 3204;
+BA_ "SPN" SG_ 2618644212 SPN3205_BMV_CellVoltage105 3205;
+BA_ "SPN" SG_ 2618644212 SPN3206_BMV_CellVoltage106 3206;
+BA_ "SPN" SG_ 2618644212 SPN3207_BMV_CellVoltage107 3207;
+BA_ "SPN" SG_ 2618644212 SPN3208_BMV_CellVoltage108 3208;
+BA_ "SPN" SG_ 2618644212 SPN3209_BMV_CellVoltage109 3209;
+BA_ "SPN" SG_ 2618644212 SPN3210_BMV_CellVoltage110 3210;
+BA_ "SPN" SG_ 2618644212 SPN3211_BMV_CellVoltage111 3211;
+BA_ "SPN" SG_ 2618644212 SPN3212_BMV_CellVoltage112 3212;
+BA_ "SPN" SG_ 2618644212 SPN3213_BMV_CellVoltage113 3213;
+BA_ "SPN" SG_ 2618644212 SPN3214_BMV_CellVoltage114 3214;
+BA_ "SPN" SG_ 2618644212 SPN3215_BMV_CellVoltage115 3215;
+BA_ "SPN" SG_ 2618644212 SPN3216_BMV_CellVoltage116 3216;
+BA_ "SPN" SG_ 2618644212 SPN3217_BMV_CellVoltage117 3217;
+BA_ "SPN" SG_ 2618644212 SPN3218_BMV_CellVoltage118 3218;
+BA_ "SPN" SG_ 2618644212 SPN3219_BMV_CellVoltage119 3219;
+BA_ "SPN" SG_ 2618644212 SPN3220_BMV_CellVoltage120 3220;
+BA_ "SPN" SG_ 2618644212 SPN3221_BMV_CellVoltage121 3221;
+BA_ "SPN" SG_ 2618644212 SPN3222_BMV_CellVoltage122 3222;
+BA_ "SPN" SG_ 2618644212 SPN3223_BMV_CellVoltage123 3223;
+BA_ "SPN" SG_ 2618644212 SPN3224_BMV_CellVoltage124 3224;
+BA_ "SPN" SG_ 2618644212 SPN3225_BMV_CellVoltage125 3225;
+BA_ "SPN" SG_ 2618644212 SPN3226_BMV_CellVoltage126 3226;
+BA_ "SPN" SG_ 2618644212 SPN3227_BMV_CellVoltage127 3227;
+BA_ "SPN" SG_ 2618644212 SPN3228_BMV_CellVoltage128 3228;
+BA_ "SPN" SG_ 2618644212 SPN3229_BMV_CellVoltage129 3229;
+BA_ "SPN" SG_ 2618644212 SPN3230_BMV_CellVoltage130 3230;
+BA_ "SPN" SG_ 2618644212 SPN3231_BMV_CellVoltage131 3231;
+BA_ "SPN" SG_ 2618644212 SPN3232_BMV_CellVoltage132 3232;
+BA_ "SPN" SG_ 2618644212 SPN3233_BMV_CellVoltage133 3233;
+BA_ "SPN" SG_ 2618644212 SPN3234_BMV_CellVoltage134 3234;
+BA_ "SPN" SG_ 2618644212 SPN3235_BMV_CellVoltage135 3235;
+BA_ "SPN" SG_ 2618644212 SPN3236_BMV_CellVoltage136 3236;
+BA_ "SPN" SG_ 2618644212 SPN3237_BMV_CellVoltage137 3237;
+BA_ "SPN" SG_ 2618644212 SPN3238_BMV_CellVoltage138 3238;
+BA_ "SPN" SG_ 2618644212 SPN3239_BMV_CellVoltage139 3239;
+BA_ "SPN" SG_ 2618644212 SPN3240_BMV_CellVoltage140 3240;
+BA_ "SPN" SG_ 2618644212 SPN3241_BMV_CellVoltage141 3241;
+BA_ "SPN" SG_ 2618644212 SPN3242_BMV_CellVoltage142 3242;
+BA_ "SPN" SG_ 2618644212 SPN3243_BMV_CellVoltage143 3243;
+BA_ "SPN" SG_ 2618644212 SPN3244_BMV_CellVoltage144 3244;
+BA_ "SPN" SG_ 2618644212 SPN3245_BMV_CellVoltage145 3245;
+BA_ "SPN" SG_ 2618644212 SPN3246_BMV_CellVoltage146 3246;
+BA_ "SPN" SG_ 2618644212 SPN3247_BMV_CellVoltage147 3247;
+BA_ "SPN" SG_ 2618644212 SPN3248_BMV_CellVoltage148 3248;
+BA_ "SPN" SG_ 2618644212 SPN3249_BMV_CellVoltage149 3249;
+BA_ "SPN" SG_ 2618644212 SPN3250_BMV_CellVoltage150 3250;
+BA_ "SPN" SG_ 2618644212 SPN3251_BMV_CellVoltage151 3251;
+BA_ "SPN" SG_ 2618644212 SPN3252_BMV_CellVoltage152 3252;
+BA_ "SPN" SG_ 2618644212 SPN3253_BMV_CellVoltage153 3253;
+BA_ "SPN" SG_ 2618644212 SPN3254_BMV_CellVoltage154 3254;
+BA_ "SPN" SG_ 2618644212 SPN3255_BMV_CellVoltage155 3255;
+BA_ "SPN" SG_ 2618644212 SPN3256_BMV_CellVoltage156 3256;
+BA_ "SPN" SG_ 2618644212 SPN3257_BMV_CellVoltage157 3257;
+BA_ "SPN" SG_ 2618644212 SPN3258_BMV_CellVoltage158 3258;
+BA_ "SPN" SG_ 2618644212 SPN3259_BMV_CellVoltage159 3259;
+BA_ "SPN" SG_ 2618644212 SPN3260_BMV_CellVoltage160 3260;
+BA_ "SPN" SG_ 2618644212 SPN3261_BMV_CellVoltage161 3261;
+BA_ "SPN" SG_ 2618644212 SPN3262_BMV_CellVoltage162 3262;
+BA_ "SPN" SG_ 2618644212 SPN3263_BMV_CellVoltage163 3263;
+BA_ "SPN" SG_ 2618644212 SPN3264_BMV_CellVoltage164 3264;
+BA_ "SPN" SG_ 2618644212 SPN3265_BMV_CellVoltage165 3265;
+BA_ "SPN" SG_ 2618644212 SPN3266_BMV_CellVoltage166 3266;
+BA_ "SPN" SG_ 2618644212 SPN3267_BMV_CellVoltage167 3267;
+BA_ "SPN" SG_ 2618644212 SPN3268_BMV_CellVoltage168 3268;
+BA_ "SPN" SG_ 2618644212 SPN3269_BMV_CellVoltage169 3269;
+BA_ "SPN" SG_ 2618644212 SPN3270_BMV_CellVoltage170 3270;
+BA_ "SPN" SG_ 2618644212 SPN3271_BMV_CellVoltage171 3271;
+BA_ "SPN" SG_ 2618644212 SPN3272_BMV_CellVoltage172 3272;
+BA_ "SPN" SG_ 2618644212 SPN3273_BMV_CellVoltage173 3273;
+BA_ "SPN" SG_ 2618644212 SPN3274_BMV_CellVoltage174 3274;
+BA_ "SPN" SG_ 2618644212 SPN3275_BMV_CellVoltage175 3275;
+BA_ "SPN" SG_ 2618644212 SPN3276_BMV_CellVoltage176 3276;
+BA_ "SPN" SG_ 2618644212 SPN3277_BMV_CellVoltage177 3277;
+BA_ "SPN" SG_ 2618644212 SPN3278_BMV_CellVoltage178 3278;
+BA_ "SPN" SG_ 2618644212 SPN3279_BMV_CellVoltage179 3279;
+BA_ "SPN" SG_ 2618644212 SPN3280_BMV_CellVoltage180 3280;
+BA_ "SPN" SG_ 2618644212 SPN3281_BMV_CellVoltage181 3281;
+BA_ "SPN" SG_ 2618644212 SPN3282_BMV_CellVoltage182 3282;
+BA_ "SPN" SG_ 2618644212 SPN3283_BMV_CellVoltage183 3283;
+BA_ "SPN" SG_ 2618644212 SPN3284_BMV_CellVoltage184 3284;
+BA_ "SPN" SG_ 2618644212 SPN3285_BMV_CellVoltage185 3285;
+BA_ "SPN" SG_ 2618644212 SPN3286_BMV_CellVoltage186 3286;
+BA_ "SPN" SG_ 2618644212 SPN3287_BMV_CellVoltage187 3287;
+BA_ "SPN" SG_ 2618644212 SPN3288_BMV_CellVoltage188 3288;
+BA_ "SPN" SG_ 2618644212 SPN3289_BMV_CellVoltage189 3289;
+BA_ "SPN" SG_ 2618644212 SPN3290_BMV_CellVoltage190 3290;
+BA_ "SPN" SG_ 2618644212 SPN3291_BMV_CellVoltage191 3291;
+BA_ "SPN" SG_ 2618644212 SPN3292_BMV_CellVoltage192 3292;
+BA_ "SPN" SG_ 2618644212 SPN3293_BMV_CellVoltage193 3293;
+BA_ "SPN" SG_ 2618644212 SPN3294_BMV_CellVoltage194 3294;
+BA_ "SPN" SG_ 2618644212 SPN3295_BMV_CellVoltage195 3295;
+BA_ "SPN" SG_ 2618644212 SPN3296_BMV_CellVoltage196 3296;
+BA_ "SPN" SG_ 2618644212 SPN3297_BMV_CellVoltage197 3297;
+BA_ "SPN" SG_ 2618644212 SPN3298_BMV_CellVoltage198 3298;
+BA_ "SPN" SG_ 2618644212 SPN3299_BMV_CellVoltage199 3299;
+BA_ "SPN" SG_ 2618644212 SPN3300_BMV_CellVoltage200 3300;
+BA_ "SPN" SG_ 2618644212 SPN3301_BMV_CellVoltage201 3301;
+BA_ "SPN" SG_ 2618644212 SPN3302_BMV_CellVoltage202 3302;
+BA_ "SPN" SG_ 2618644212 SPN3303_BMV_CellVoltage203 3303;
+BA_ "SPN" SG_ 2618644212 SPN3304_BMV_CellVoltage204 3304;
+BA_ "SPN" SG_ 2618644212 SPN3305_BMV_CellVoltage205 3305;
+BA_ "SPN" SG_ 2618644212 SPN3306_BMV_CellVoltage206 3306;
+BA_ "SPN" SG_ 2618644212 SPN3307_BMV_CellVoltage207 3307;
+BA_ "SPN" SG_ 2618644212 SPN3308_BMV_CellVoltage208 3308;
+BA_ "SPN" SG_ 2618644212 SPN3309_BMV_CellVoltage209 3309;
+BA_ "SPN" SG_ 2618644212 SPN3310_BMV_CellVoltage210 3310;
+BA_ "SPN" SG_ 2618644212 SPN3311_BMV_CellVoltage211 3311;
+BA_ "SPN" SG_ 2618644212 SPN3312_BMV_CellVoltage212 3312;
+BA_ "SPN" SG_ 2618644212 SPN3313_BMV_CellVoltage213 3313;
+BA_ "SPN" SG_ 2618644212 SPN3314_BMV_CellVoltage214 3314;
+BA_ "SPN" SG_ 2618644212 SPN3315_BMV_CellVoltage215 3315;
+BA_ "SPN" SG_ 2618644212 SPN3316_BMV_CellVoltage216 3316;
+BA_ "SPN" SG_ 2618644212 SPN3317_BMV_CellVoltage217 3317;
+BA_ "SPN" SG_ 2618644212 SPN3318_BMV_CellVoltage218 3318;
+BA_ "SPN" SG_ 2618644212 SPN3319_BMV_CellVoltage219 3319;
+BA_ "SPN" SG_ 2618644212 SPN3320_BMV_CellVoltage220 3320;
+BA_ "SPN" SG_ 2618644212 SPN3321_BMV_CellVoltage221 3321;
+BA_ "SPN" SG_ 2618644212 SPN3322_BMV_CellVoltage222 3322;
+BA_ "SPN" SG_ 2618644212 SPN3323_BMV_CellVoltage223 3323;
+BA_ "SPN" SG_ 2618644212 SPN3324_BMV_CellVoltage224 3324;
+BA_ "SPN" SG_ 2618644212 SPN3325_BMV_CellVoltage225 3325;
+BA_ "SPN" SG_ 2618644212 SPN3326_BMV_CellVoltage226 3326;
+BA_ "SPN" SG_ 2618644212 SPN3327_BMV_CellVoltage227 3327;
+BA_ "SPN" SG_ 2618644212 SPN3328_BMV_CellVoltage228 3328;
+BA_ "SPN" SG_ 2618644212 SPN3329_BMV_CellVoltage229 3329;
+BA_ "SPN" SG_ 2618644212 SPN3330_BMV_CellVoltage230 3330;
+BA_ "SPN" SG_ 2618644212 SPN3331_BMV_CellVoltage231 3331;
+BA_ "SPN" SG_ 2618644212 SPN3332_BMV_CellVoltage232 3332;
+BA_ "SPN" SG_ 2618644212 SPN3333_BMV_CellVoltage233 3333;
+BA_ "SPN" SG_ 2618644212 SPN3334_BMV_CellVoltage234 3334;
+BA_ "SPN" SG_ 2618644212 SPN3335_BMV_CellVoltage235 3335;
+BA_ "SPN" SG_ 2618644212 SPN3336_BMV_CellVoltage236 3336;
+BA_ "SPN" SG_ 2618644212 SPN3337_BMV_CellVoltage237 3337;
+BA_ "SPN" SG_ 2618644212 SPN3338_BMV_CellVoltage238 3338;
+BA_ "SPN" SG_ 2618644212 SPN3339_BMV_CellVoltage239 3339;
+BA_ "SPN" SG_ 2618644212 SPN3340_BMV_CellVoltage240 3340;
+BA_ "SPN" SG_ 2618644212 SPN3341_BMV_CellVoltage241 3341;
+BA_ "SPN" SG_ 2618644212 SPN3342_BMV_CellVoltage242 3342;
+BA_ "SPN" SG_ 2618644212 SPN3343_BMV_CellVoltage243 3343;
+BA_ "SPN" SG_ 2618644212 SPN3344_BMV_CellVoltage244 3344;
+BA_ "SPN" SG_ 2618644212 SPN3345_BMV_CellVoltage245 3345;
+BA_ "SPN" SG_ 2618644212 SPN3346_BMV_CellVoltage246 3346;
+BA_ "SPN" SG_ 2618644212 SPN3347_BMV_CellVoltage247 3347;
+BA_ "SPN" SG_ 2618644212 SPN3348_BMV_CellVoltage248 3348;
+BA_ "SPN" SG_ 2618644212 SPN3349_BMV_CellVoltage249 3349;
+BA_ "SPN" SG_ 2618644212 SPN3350_BMV_CellVoltage250 3350;
+BA_ "SPN" SG_ 2618644212 SPN3351_BMV_CellVoltage251 3351;
+BA_ "SPN" SG_ 2618644212 SPN3352_BMV_CellVoltage252 3352;
+BA_ "SPN" SG_ 2618644212 SPN3353_BMV_CellVoltage253 3353;
+BA_ "SPN" SG_ 2618644212 SPN3354_BMV_CellVoltage254 3354;
+BA_ "SPN" SG_ 2618644212 SPN3355_BMV_CellVoltage255 3355;
+BA_ "SPN" SG_ 2618644212 SPN3356_BMV_CellVoltage256 3356;
+BA_ "SPN" SG_ 2618709748 SPN3361_BMT_Temperature1 3361;
+BA_ "SPN" SG_ 2618709748 SPN3362_BMT_Temperature2 3362;
+BA_ "SPN" SG_ 2618709748 SPN3363_BMT_Temperature3 3363;
+BA_ "SPN" SG_ 2618709748 SPN3364_BMT_Temperature4 3364;
+BA_ "SPN" SG_ 2618709748 SPN3365_BMT_Temperature5 3365;
+BA_ "SPN" SG_ 2618709748 SPN3366_BMT_Temperature6 3366;
+BA_ "SPN" SG_ 2618709748 SPN3367_BMT_Temperature7 3367;
+BA_ "SPN" SG_ 2618709748 SPN3368_BMT_Temperature8 3368;
+BA_ "SPN" SG_ 2618709748 SPN3369_BMT_Temperature9 3369;
+BA_ "SPN" SG_ 2618709748 SPN3370_BMT_Temperature10 3370;
+BA_ "SPN" SG_ 2618709748 SPN3371_BMT_Temperature11 3371;
+BA_ "SPN" SG_ 2618709748 SPN3372_BMT_Temperature12 3372;
+BA_ "SPN" SG_ 2618709748 SPN3373_BMT_Temperature13 3373;
+BA_ "SPN" SG_ 2618709748 SPN3374_BMT_Temperature14 3374;
+BA_ "SPN" SG_ 2618709748 SPN3375_BMT_Temperature15 3375;
+BA_ "SPN" SG_ 2618709748 SPN3376_BMT_Temperature16 3376;
+BA_ "SPN" SG_ 2618709748 SPN3377_BMT_Temperature17 3377;
+BA_ "SPN" SG_ 2618709748 SPN3378_BMT_Temperature18 3378;
+BA_ "SPN" SG_ 2618709748 SPN3379_BMT_Temperature19 3379;
+BA_ "SPN" SG_ 2618709748 SPN3380_BMT_Temperature20 3380;
+BA_ "SPN" SG_ 2618709748 SPN3381_BMT_Temperature21 3381;
+BA_ "SPN" SG_ 2618709748 SPN3382_BMT_Temperature22 3382;
+BA_ "SPN" SG_ 2618709748 SPN3383_BMT_Temperature23 3383;
+BA_ "SPN" SG_ 2618709748 SPN3384_BMT_Temperature24 3384;
+BA_ "SPN" SG_ 2618709748 SPN3385_BMT_Temperature25 3385;
+BA_ "SPN" SG_ 2618709748 SPN3386_BMT_Temperature26 3386;
+BA_ "SPN" SG_ 2618709748 SPN3387_BMT_Temperature27 3387;
+BA_ "SPN" SG_ 2618709748 SPN3388_BMT_Temperature28 3388;
+BA_ "SPN" SG_ 2618709748 SPN3389_BMT_Temperature29 3389;
+BA_ "SPN" SG_ 2618709748 SPN3390_BMT_Temperature30 3390;
+BA_ "SPN" SG_ 2618709748 SPN3391_BMT_Temperature31 3391;
+BA_ "SPN" SG_ 2618709748 SPN3392_BMT_Temperature32 3392;
+BA_ "SPN" SG_ 2618709748 SPN3393_BMT_Temperature33 3393;
+BA_ "SPN" SG_ 2618709748 SPN3394_BMT_Temperature34 3394;
+BA_ "SPN" SG_ 2618709748 SPN3395_BMT_Temperature35 3395;
+BA_ "SPN" SG_ 2618709748 SPN3396_BMT_Temperature36 3396;
+BA_ "SPN" SG_ 2618709748 SPN3397_BMT_Temperature37 3397;
+BA_ "SPN" SG_ 2618709748 SPN3398_BMT_Temperature38 3398;
+BA_ "SPN" SG_ 2618709748 SPN3399_BMT_Temperature39 3399;
+BA_ "SPN" SG_ 2618709748 SPN3400_BMT_Temperature40 3400;
+BA_ "SPN" SG_ 2618709748 SPN3401_BMT_Temperature41 3401;
+BA_ "SPN" SG_ 2618709748 SPN3402_BMT_Temperature42 3402;
+BA_ "SPN" SG_ 2618709748 SPN3403_BMT_Temperature43 3403;
+BA_ "SPN" SG_ 2618709748 SPN3404_BMT_Temperature44 3404;
+BA_ "SPN" SG_ 2618709748 SPN3405_BMT_Temperature45 3405;
+BA_ "SPN" SG_ 2618709748 SPN3406_BMT_Temperature46 3406;
+BA_ "SPN" SG_ 2618709748 SPN3407_BMT_Temperature47 3407;
+BA_ "SPN" SG_ 2618709748 SPN3408_BMT_Temperature48 3408;
+BA_ "SPN" SG_ 2618709748 SPN3409_BMT_Temperature49 3409;
+BA_ "SPN" SG_ 2618709748 SPN3410_BMT_Temperature50 3410;
+BA_ "SPN" SG_ 2618709748 SPN3411_BMT_Temperature51 3411;
+BA_ "SPN" SG_ 2618709748 SPN3412_BMT_Temperature52 3412;
+BA_ "SPN" SG_ 2618709748 SPN3413_BMT_Temperature53 3413;
+BA_ "SPN" SG_ 2618709748 SPN3414_BMT_Temperature54 3414;
+BA_ "SPN" SG_ 2618709748 SPN3415_BMT_Temperature55 3415;
+BA_ "SPN" SG_ 2618709748 SPN3416_BMT_Temperature56 3416;
+BA_ "SPN" SG_ 2618709748 SPN3417_BMT_Temperature57 3417;
+BA_ "SPN" SG_ 2618709748 SPN3418_BMT_Temperature58 3418;
+BA_ "SPN" SG_ 2618709748 SPN3419_BMT_Temperature59 3419;
+BA_ "SPN" SG_ 2618709748 SPN3420_BMT_Temperature60 3420;
+BA_ "SPN" SG_ 2618709748 SPN3421_BMT_Temperature61 3421;
+BA_ "SPN" SG_ 2618709748 SPN3422_BMT_Temperature62 3422;
+BA_ "SPN" SG_ 2618709748 SPN3423_BMT_Temperature63 3423;
+BA_ "SPN" SG_ 2618709748 SPN3424_BMT_Temperature64 3424;
+BA_ "SPN" SG_ 2618709748 SPN3425_BMT_Temperature65 3425;
+BA_ "SPN" SG_ 2618709748 SPN3426_BMT_Temperature66 3426;
+BA_ "SPN" SG_ 2618709748 SPN3427_BMT_Temperature67 3427;
+BA_ "SPN" SG_ 2618709748 SPN3428_BMT_Temperature68 3428;
+BA_ "SPN" SG_ 2618709748 SPN3429_BMT_Temperature69 3429;
+BA_ "SPN" SG_ 2618709748 SPN3430_BMT_Temperature70 3430;
+BA_ "SPN" SG_ 2618709748 SPN3431_BMT_Temperature71 3431;
+BA_ "SPN" SG_ 2618709748 SPN3432_BMT_Temperature72 3432;
+BA_ "SPN" SG_ 2618709748 SPN3433_BMT_Temperature73 3433;
+BA_ "SPN" SG_ 2618709748 SPN3434_BMT_Temperature74 3434;
+BA_ "SPN" SG_ 2618709748 SPN3435_BMT_Temperature75 3435;
+BA_ "SPN" SG_ 2618709748 SPN3436_BMT_Temperature76 3436;
+BA_ "SPN" SG_ 2618709748 SPN3437_BMT_Temperature77 3437;
+BA_ "SPN" SG_ 2618709748 SPN3438_BMT_Temperature78 3438;
+BA_ "SPN" SG_ 2618709748 SPN3439_BMT_Temperature79 3439;
+BA_ "SPN" SG_ 2618709748 SPN3440_BMT_Temperature80 3440;
+BA_ "SPN" SG_ 2618709748 SPN3441_BMT_Temperature81 3441;
+BA_ "SPN" SG_ 2618709748 SPN3442_BMT_Temperature82 3442;
+BA_ "SPN" SG_ 2618709748 SPN3443_BMT_Temperature83 3443;
+BA_ "SPN" SG_ 2618709748 SPN3444_BMT_Temperature84 3444;
+BA_ "SPN" SG_ 2618709748 SPN3445_BMT_Temperature85 3445;
+BA_ "SPN" SG_ 2618709748 SPN3446_BMT_Temperature86 3446;
+BA_ "SPN" SG_ 2618709748 SPN3447_BMT_Temperature87 3447;
+BA_ "SPN" SG_ 2618709748 SPN3448_BMT_Temperature88 3448;
+BA_ "SPN" SG_ 2618709748 SPN3449_BMT_Temperature89 3449;
+BA_ "SPN" SG_ 2618709748 SPN3450_BMT_Temperature90 3450;
+BA_ "SPN" SG_ 2618709748 SPN3451_BMT_Temperature91 3451;
+BA_ "SPN" SG_ 2618709748 SPN3452_BMT_Temperature92 3452;
+BA_ "SPN" SG_ 2618709748 SPN3453_BMT_Temperature93 3453;
+BA_ "SPN" SG_ 2618709748 SPN3454_BMT_Temperature94 3454;
+BA_ "SPN" SG_ 2618709748 SPN3455_BMT_Temperature95 3455;
+BA_ "SPN" SG_ 2618709748 SPN3456_BMT_Temperature96 3456;
+BA_ "SPN" SG_ 2618709748 SPN3457_BMT_Temperature97 3457;
+BA_ "SPN" SG_ 2618709748 SPN3458_BMT_Temperature98 3458;
+BA_ "SPN" SG_ 2618709748 SPN3459_BMT_Temperature99 3459;
+BA_ "SPN" SG_ 2618709748 SPN3460_BMT_Temperature100 3460;
+BA_ "SPN" SG_ 2618709748 SPN3461_BMT_Temperature101 3461;
+BA_ "SPN" SG_ 2618709748 SPN3462_BMT_Temperature102 3462;
+BA_ "SPN" SG_ 2618709748 SPN3463_BMT_Temperature103 3463;
+BA_ "SPN" SG_ 2618709748 SPN3464_BMT_Temperature104 3464;
+BA_ "SPN" SG_ 2618709748 SPN3465_BMT_Temperature105 3465;
+BA_ "SPN" SG_ 2618709748 SPN3466_BMT_Temperature106 3466;
+BA_ "SPN" SG_ 2618709748 SPN3467_BMT_Temperature107 3467;
+BA_ "SPN" SG_ 2618709748 SPN3468_BMT_Temperature108 3468;
+BA_ "SPN" SG_ 2618709748 SPN3469_BMT_Temperature109 3469;
+BA_ "SPN" SG_ 2618709748 SPN3470_BMT_Temperature110 3470;
+BA_ "SPN" SG_ 2618709748 SPN3471_BMT_Temperature111 3471;
+BA_ "SPN" SG_ 2618709748 SPN3472_BMT_Temperature112 3472;
+BA_ "SPN" SG_ 2618709748 SPN3473_BMT_Temperature113 3473;
+BA_ "SPN" SG_ 2618709748 SPN3474_BMT_Temperature114 3474;
+BA_ "SPN" SG_ 2618709748 SPN3475_BMT_Temperature115 3475;
+BA_ "SPN" SG_ 2618709748 SPN3476_BMT_Temperature116 3476;
+BA_ "SPN" SG_ 2618709748 SPN3477_BMT_Temperature117 3477;
+BA_ "SPN" SG_ 2618709748 SPN3478_BMT_Temperature118 3478;
+BA_ "SPN" SG_ 2618709748 SPN3479_BMT_Temperature119 3479;
+BA_ "SPN" SG_ 2618709748 SPN3480_BMT_Temperature120 3480;
+BA_ "SPN" SG_ 2618709748 SPN3481_BMT_Temperature121 3481;
+BA_ "SPN" SG_ 2618709748 SPN3482_BMT_Temperature122 3482;
+BA_ "SPN" SG_ 2618709748 SPN3483_BMT_Temperature123 3483;
+BA_ "SPN" SG_ 2618709748 SPN3484_BMT_Temperature124 3484;
+BA_ "SPN" SG_ 2618709748 SPN3485_BMT_Temperature125 3485;
+BA_ "SPN" SG_ 2618709748 SPN3486_BMT_Temperature126 3486;
+BA_ "SPN" SG_ 2618709748 SPN3487_BMT_Temperature127 3487;
+BA_ "SPN" SG_ 2618709748 SPN3488_BMT_Temperature128 3488;
+VAL_ 2617399028 SPN2573_BRM_Ownership 1 "Own" 0 "Rental" ;
+VAL_ 2617399028 SPN2566_BRM_BatteryType 255 "Others 其他电池" 8 "Li2TiO3 Battery 钛酸锂电池" 7 "PLB 聚合物锂离子电池" 6 "Ternary Battery 三元材料电池" 5 "LiCoO2 Battery 钴酸锂电池" 4 "LiMn2O4 Battery 锰酸锂电池" 3 "LiFePO4 Battery 磷酸铁锂电池" 2 "Ni-MH Battery 镍氢电池" 1 "Lead Acid Cell 铅酸电池" ;
+VAL_ 2550264918 SPN2560_CRM_BMSIdentify 170 "BMS found" 0 "BMS not found" ;
+VAL_ 2416637014 SPN2830_CRO_ChargerReadyOrNot 255 "无效；invalid" 170 "充电机完成充电准备；ready" 0 "充电机未完成充电准备；not ready" ;
+VAL_ 2416531188 SPN2829_BRO_BMSReadyOrNot 255 "无效；invalid" 170 "BMS完成充电准备；ready" 0 "BMS未做好充电准备；not ready " ;
+VAL_ 2551404276 SPN3096_BSM_ChargingPermit 1 "允许；allow" 0 "禁止；forbid" ;
+VAL_ 2551404276 SPN3095_BSM_BatOutputConState 2 "不可信；not credible" 1 "不正常；not normal" 0 "正常；normal" ;
+VAL_ 2551404276 SPN3094_BSM_BatInsulationState 2 "过低；not credible" 1 "不正常；not normal" 0 "正常；normal" ;
+VAL_ 2551404276 SPN3093_BSM_BatteryTemState 2 "过低；too low" 1 "过高；too high" 0 "正常；normal" ;
+VAL_ 2551404276 SPN3092_BSM_ChargingOverCurrent 2 "不可信状态；not credible" 1 "过流；too high" 0 "正常；normal" ;
+VAL_ 2551404276 SPN3091_BSM_VehicleBatterySOC 2 "过低；too low" 1 "过高；too high" 0 "正常；normal" ;
+VAL_ 2551404276 SPN3090_BSM_CellVoltageState 2 "过低；too low" 1 "过高；too high" 0 "正常；normal" ;
+VAL_ 2551379030 SPN3929_CCS_ChargingAllow 1 "Allowed" 0 "Not allowed" ;
+VAL_ 2551207668 SPN3074_BCL_ChargingModel 2 "constant current charging" 1 "constant voltage charging" ;
+VAL_ 2417685590 SPN3523_CST_PauseChrgErr_Vol 2 "Untrusted" 1 "Abnormal voltage" 0 "Normal" ;
+VAL_ 2417685590 SPN3523_CST_PauseChrgErr_Cur 2 "Untrusted" 1 "Current unmatched" 0 "Current matched" ;
+VAL_ 2417685590 SPN3522_CST_PauseChrgflt_Tem 2 "Untrusted" 1 "Charger temp. is too high" 0 "Charger temp. is normal" ;
+VAL_ 2417685590 SPN3522_CST_PauseChrgflt_Sud 2 "Untrusted" 1 "Charger scram" 0 "Normal" ;
+VAL_ 2417685590 SPN3522_CST_PauseChrgflt_Qua 2 "Untrusted" 1 "Q. transmited abnormally" 0 "Q. transmited normally" ;
+VAL_ 2417685590 SPN3522_CST_PauseChrgflt_Oth 2 "Untrusted" 1 "Faulted" 0 "Normal" ;
+VAL_ 2417685590 SPN3522_CST_PauseChrgflt_IntTem 2 "Untrusted" 1 "Charger inner temp. is too high" 0 "Charger inner temp. is normal" ;
+VAL_ 2417685590 SPN3522_CST_PauseChrgflt_Con 2 "Untrusted" 1 "Charging connector is faulted" 0 "Charging connector is normal" ;
+VAL_ 2417685590 SPN3521_CST_PauseChrgRes_Man 2 "Untrusted" 1 "Manual paused" 0 "Normal" ;
+VAL_ 2417685590 SPN3521_CST_PauseChrgRes_Flt 2 "Untrusted" 1 "Pause caused by fault" 0 "Normal" ;
+VAL_ 2417685590 SPN3521_CST_PauseChrgRes_Cond 2 "Untrusted" 1 "Pause caused by Charger set" 0 "Normal" ;
+VAL_ 2417579764 SPN3513_BST_PauseChrgErr_Vol 2 "Untrusted 不可信状态" 1 "Abnormal voltage 电压异常" 0 "Normal voltage 电压正常" ;
+VAL_ 2417579764 SPN3513_BST_PauseChrgErr_Cur 2 "Untrusted 不可信状态" 1 "Too large a current 电流过大" 0 "Normal current 电流正常" ;
+VAL_ 2417579764 SPN3512_BST_PauseChrgflt_BMS 2 "Untrusted" 1 "Faulted" 0 "Normal" ;
+VAL_ 2417579764 SPN3512_BST_PauseChrgflt_OutCon 2 "Untrusted" 1 "Faulted" 0 "Normal" ;
+VAL_ 2417579764 SPN3512_BST_PauseChrgflt_HVRelay 2 "Untrusted" 1 "Faulted" 0 "Normal" ;
+VAL_ 2417579764 SPN3512_BST_PauseChrgflt_Ins 2 "Untrusted" 1 "Faulted" 0 "Normal" ;
+VAL_ 2417579764 SPN3512_BST_PauseChrgflt_Con 2 "Untrusted" 1 "Charging connector is abnormal" 0 "Charging connector is normal" ;
+VAL_ 2417579764 SPN3512_BST_PauseChrgflt_OverT 2 "Untrusted" 1 "Battery temperature is too large" 0 "Battery temperature is normal" ;
+VAL_ 2417579764 SPN3511_BST_PauseChrgRes_ToVol 2 "Untrusted" 1 "Setting total voltage reached" 0 "Setting total voltage unreached" ;
+VAL_ 2417579764 SPN3511_BST_PauseChrgRes_SOC 2 "Untrusted" 1 "Required SOC reached" 0 "Required SOC unreached" ;
+VAL_ 2417579764 SPN3511_BST_PauseChrgRes_CeVol 2 "Untrusted" 1 "Setting cell voltage reached" 0 "Setting cell voltage unreached" ;
+VAL_ 2283795542 SPN3926_CEM_BST_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283795542 SPN3927_CEM_BSD_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283795542 SPN3923_CEM_BRO_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283795542 SPN3921_CEM_BRM_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283795542 SPN3924_CEM_BCS_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283795542 SPN3922_CEM_BCP_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283795542 SPN3925_CEM_BCL_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3902_BEM_RSPN2560AA_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3901_BEM_RSPN256000_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3903_BEM_CTSCML_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3906_BEM_CST_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3907_BEM_CSD_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3904_BEM_CRO_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2283689716 SPN3905_BEM_CCS_OverTim 2 "Untrusted" 1 "Over time" 0 "Normal" ;
+VAL_ 2553698036 PGI32_VAuthenStatus 170 "0xAA-KeepWaitting" 0 "0x00-NoWaitting" ;
+VAL_ 2553698036 PGI73_PowerMode 2 "CC_Mode" 1 "CV_Mode" ;
+VAL_ 2553698036 PGI72_EVCCReady 255 "0xFF" 170 "0xAA-Ready" 0 "0x00-NoReady" ;
+VAL_ 2553698036 PGI91_EVCCDetectSta 255 "0xFF-NotTest" 4 "4-Fail" 3 "3-Pass" 2 "2-ErrSTOP" 1 "1-Doing" 0 "0-Watting" ;
+VAL_ 2553698036 PGI06_K6 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2553698036 PGI06_K5 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2553738326 PGI31_CAuthenStatus 255 "0xFF" 170 "0xAA-Finished" 0 "0x00-Waitting" ;
+VAL_ 2553738326 PGI92_AllowDetectCheck 255 "0xFF" 170 "0xAA-Allow" 0 "0x00-NoAllow" ;
+VAL_ 2553738326 PGI75_OutputChangeReason 255 "0xFF-Other" 2 "2-Network" 1 "1-Charger" 0 "0-NoChange" ;
+VAL_ 2553738326 PGI71_ChargerReady 255 "0xFF" 170 "0xAA-Ready" 0 "0x00-NoReady" ;
+VAL_ 2553738326 PGI51_ShortCircuit 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI51_Insulation 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI51_Discharge 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI51_DetectTest 3 "3-Fail" 2 "2-Pass" 1 "1-Doing" 0 "0-Waitting" ;
+VAL_ 2553738326 PGI07_ELock 255 "0xFF-Untrusted" 170 "0xAA-Locked" 0 "0x00-Unlocked" ;
+VAL_ 2553738326 PGI05_K2 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2553738326 PGI05_K1 255 "0xFF-Untrusted" 170 "0xAA-Closed" 0 "0x00-Open" ;
+VAL_ 2419414772 PGI09_wakeup 255 "0xFF" 170 "0xAA-Wakeup" 0 "0x00-Waitting" ;
+VAL_ 2419414772 PGI04_STOP_type 4 "4-CheckFail" 3 "3-FunctionFail" 2 "2-FunctionOverTime" 1 "1-ChargeSTOP" ;
+VAL_ 2419414772 PGI04_reLink 255 "0xFF-NoRelink" 170 "0xAA-Relink" 0 "0x00" ;
+VAL_ 2419414772 PGI02_check 255 "0xFF-Fail" 170 "0xAA-Succeed" 0 "0x00" ;
+VAL_ 2419414772 PGI79_Pause 255 "0xFF" 170 "0xAA-Paused" 0 "0x00-Resume" ;
+VAL_ 2419414772 PGI52_CheckState 255 "0xFF" 170 "0xAA-Checked" 0 "0x00" ;
+VAL_ 2419455062 PGI39_SAuthenFDC 3 "FDC3" 2 "FDC2" 1 "FDC1" 0 "0-Fail" ;
+VAL_ 2419455062 PGI39_AuthenResult 255 "0xFF" 170 "0xAA-Succeed" 0 "0x00-Fail" ;
+VAL_ 2419455062 PGI35_SAuthenFDC 3 "FDC3" 2 "FDC2" 1 "FDC1" 0 "0-Fail" ;
+VAL_ 2419455062 PGI35_AuthenResult 255 "0xFF" 170 "0xAA-Succeed" 0 "0x00-Fail" ;
+VAL_ 2419455062 PGI33_SAuthenFDC 3 "FDC3" 2 "FDC2" 1 "FDC1" 0 "0-Fail" ;
+VAL_ 2419455062 PGI33_AuthenResult 255 "0xFF" 170 "0xAA-Succeed" 0 "0x00-Fail" ;
+VAL_ 2419455062 PGI08_wakeup 255 "0xFF" 170 "0xAA-Wakeup" 0 "0x00-Waitting" ;
+VAL_ 2419455062 PGI78_Pause 255 "0xFF" 170 "0xAA-Paused" 0 "0x00-Resume" ;
+VAL_ 2419455062 PGI03_STOP_type 4 "4-CheckFail" 3 "3-FunctionFail" 2 "2-FunctionOverTime" 1 "1-ChargeSTOP" ;
+VAL_ 2419455062 PGI03_reLink 255 "0xFF-NoRelink" 170 "0xAA-Relink" 0 "0x00" ;
+VAL_ 2352436980 Ctrl_EVCC_Byte0 3 "3-LM_EndofACK" 2 "2-LM_NACK" 1 "1-LM_ACK" 0 "0-RecvSM" ;
+VAL_ 2352477270 Ctrl_SECC_Byte0 3 "3-LM_EndofACK" 2 "2-LM_NACK" 1 "1-LM_ACK" 0 "0-RecvSM" ;
+VAL_ 2352568052 EVCC_VersionResult 2 "2-Fail" 1 "1-Succeed" 0 "0-Continue" ;
+VAL_ 2352568052 EVCC_CANType 2 "2-CANXL" 1 "1-CANFD" 0 "0-CAN2.0B" ;
+VAL_ 2352542806 SECC_VersionResult 2 "2-Fail" 1 "1-Succeed" 0 "0-Continue" ;
+VAL_ 2352542806 SECC_CANType 2 "2-CANXL" 1 "1-CANFD" 0 "0-CAN2.0B" ;
+VAL_ 2147483682 PGI22_BatteryType 255 "FF-其他电池" 8 "8-钛酸锂电池" 7 "7-聚合物锂离子电池" 6 "6-三元材料电池" 5 "5-钴酸锂电池" 4 "4-锰酸锂电池" 3 "3-磷酸铁锂电池" 2 "2-镍氢电池" 1 "1-铅酸电池" ;
+
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte7 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte6 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte5 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte4 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte3 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte2 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553607254 LM_SECC_Byte1 LM_SECC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte7 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte6 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte5 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte4 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte3 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte2 LM_EVCC_Byte0 1-255;
+SG_MUL_VAL_ 2553566964 LM_EVCC_Byte1 LM_EVCC_Byte0 1-255;

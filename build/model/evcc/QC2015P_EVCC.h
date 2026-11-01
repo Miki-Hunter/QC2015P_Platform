@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_EVCC'.
 //
-// Model version                  : 1.574
+// Model version                  : 1.601
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Wed Oct 28 23:31:06 2026
+// C/C++ source code generated on : Sun Nov  1 17:36:11 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor
@@ -68,12 +68,12 @@ struct rt_Simulink_Struct_type {
   real_T BSD_Cycle_Va;                 // Referenced by: '<S37>/BSD_Cycle_Va'
   real_T BSM_Cycle_Va;                 // Referenced by: '<S37>/BSM_Cycle_Va'
   real_T BST_Cycle_Va;                 // Referenced by: '<S37>/BST_Cycle_Va'
-  real_T CONTROL_EVCC_Cycle_Va;// Referenced by: '<S109>/CONTROL_EVCC_Cycle_Va'
+  real_T CONTROL_EVCC_Cycle_Va;// Referenced by: '<S111>/CONTROL_EVCC_Cycle_Va'
   real_T Charge_Current;               // Referenced by:
                                           //  '<S5>/Charge_Current'
                                           //  '<S6>/Charge_Current'
 
-  real_T LM_EVCC_Cycle_Va;          // Referenced by: '<S109>/LM_EVCC_Cycle_Va'
+  real_T LM_EVCC_Cycle_Va;          // Referenced by: '<S111>/LM_EVCC_Cycle_Va'
   real_T PGI22_Capacity;               // Referenced by: '<S6>/PGI22_Capacity'
   real_T PGI22_Current;                // Referenced by: '<S6>/PGI22_Current'
   real_T PGI22_SOC;                    // Referenced by: '<S6>/PGI22_SOC'
@@ -87,8 +87,8 @@ struct rt_Simulink_Struct_type {
   real_T PGI77_SingleBattV_Max;  // Referenced by: '<S6>/PGI77_SingleBattV_Max'
   real_T PGI77_SingleBattV_Min;  // Referenced by: '<S6>/PGI77_SingleBattV_Min'
   real_T PGI94_SOC_Va;                 // Referenced by: '<S6>/PGI94_SOC_Va'
-  real_T SM_RM_EVCC_Cycle_Va;    // Referenced by: '<S109>/SM_RM_EVCC_Cycle_Va'
-  real_T SM_URM_EVCC_Cycle_Va;  // Referenced by: '<S109>/SM_URM_EVCC_Cycle_Va'
+  real_T SM_RM_EVCC_Cycle_Va;    // Referenced by: '<S111>/SM_RM_EVCC_Cycle_Va'
+  real_T SM_URM_EVCC_Cycle_Va;  // Referenced by: '<S111>/SM_URM_EVCC_Cycle_Va'
   real_T SOC_Set;                      // Referenced by:
                                           //  '<S5>/SOC_Set'
                                           //  '<S6>/SOC_Set'
@@ -228,16 +228,19 @@ struct rt_Simulink_Struct_type {
   real_T SPN3605_BSD_MaxBatT_Va;// Referenced by: '<S5>/SPN3605_BSD_MaxBatT_Va'
   real_T TP_DT_Cycle_Va;               // Referenced by: '<S37>/TP_DT_Cycle_Va'
   real_T TP_RTS_Cycle_Va;             // Referenced by: '<S37>/TP_RTS_Cycle_Va'
-  real_T VC_EVCC_Cycle_Va;          // Referenced by: '<S109>/VC_EVCC_Cycle_Va'
+  real_T VC_EVCC_Cycle_Va;          // Referenced by: '<S111>/VC_EVCC_Cycle_Va'
   boolean_T BCL_Data_SW;               // Referenced by: '<S37>/BCL_Data_SW'
   boolean_T BCL_Enable_SW;             // Referenced by: '<S37>/BCL_Enable_SW'
   boolean_T BCL_Enable_Va;             // Referenced by: '<S37>/BCL_Enable_Va'
+  boolean_T BCP_Enable;                // Referenced by: '<S5>/BCP_Enable'
+  boolean_T BCS_Enable;                // Referenced by: '<S5>/BCS_Enable'
   boolean_T BEM_Data_SW;               // Referenced by: '<S37>/BEM_Data_SW'
   boolean_T BEM_Enable_SW;             // Referenced by: '<S37>/BEM_Enable_SW'
   boolean_T BEM_Enable_Va;             // Referenced by: '<S37>/BEM_Enable_Va'
   boolean_T BHM_Data_SW;               // Referenced by: '<S37>/BHM_Data_SW'
   boolean_T BHM_Enable_SW;             // Referenced by: '<S37>/BHM_Enable_SW'
   boolean_T BHM_Enable_Va;             // Referenced by: '<S37>/BHM_Enable_Va'
+  boolean_T BRM_Enable;                // Referenced by: '<S5>/BRM_Enable'
   boolean_T BRO_Data_SW;               // Referenced by: '<S37>/BRO_Data_SW'
   boolean_T BRO_Enable_SW;             // Referenced by: '<S37>/BRO_Enable_SW'
   boolean_T BRO_Enable_Va;             // Referenced by: '<S37>/BRO_Enable_Va'
@@ -251,17 +254,19 @@ struct rt_Simulink_Struct_type {
   boolean_T BST_Enable_SW;             // Referenced by: '<S37>/BST_Enable_SW'
   boolean_T BST_Enable_Va;             // Referenced by: '<S37>/BST_Enable_Va'
   boolean_T CONTROL_EVCC_Data_SW;
-                                // Referenced by: '<S109>/CONTROL_EVCC_Data_SW'
+                                // Referenced by: '<S111>/CONTROL_EVCC_Data_SW'
   boolean_T CONTROL_EVCC_Enable_SW;
-                              // Referenced by: '<S109>/CONTROL_EVCC_Enable_SW'
+                              // Referenced by: '<S111>/CONTROL_EVCC_Enable_SW'
   boolean_T CONTROL_EVCC_Enable_Va;
-                              // Referenced by: '<S109>/CONTROL_EVCC_Enable_Va'
+                              // Referenced by: '<S111>/CONTROL_EVCC_Enable_Va'
   boolean_T EVCC_2015P_Enable;     // Referenced by: '<Root>/EVCC_2015P_Enable'
   boolean_T EVCC_ChargeSta;           // Referenced by: '<Root>/EVCC_ChargeSta'
   boolean_T EVCC_DefineMsg_Enable;
-                               // Referenced by: '<S109>/EVCC_DefineMsg_Enable'
+                               // Referenced by: '<S111>/EVCC_DefineMsg_Enable'
   boolean_T EVCC_DiagSW;               // Referenced by: '<S6>/EVCC_DiagSW'
-  boolean_T EVCC_LM_ManualSTOP;     // Referenced by: '<S6>/EVCC_LM_ManualSTOP'
+  boolean_T EVCC_LM_Pause;             // Referenced by: '<S6>/EVCC_LM_Pause'
+  boolean_T EVCC_LM_STOPRecv;         // Referenced by: '<S6>/EVCC_LM_STOPRecv'
+  boolean_T EVCC_LM_STOPSend;         // Referenced by: '<S6>/EVCC_LM_STOPSend'
   boolean_T EVCC_ManualSTOP;           // Referenced by: '<S6>/EVCC_ManualSTOP'
   boolean_T EVCC_Pause;                // Referenced by:
                                           //  '<S5>/Constant38'
@@ -276,38 +281,53 @@ struct rt_Simulink_Struct_type {
   boolean_T EVCC_VNMan_SW;             // Referenced by: '<S6>/EVCC_VNMan_SW'
   boolean_T EVCC_VersionResult_SW;
                                  // Referenced by: '<S6>/EVCC_VersionResult_SW'
-  boolean_T LM_EVCC_Data_SW;         // Referenced by: '<S109>/LM_EVCC_Data_SW'
-  boolean_T LM_EVCC_Enable_SW;     // Referenced by: '<S109>/LM_EVCC_Enable_SW'
-  boolean_T LM_EVCC_Enable_Va;     // Referenced by: '<S109>/LM_EVCC_Enable_Va'
+  boolean_T LM_EVCC_Data_SW;         // Referenced by: '<S111>/LM_EVCC_Data_SW'
+  boolean_T LM_EVCC_Enable_SW;     // Referenced by: '<S111>/LM_EVCC_Enable_SW'
+  boolean_T LM_EVCC_Enable_Va;     // Referenced by: '<S111>/LM_EVCC_Enable_Va'
+  boolean_T PGI02_Enable;              // Referenced by: '<S6>/PGI02_Enable'
   boolean_T PGI02_check_SW;            // Referenced by: '<S6>/PGI02_check_SW'
+  boolean_T PGI04_Enable;              // Referenced by: '<S6>/PGI04_Enable'
+  boolean_T PGI06_Enable;              // Referenced by: '<S6>/PGI06_Enable'
   boolean_T PGI06_K5_SW;               // Referenced by: '<S6>/PGI06_K5_SW'
   boolean_T PGI06_K6_SW;               // Referenced by: '<S6>/PGI06_K6_SW'
+  boolean_T PGI09_Enable;              // Referenced by: '<S6>/PGI09_Enable'
   boolean_T PGI09_wakeup_SW;           // Referenced by: '<S6>/PGI09_wakeup_SW'
   boolean_T PGI12_Authentic_SW;     // Referenced by: '<S6>/PGI12_Authentic_SW'
+  boolean_T PGI12_Enable;              // Referenced by: '<S6>/PGI12_Enable'
+  boolean_T PGI22_Enable;              // Referenced by: '<S6>/PGI22_Enable'
   boolean_T PGI22_SOC_SW;              // Referenced by: '<S6>/PGI22_SOC_SW'
+  boolean_T PGI32_Enable;              // Referenced by: '<S6>/PGI32_Enable'
   boolean_T PGI32_VAuthenStatus;   // Referenced by: '<S6>/PGI32_VAuthenStatus'
   boolean_T PGI52_CheckState_SW;   // Referenced by: '<S6>/PGI52_CheckState_SW'
+  boolean_T PGI52_Enable;              // Referenced by: '<S6>/PGI52_Enable'
   boolean_T PGI72_EVCCReady_SW;     // Referenced by: '<S6>/PGI72_EVCCReady_SW'
   boolean_T PGI72_EVCC_V_Exe_SW;   // Referenced by: '<S6>/PGI72_EVCC_V_Exe_SW'
+  boolean_T PGI72_Enable;              // Referenced by: '<S6>/PGI72_Enable'
   boolean_T PGI73_A_SW;                // Referenced by: '<S6>/PGI73_A_SW'
+  boolean_T PGI73_Enable;              // Referenced by: '<S6>/PGI73_Enable'
   boolean_T PGI73_PowerMode_SW;     // Referenced by: '<S6>/PGI73_PowerMode_SW'
   boolean_T PGI73_V_SW;                // Referenced by: '<S6>/PGI73_V_SW'
+  boolean_T PGI74_Enable;              // Referenced by: '<S6>/PGI74_Enable'
   boolean_T PGI74_SOC_SW;              // Referenced by: '<S6>/PGI74_SOC_SW'
   boolean_T PGI74_TimeRemain_SW;   // Referenced by: '<S6>/PGI74_TimeRemain_SW'
+  boolean_T PGI77_Enable;              // Referenced by: '<S6>/PGI77_Enable'
+  boolean_T PGI79_Enable;              // Referenced by: '<S6>/PGI79_Enable'
   boolean_T PGI79_Pause_SW;            // Referenced by: '<S6>/PGI79_Pause_SW'
   boolean_T PGI91_EVCCDetectSta_SW;
                                 // Referenced by: '<S6>/PGI91_EVCCDetectSta_SW'
+  boolean_T PGI91_Enable;              // Referenced by: '<S6>/PGI91_Enable'
+  boolean_T PGI94_Enable;              // Referenced by: '<S6>/PGI94_Enable'
   boolean_T PGI94_SOC_SW;              // Referenced by: '<S6>/PGI94_SOC_SW'
-  boolean_T SM_RM_EVCC_Data_SW;   // Referenced by: '<S109>/SM_RM_EVCC_Data_SW'
+  boolean_T SM_RM_EVCC_Data_SW;   // Referenced by: '<S111>/SM_RM_EVCC_Data_SW'
   boolean_T SM_RM_EVCC_Enable_SW;
-                                // Referenced by: '<S109>/SM_RM_EVCC_Enable_SW'
+                                // Referenced by: '<S111>/SM_RM_EVCC_Enable_SW'
   boolean_T SM_RM_EVCC_Enable_Va;
-                                // Referenced by: '<S109>/SM_RM_EVCC_Enable_Va'
-  boolean_T SM_URM_EVCC_Data_SW; // Referenced by: '<S109>/SM_URM_EVCC_Data_SW'
+                                // Referenced by: '<S111>/SM_RM_EVCC_Enable_Va'
+  boolean_T SM_URM_EVCC_Data_SW; // Referenced by: '<S111>/SM_URM_EVCC_Data_SW'
   boolean_T SM_URM_EVCC_Enable_SW;
-                               // Referenced by: '<S109>/SM_URM_EVCC_Enable_SW'
+                               // Referenced by: '<S111>/SM_URM_EVCC_Enable_SW'
   boolean_T SM_URM_EVCC_Enable_Va;
-                               // Referenced by: '<S109>/SM_URM_EVCC_Enable_Va'
+                               // Referenced by: '<S111>/SM_URM_EVCC_Enable_Va'
   boolean_T SPN2565_BRM_ProtocolVer_SW;
                             // Referenced by: '<S5>/SPN2565_BRM_ProtocolVer_SW'
   boolean_T SPN2566_BRM_BatteryType_SW;
@@ -450,17 +470,17 @@ struct rt_Simulink_Struct_type {
   boolean_T TP_RTS_Data_SW;            // Referenced by: '<S37>/TP_RTS_Data_SW'
   boolean_T TP_RTS_Enable_SW;        // Referenced by: '<S37>/TP_RTS_Enable_SW'
   boolean_T TP_RTS_Enable_Va;        // Referenced by: '<S37>/TP_RTS_Enable_Va'
-  boolean_T VC_EVCC_Data_SW;         // Referenced by: '<S109>/VC_EVCC_Data_SW'
-  boolean_T VC_EVCC_Enable_SW;     // Referenced by: '<S109>/VC_EVCC_Enable_SW'
-  boolean_T VC_EVCC_Enable_Va;     // Referenced by: '<S109>/VC_EVCC_Enable_Va'
+  boolean_T VC_EVCC_Data_SW;         // Referenced by: '<S111>/VC_EVCC_Data_SW'
+  boolean_T VC_EVCC_Enable_SW;     // Referenced by: '<S111>/VC_EVCC_Enable_SW'
+  boolean_T VC_EVCC_Enable_Va;     // Referenced by: '<S111>/VC_EVCC_Enable_Va'
   int16_T PGI22_Temp;                  // Referenced by: '<S6>/PGI22_Temp'
   int16_T PGI77_SingleBattTemp_Max;
                               // Referenced by: '<S6>/PGI77_SingleBattTemp_Max'
   int16_T PGI77_SingleBattTemp_Min;
                               // Referenced by: '<S6>/PGI77_SingleBattTemp_Min'
   uint32_T EVCC_CVList[4];             // Referenced by: '<S6>/CvList'
-  uint32_T EVCC_DefineMsg_Cycle;// Referenced by: '<S109>/EVCC_DefineMsg_Cycle'
-  uint32_T EVCC_DefineMsg_ID;      // Referenced by: '<S109>/EVCC_DefineMsg_ID'
+  uint32_T EVCC_DefineMsg_Cycle;// Referenced by: '<S111>/EVCC_DefineMsg_Cycle'
+  uint32_T EVCC_DefineMsg_ID;      // Referenced by: '<S111>/EVCC_DefineMsg_ID'
   uint32_T EVCC_ProtocolVersion_Va;
                                // Referenced by: '<S6>/EVCC_ProtocolVersion_Va'
   uint8_T BCL_Data_Va[8];              // Referenced by: '<S37>/BCL_Data_Va'
@@ -471,19 +491,19 @@ struct rt_Simulink_Struct_type {
   uint8_T BSM_Data_Va[8];              // Referenced by: '<S37>/BSM_Data_Va'
   uint8_T BST_Data_Va[8];              // Referenced by: '<S37>/BST_Data_Va'
   uint8_T CONTROL_EVCC_Data_Va[8];
-                                // Referenced by: '<S109>/CONTROL_EVCC_Data_Va'
+                                // Referenced by: '<S111>/CONTROL_EVCC_Data_Va'
   uint8_T EVCC_CANType;                // Referenced by: '<S6>/EVCC_CANType'
   uint8_T EVCC_CPVersion;              // Referenced by: '<S6>/EVCC_CPVersion'
-  uint8_T EVCC_DefineMsg_Data[8];// Referenced by: '<S109>/EVCC_DefineMsg_Data'
+  uint8_T EVCC_DefineMsg_Data[8];// Referenced by: '<S111>/EVCC_DefineMsg_Data'
   uint8_T EVCC_DefineMsg_Extended;
-                             // Referenced by: '<S109>/EVCC_DefineMsg_Extended'
+                             // Referenced by: '<S111>/EVCC_DefineMsg_Extended'
   uint8_T EVCC_DefineMsg_Length;
-                               // Referenced by: '<S109>/EVCC_DefineMsg_Length'
+                               // Referenced by: '<S111>/EVCC_DefineMsg_Length'
   uint8_T EVCC_K_Limit;                // Referenced by: '<S6>/EVCC_K_Limit'
   uint8_T EVCC_Reserved_VN;           // Referenced by: '<S6>/EVCC_Reserved_VN'
   uint8_T EVCC_TLVersion;              // Referenced by: '<S6>/EVCC_TLVersion'
   uint8_T EVCC_VersionResult_Va; // Referenced by: '<S6>/EVCC_VersionResult_Va'
-  uint8_T LM_EVCC_Data_Va[8];        // Referenced by: '<S109>/LM_EVCC_Data_Va'
+  uint8_T LM_EVCC_Data_Va[8];        // Referenced by: '<S111>/LM_EVCC_Data_Va'
   uint8_T PGI02;                       // Referenced by: '<S6>/PGI02'
   uint8_T PGI02_check_Va;              // Referenced by: '<S6>/PGI02_check_Va'
   uint8_T PGI04_Data[8];               // Referenced by: '<S6>/PGI04_Data'
@@ -518,11 +538,11 @@ struct rt_Simulink_Struct_type {
   uint8_T PGI91_EVCCDetectSta_Va;
                                 // Referenced by: '<S6>/PGI91_EVCCDetectSta_Va'
   uint8_T PGI94;                       // Referenced by: '<S6>/PGI94'
-  uint8_T SM_RM_EVCC_Data_Va[8];  // Referenced by: '<S109>/SM_RM_EVCC_Data_Va'
-  uint8_T SM_URM_EVCC_Data_Va[8];// Referenced by: '<S109>/SM_URM_EVCC_Data_Va'
+  uint8_T SM_RM_EVCC_Data_Va[8];  // Referenced by: '<S111>/SM_RM_EVCC_Data_Va'
+  uint8_T SM_URM_EVCC_Data_Va[8];// Referenced by: '<S111>/SM_URM_EVCC_Data_Va'
   uint8_T TP_DT_Data_Va[8];            // Referenced by: '<S37>/TP_DT_Data_Va'
   uint8_T TP_RTS_Data_Va[8];           // Referenced by: '<S37>/TP_RTS_Data_Va'
-  uint8_T VC_EVCC_Data_Va[8];        // Referenced by: '<S109>/VC_EVCC_Data_Va'
+  uint8_T VC_EVCC_Data_Va[8];        // Referenced by: '<S111>/VC_EVCC_Data_Va'
 };
 
 extern CAN_DATATYPE CAN_DATATYPE_GROUND;
@@ -540,28 +560,6 @@ class QC2015P_EVCC final
 {
   // public data and function members
  public:
-  // Block signals for system '<S5>/MAIN_CNT'
-  struct B_MAIN_CNT_QC2015P_EVCC_T {
-    real_T m50_1;                      // '<S5>/MAIN_CNT'
-    real_T m50_11;                     // '<S5>/MAIN_CNT'
-    real_T m50_21;                     // '<S5>/MAIN_CNT'
-    real_T m50_31;                     // '<S5>/MAIN_CNT'
-    real_T m50_41;                     // '<S5>/MAIN_CNT'
-    real_T m50_2;                      // '<S5>/MAIN_CNT'
-    real_T m50_12;                     // '<S5>/MAIN_CNT'
-    real_T m10_3;                      // '<S5>/MAIN_CNT'
-    real_T m10_4;                      // '<S5>/MAIN_CNT'
-    real_T m10_5;                      // '<S5>/MAIN_CNT'
-    real_T m10_6;                      // '<S5>/MAIN_CNT'
-  };
-
-  // Block states (default storage) for system '<S5>/MAIN_CNT'
-  struct DW_MAIN_CNT_QC2015P_EVCC_T {
-    real_T timer;                      // '<S5>/MAIN_CNT'
-    uint8_T is_active_c41_QC2015P_EVCC;// '<S5>/MAIN_CNT'
-    uint8_T is_c41_QC2015P_EVCC;       // '<S5>/MAIN_CNT'
-  };
-
   // Block states (default storage) for system '<S37>/sendCyclic10'
   struct DW_sendCyclic10_QC2015P_EVCC_T {
     real_T cnt;                        // '<S37>/sendCyclic10'
@@ -619,13 +617,13 @@ class QC2015P_EVCC final
     CAN_MSG_BUS Switch4_p;             // '<S18>/Switch4'
     CAN_MSG_BUS Switch4_cn;            // '<S21>/Switch4'
     CAN_MSG_BUS Switch4_gl;            // '<S10>/Switch4'
-    CAN_MESSAGE_BUS CANPack5;          // '<S109>/CAN Pack5'
-    CAN_MESSAGE_BUS CANPack;           // '<S109>/CAN Pack'
-    CAN_MESSAGE_BUS CANPack1;          // '<S109>/CAN Pack1'
-    CAN_MESSAGE_BUS CANPack2;          // '<S109>/CAN Pack2'
-    CAN_MESSAGE_BUS CANPack3;          // '<S109>/CAN Pack3'
-    CAN_MESSAGE_BUS CANPack4;          // '<S109>/CAN Pack4'
-    CAN_MESSAGE_BUS VectorConcatenate[6];// '<S109>/Vector Concatenate'
+    CAN_MESSAGE_BUS CANPack5;          // '<S111>/CAN Pack5'
+    CAN_MESSAGE_BUS CANPack;           // '<S111>/CAN Pack'
+    CAN_MESSAGE_BUS CANPack1;          // '<S111>/CAN Pack1'
+    CAN_MESSAGE_BUS CANPack2;          // '<S111>/CAN Pack2'
+    CAN_MESSAGE_BUS CANPack3;          // '<S111>/CAN Pack3'
+    CAN_MESSAGE_BUS CANPack4;          // '<S111>/CAN Pack4'
+    CAN_MESSAGE_BUS VectorConcatenate[6];// '<S111>/Vector Concatenate'
     CAN_MESSAGE_BUS CANPack18;         // '<S5>/CAN Pack18'
     CAN_MESSAGE_BUS CANPack20;         // '<S5>/CAN Pack20'
     CAN_MESSAGE_BUS CANPack21;         // '<S5>/CAN Pack21'
@@ -749,12 +747,23 @@ class QC2015P_EVCC final
     real_T ReStart;                    // '<S6>/QC2015P_MAIN'
     real_T PGI73_V;                    // '<S6>/QC2015P_MAIN'
     real_T PGI73_A;                    // '<S6>/QC2015P_MAIN'
-    real_T enable_k;                   // '<S109>/sendCyclic5'
-    real_T enable_af;                  // '<S109>/sendCyclic4'
-    real_T enable_f;                   // '<S109>/sendCyclic3'
-    real_T enable_m;                   // '<S109>/sendCyclic2'
-    real_T enable_a4;                  // '<S109>/sendCyclic1'
-    real_T enable_h;                   // '<S109>/sendCyclic'
+    real_T enable_k;                   // '<S111>/sendCyclic5'
+    real_T enable_af;                  // '<S111>/sendCyclic4'
+    real_T enable_f;                   // '<S111>/sendCyclic3'
+    real_T enable_m;                   // '<S111>/sendCyclic2'
+    real_T enable_a4;                  // '<S111>/sendCyclic1'
+    real_T enable_h;                   // '<S111>/sendCyclic'
+    real_T m50_1;                      // '<S6>/MAIN_CNT'
+    real_T m50_11;                     // '<S6>/MAIN_CNT'
+    real_T m50_21;                     // '<S6>/MAIN_CNT'
+    real_T m50_31;                     // '<S6>/MAIN_CNT'
+    real_T m50_41;                     // '<S6>/MAIN_CNT'
+    real_T m50_2;                      // '<S6>/MAIN_CNT'
+    real_T m50_12;                     // '<S6>/MAIN_CNT'
+    real_T m10_3;                      // '<S6>/MAIN_CNT'
+    real_T m10_4;                      // '<S6>/MAIN_CNT'
+    real_T m10_5;                      // '<S6>/MAIN_CNT'
+    real_T m10_6;                      // '<S6>/MAIN_CNT'
     real_T LM_NACK;                    // '<S6>/LM_Send'
     real_T sendFlg;                    // '<S6>/LM_Send'
     real_T n_num;                      // '<S6>/LM_Send'
@@ -850,6 +859,12 @@ class QC2015P_EVCC final
     real_T enable_g2;                  // '<S37>/sendCyclic12'
     real_T enable_lc;                  // '<S37>/sendCyclic11'
     real_T enable_nz;                  // '<S37>/sendCyclic10'
+    real_T m50_1_b;                    // '<S5>/MAIN_CNT'
+    real_T m50_11_g;                   // '<S5>/MAIN_CNT'
+    real_T m50_21_k;                   // '<S5>/MAIN_CNT'
+    real_T m10_3_b;                    // '<S5>/MAIN_CNT'
+    real_T m10_4_d;                    // '<S5>/MAIN_CNT'
+    real_T m10_5_a;                    // '<S5>/MAIN_CNT'
     real_T RTS_Enable;                 // '<S5>/J1939_TP.CM_Send'
     real_T TP_Enable;                  // '<S5>/J1939_TP.CM_Send'
     uint32_T LocalVersion;             // '<S6>/VN'
@@ -871,11 +886,11 @@ class QC2015P_EVCC final
     uint8_T RX_Status_k1;              // '<S4>/CAN Unpack12'
     uint8_T Switch44[12];              // '<S6>/Switch44'
     uint8_T Transpose1[8];             // '<S6>/Transpose1'
-    uint8_T Switch5[8];                // '<S109>/Switch5'
-    uint8_T Switch10[8];               // '<S109>/Switch10'
-    uint8_T Switch12[8];               // '<S109>/Switch12'
-    uint8_T Switch8[8];                // '<S109>/Switch8'
-    uint8_T Switch14[8];               // '<S109>/Switch14'
+    uint8_T Switch5[8];                // '<S111>/Switch5'
+    uint8_T Switch10[8];               // '<S111>/Switch10'
+    uint8_T Switch12[8];               // '<S111>/Switch12'
+    uint8_T Switch8[8];                // '<S111>/Switch8'
+    uint8_T Switch14[8];               // '<S111>/Switch14'
     uint8_T PGI_Enable[255];           // '<S6>/QC2015P_MAIN'
     uint8_T Data_PGI04[8];             // '<S6>/QC2015P_MAIN'
     uint8_T K5;                        // '<S6>/QC2015P_MAIN'
@@ -886,7 +901,7 @@ class QC2015P_EVCC final
     uint8_T PGI09_wakeup;              // '<S6>/QC2015P_MAIN'
     uint8_T PGI52_CheckState;          // '<S6>/QC2015P_MAIN'
     uint8_T Switch28[8];               // '<S37>/Switch28'
-    uint8_T Switch52_n[8];             // '<S37>/Switch52'
+    uint8_T Switch52[8];               // '<S37>/Switch52'
     uint8_T Switch49[8];               // '<S37>/Switch49'
     uint8_T Switch46[8];               // '<S37>/Switch46'
     uint8_T Switch43[8];               // '<S37>/Switch43'
@@ -901,8 +916,6 @@ class QC2015P_EVCC final
     uint8_T Data_BST[8];               // '<S5>/MAIN'
     uint8_T RTS_Data[8];               // '<S5>/J1939_TP.CM_Send'
     uint8_T TP_Num;                    // '<S5>/J1939_TP.CM_Send'
-    B_MAIN_CNT_QC2015P_EVCC_T sf_MAIN_CNT_e;// '<S6>/MAIN_CNT'
-    B_MAIN_CNT_QC2015P_EVCC_T sf_MAIN_CNT;// '<S5>/MAIN_CNT'
   };
 
   // Block states (default storage) for system '<Root>'
@@ -916,8 +929,8 @@ class QC2015P_EVCC final
     real_T UnitDelay13_DSTATE;         // '<S6>/Unit Delay13'
     real_T UnitDelay11_DSTATE;         // '<S6>/Unit Delay11'
     real_T UnitDelay15_DSTATE;         // '<S6>/Unit Delay15'
-    real_T UnitDelay_DSTATE;           // '<S114>/Unit Delay'
-    real_T DiscreteTimeIntegrator1_DSTATE;// '<S114>/Discrete-Time Integrator1'
+    real_T UnitDelay_DSTATE;           // '<S116>/Unit Delay'
+    real_T DiscreteTimeIntegrator1_DSTATE;// '<S116>/Discrete-Time Integrator1'
     real_T UnitDelay6_DSTATE;          // '<S6>/Unit Delay6'
     real_T UnitDelay10_DSTATE;         // '<S6>/Unit Delay10'
     real_T UnitDelay8_DSTATE;          // '<S6>/Unit Delay8'
@@ -939,7 +952,9 @@ class QC2015P_EVCC final
     real_T PauseCNT;                   // '<S6>/QC2015P_MAIN'
     real_T T1;                         // '<S6>/QC2015P_MAIN'
     real_T T2;                         // '<S6>/QC2015P_MAIN'
-    real_T cnt_l;                      // '<S109>/sendCyclic5'
+    real_T Temp_PGI04_Enable;          // '<S6>/QC2015P_MAIN'
+    real_T cnt_l;                      // '<S111>/sendCyclic5'
+    real_T timer_d;                    // '<S6>/MAIN_CNT'
     real_T err_cnt;                    // '<S6>/LM_Send'
     real_T LMS_T1;                     // '<S6>/LM_Send'
     real_T local_n;                    // '<S6>/LM_Send'
@@ -960,6 +975,7 @@ class QC2015P_EVCC final
     real_T NextOutput;                 // '<S5>/Random Number'
     real_T NextOutput_o;               // '<S5>/Random Number1'
     real_T cnt_h;                      // '<S5>/normal250_5'
+    real_T timer_m;                    // '<S5>/MAIN_CNT'
     real_T CRO_OverTime;               // '<S5>/MAIN'
     real_T RelinkTimes;                // '<S5>/MAIN'
     real_T CML_OverTime;               // '<S5>/MAIN'
@@ -1013,7 +1029,7 @@ class QC2015P_EVCC final
     int_T CANPack28_ModeSignalID;      // '<S5>/CAN Pack28'
     int_T CANPack31_ModeSignalID;      // '<S5>/CAN Pack31'
     uint16_T temporalCounter_i1;       // '<S6>/keep1_for10000ms3'
-    uint16_T temporalCounter_i1_e;     // '<S6>/QC2015P_MAIN'
+    uint16_T temporalCounter_i1_k;     // '<S6>/QC2015P_MAIN'
     uint16_T temporalCounter_i2;       // '<S6>/QC2015P_MAIN'
     uint16_T temporalCounter_i3;       // '<S6>/QC2015P_MAIN'
     uint16_T temporalCounter_i1_j;     // '<S5>/MAIN'
@@ -1023,10 +1039,12 @@ class QC2015P_EVCC final
     uint8_T UnitDelay7_DSTATE_f;       // '<S6>/Unit Delay7'
     uint8_T UnitDelay3_DSTATE_f[8];    // '<S6>/Unit Delay3'
     uint8_T UnitDelay2_DSTATE_p[8];    // '<S6>/Unit Delay2'
+    boolean_T Delay1_DSTATE_m[15];     // '<S6>/Delay1'
+    boolean_T Delay_DSTATE_p[10];      // '<S6>/Delay'
     boolean_T UnitDelay_DSTATE_m;      // '<S6>/Unit Delay'
     boolean_T UnitDelay5_DSTATE_c;     // '<S6>/Unit Delay5'
     boolean_T UnitDelay19_DSTATE;      // '<S6>/Unit Delay19'
-    int8_T DiscreteTimeIntegrator1_PrevRes;// '<S114>/Discrete-Time Integrator1' 
+    int8_T DiscreteTimeIntegrator1_PrevRes;// '<S116>/Discrete-Time Integrator1' 
     int8_T DiscreteTimeIntegrator1_PrevR_a;// '<S36>/Discrete-Time Integrator1'
     uint8_T is_active_c2_QC2015P_EVCC; // '<S6>/normal250_3'
     uint8_T is_c2_QC2015P_EVCC;        // '<S6>/normal250_3'
@@ -1035,7 +1053,7 @@ class QC2015P_EVCC final
     uint8_T temporalCounter_i1_m;      // '<S6>/keep1_for50ms'
     uint8_T is_active_c26_QC2015P_EVCC;// '<S6>/keep1_for10ms1'
     uint8_T is_c26_QC2015P_EVCC;       // '<S6>/keep1_for10ms1'
-    uint8_T temporalCounter_i1_k;      // '<S6>/keep1_for10ms1'
+    uint8_T temporalCounter_i1_kr;     // '<S6>/keep1_for10ms1'
     uint8_T is_active_c25_QC2015P_EVCC;// '<S6>/keep1_for10ms'
     uint8_T is_c25_QC2015P_EVCC;       // '<S6>/keep1_for10ms'
     uint8_T temporalCounter_i1_i;      // '<S6>/keep1_for10ms'
@@ -1057,20 +1075,22 @@ class QC2015P_EVCC final
     uint8_T is_QC2015P_BeforeEnd;      // '<S6>/QC2015P_MAIN'
     uint8_T is_Authentic;              // '<S6>/QC2015P_MAIN'
     uint8_T is_Authentic_Main;         // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_d;             // '<S6>/QC2015P_MAIN'
-    uint8_T is_FN;                     // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_a;             // '<S6>/QC2015P_MAIN'
-    uint8_T is_OutLoopDete;            // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_c;             // '<S6>/QC2015P_MAIN'
-    uint8_T is_ParmCfg;                // '<S6>/QC2015P_MAIN'
     uint8_T is_FC_Start_e;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_FN;                     // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_f;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_OutLoopDete;            // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_p;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_ParmCfg;                // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_a;             // '<S6>/QC2015P_MAIN'
     uint8_T is_PreChgEnTrans;          // '<S6>/QC2015P_MAIN'
     uint8_T is_EnTrans;                // '<S6>/QC2015P_MAIN'
     uint8_T is_PreChg;                 // '<S6>/QC2015P_MAIN'
     uint8_T is_ReLink_Reboot;          // '<S6>/QC2015P_MAIN'
     uint8_T is_Rebooting;              // '<S6>/QC2015P_MAIN'
-    uint8_T is_active_c23_QC2015P_EVCC;// '<S109>/sendCyclic5'
-    uint8_T is_c23_QC2015P_EVCC;       // '<S109>/sendCyclic5'
+    uint8_T is_active_c23_QC2015P_EVCC;// '<S111>/sendCyclic5'
+    uint8_T is_c23_QC2015P_EVCC;       // '<S111>/sendCyclic5'
+    uint8_T is_active_c3_QC2015P_EVCC; // '<S6>/MAIN_CNT'
+    uint8_T is_c3_QC2015P_EVCC;        // '<S6>/MAIN_CNT'
     uint8_T is_active_c15_QC2015P_EVCC;// '<S6>/LM_Send'
     uint8_T is_c15_QC2015P_EVCC;       // '<S6>/LM_Send'
     uint8_T is_S1_S4;                  // '<S6>/LM_Send'
@@ -1081,6 +1101,8 @@ class QC2015P_EVCC final
     uint8_T temporalCounter_i1_b;      // '<S6>/LM_Recv'
     uint8_T is_active_c50_QC2015P_EVCC;// '<S5>/normal250_5'
     uint8_T is_c50_QC2015P_EVCC;       // '<S5>/normal250_5'
+    uint8_T is_active_c41_QC2015P_EVCC;// '<S5>/MAIN_CNT'
+    uint8_T is_c41_QC2015P_EVCC;       // '<S5>/MAIN_CNT'
     uint8_T is_active_c40_QC2015P_EVCC;// '<S5>/MAIN'
     uint8_T is_c40_QC2015P_EVCC;       // '<S5>/MAIN'
     uint8_T is_Chage_Step;             // '<S5>/MAIN'
@@ -1104,12 +1126,11 @@ class QC2015P_EVCC final
     DW_normal1000_QC2015P_EVCC_T sf_normal1000;// '<S6>/normal1000'
     DW_keep50ms1_QC2015P_EVCC_T sf_keep50ms2;// '<S6>/keep50ms2'
     DW_keep50ms1_QC2015P_EVCC_T sf_keep50ms1;// '<S6>/keep50ms1'
-    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic4;// '<S109>/sendCyclic4'
-    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic3;// '<S109>/sendCyclic3'
-    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic2;// '<S109>/sendCyclic2'
-    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic1;// '<S109>/sendCyclic1'
-    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic;// '<S109>/sendCyclic'
-    DW_MAIN_CNT_QC2015P_EVCC_T sf_MAIN_CNT_e;// '<S6>/MAIN_CNT'
+    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic4;// '<S111>/sendCyclic4'
+    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic3;// '<S111>/sendCyclic3'
+    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic2;// '<S111>/sendCyclic2'
+    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic1;// '<S111>/sendCyclic1'
+    DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic;// '<S111>/sendCyclic'
     DW_normal250_QC2015P_EVCC_T sf_normal250_4;// '<S5>/normal250_4'
     DW_normal250_QC2015P_EVCC_T sf_normal250_3;// '<S5>/normal250_3'
     DW_normal250_QC2015P_EVCC_T sf_normal250_2;// '<S5>/normal250_2'
@@ -1124,7 +1145,6 @@ class QC2015P_EVCC final
     DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic12;// '<S37>/sendCyclic12'
     DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic11;// '<S37>/sendCyclic11'
     DW_sendCyclic10_QC2015P_EVCC_T sf_sendCyclic10;// '<S37>/sendCyclic10'
-    DW_MAIN_CNT_QC2015P_EVCC_T sf_MAIN_CNT;// '<S5>/MAIN_CNT'
   };
 
   // Invariant block signals (default storage)
@@ -1233,14 +1253,6 @@ class QC2015P_EVCC final
   // Block states
   DW_QC2015P_EVCC_T QC2015P_EVCC_DW;
 
-  // private member function(s) for subsystem '<S5>/MAIN_CNT'
-  void QC2015P_EVCC_MAIN_CNT(boolean_T rtu_startFlg, B_MAIN_CNT_QC2015P_EVCC_T
-    *localB, DW_MAIN_CNT_QC2015P_EVCC_T *localDW);
-  void QC2015P_EVCC_enter_atomic_init(B_MAIN_CNT_QC2015P_EVCC_T *localB,
-    DW_MAIN_CNT_QC2015P_EVCC_T *localDW);
-  real_T QC2015P_EVCC_mod(real_T x);
-  real_T QC2015P_EVCC_mod_l(real_T x);
-
   // private member function(s) for subsystem '<S37>/sendCyclic10'
   static void QC2015P_EVCC_sendCyclic10_Init(real_T *rty_enable);
   static void QC2015P_EVCC_sendCyclic10(boolean_T rtu_startFlg, real_T
@@ -1271,20 +1283,20 @@ class QC2015P_EVCC final
 
   // private member function(s) for subsystem '<Root>'
   void QC2015P_EVCC_exit_internal_End(void);
-  void QC2015P_EVCC_End(const boolean_T *LogicalOperator34);
-  void QC2015P_EVCC_Authentic(const boolean_T *LogicalOperator34, const uint8_T *
-    Switch11);
-  void QC2015P_EVCC_OutLoopDete(const boolean_T *LogicalOperator34, const real_T
-    *Switch45);
-  void QC2015P_EVCC_ParmCfg(const boolean_T *LogicalOperator34, const real_T
-    *Switch7);
-  void QC2015P_EVCC_PreChgEnTrans(const boolean_T *LogicalOperator34);
+  void QC2015P_EVCC_End(const boolean_T *Delay);
+  void QC2015P_EVCC_Authentic(const boolean_T *Delay, const uint8_T *Switch11);
+  void QC2015P_EVCC_OutLoopDete(const boolean_T *Delay, const real_T *Switch45);
+  void QC2015P_EVCC_ParmCfg(const boolean_T *Delay, const real_T *Switch7);
+  void QC2015P_EVCC_PreChgEnTrans(const boolean_T *Delay);
   void exit_internal_QC2015P_BeforeEnd(void);
   void QC2015P_EVCC_QC2015P_BeforeEnd(const boolean_T *LogicalOperator38, const
-    boolean_T *LogicalOperator34, const real_T *Switch52, const real_T *Switch7,
-    const uint8_T *Switch11, const real_T *Switch45);
+    boolean_T *Delay, const real_T *Switch55, const real_T *Switch7, const
+    uint8_T *Switch11, const real_T *Switch45);
   void QC2015P_E_exit_internal_QC2015P(void);
   void QC2015P_EVC_enter_atomic_init_a(void);
+  real_T QC2015P_EVCC_mod(real_T x);
+  real_T QC2015P_EVCC_mod_l(real_T x);
+  void QC2015P_EVC_enter_atomic_init_f(void);
   void enter_atomic_S0_init_or_S2_fini(void);
   void QC2015P_EVCC_S1(const real_T DataTypeConversion5[8], const boolean_T
                        *LogicalOperator4, const real_T *DataTypeConversion40);
@@ -1293,7 +1305,8 @@ class QC2015P_EVCC final
   void QC2015P_E_enter_atomic_Send_BEM(real_T *SEQ_m);
   void QC2015P_EVCC_Chage_Step(real_T *SEQ_m);
   void QC2015P_EVCC_Send_BEM(real_T *SEQ_m);
-  void QC2015P_EVC_enter_atomic_init_k(real_T *SEQ_m);
+  void QC2015P_EVCC_enter_atomic_init(real_T *SEQ_m);
+  void QC2015P_EVC_enter_atomic_init_c(void);
   void QC2015P_enter_internal_Send_RTS(const real_T *Switch1, const real_T
     *Switch, const uint8_T *Switch3_d);
 
@@ -1309,22 +1322,8 @@ extern const QC2015P_EVCC::ConstP_QC2015P_EVCC_T QC2015P_EVCC_ConstP;
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
-//  Block '<S6>/Constant26' : Unused code path elimination
-//  Block '<S6>/Constant28' : Unused code path elimination
-//  Block '<S6>/Constant29' : Unused code path elimination
-//  Block '<S6>/Constant32' : Unused code path elimination
-//  Block '<S6>/Constant33' : Unused code path elimination
-//  Block '<S6>/Constant36' : Unused code path elimination
-//  Block '<S6>/Constant37' : Unused code path elimination
 //  Block '<S6>/Constant63' : Unused code path elimination
 //  Block '<S6>/Min of Elements3' : Unused code path elimination
-//  Block '<S6>/Selector14' : Unused code path elimination
-//  Block '<S6>/Selector20' : Unused code path elimination
-//  Block '<S6>/Selector21' : Unused code path elimination
-//  Block '<S6>/Selector23' : Unused code path elimination
-//  Block '<S6>/Selector25' : Unused code path elimination
-//  Block '<S6>/Selector26' : Unused code path elimination
-//  Block '<S6>/Selector27' : Unused code path elimination
 //  Block '<S6>/Switch51' : Unused code path elimination
 //  Block '<S6>/Unit Delay14' : Unused code path elimination
 //  Block '<Root>/Data Type Conversion' : Eliminate redundant data type conversion
@@ -1418,84 +1417,86 @@ extern const QC2015P_EVCC::ConstP_QC2015P_EVCC_T QC2015P_EVCC_ConstP;
 //  '<S65>'  : 'QC2015P_EVCC/QC2015P/Bit Shift9'
 //  '<S66>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant'
 //  '<S67>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant1'
-//  '<S68>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant11'
-//  '<S69>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant12'
-//  '<S70>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant13'
-//  '<S71>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant14'
-//  '<S72>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant15'
-//  '<S73>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant16'
-//  '<S74>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant17'
-//  '<S75>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant18'
-//  '<S76>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant19'
-//  '<S77>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant2'
-//  '<S78>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant20'
-//  '<S79>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant21'
-//  '<S80>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant22'
-//  '<S81>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant23'
-//  '<S82>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant24'
-//  '<S83>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant27'
-//  '<S84>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant28'
-//  '<S85>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant29'
-//  '<S86>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant3'
-//  '<S87>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant30'
-//  '<S88>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant31'
-//  '<S89>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant32'
-//  '<S90>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant33'
-//  '<S91>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant34'
-//  '<S92>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant35'
-//  '<S93>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant36'
-//  '<S94>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant37'
-//  '<S95>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant38'
-//  '<S96>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant39'
-//  '<S97>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant4'
-//  '<S98>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant41'
-//  '<S99>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant5'
-//  '<S100>' : 'QC2015P_EVCC/QC2015P/Compare To Constant6'
-//  '<S101>' : 'QC2015P_EVCC/QC2015P/Compare To Constant7'
-//  '<S102>' : 'QC2015P_EVCC/QC2015P/Compare To Constant8'
-//  '<S103>' : 'QC2015P_EVCC/QC2015P/Compare To Constant9'
-//  '<S104>' : 'QC2015P_EVCC/QC2015P/LM_Recv'
-//  '<S105>' : 'QC2015P_EVCC/QC2015P/LM_Send'
-//  '<S106>' : 'QC2015P_EVCC/QC2015P/MAIN_CNT'
-//  '<S107>' : 'QC2015P_EVCC/QC2015P/MATLAB Function'
-//  '<S108>' : 'QC2015P_EVCC/QC2015P/MATLAB Function1'
-//  '<S109>' : 'QC2015P_EVCC/QC2015P/MsgSend'
-//  '<S110>' : 'QC2015P_EVCC/QC2015P/PACK_LM'
-//  '<S111>' : 'QC2015P_EVCC/QC2015P/Pack_LM_ACK'
-//  '<S112>' : 'QC2015P_EVCC/QC2015P/QC2015P_MAIN'
-//  '<S113>' : 'QC2015P_EVCC/QC2015P/QC2015P_STOP'
-//  '<S114>' : 'QC2015P_EVCC/QC2015P/SOC'
-//  '<S115>' : 'QC2015P_EVCC/QC2015P/VN'
-//  '<S116>' : 'QC2015P_EVCC/QC2015P/get_lm_tfra'
-//  '<S117>' : 'QC2015P_EVCC/QC2015P/keep1_for10000ms3'
-//  '<S118>' : 'QC2015P_EVCC/QC2015P/keep1_for10ms'
-//  '<S119>' : 'QC2015P_EVCC/QC2015P/keep1_for10ms1'
-//  '<S120>' : 'QC2015P_EVCC/QC2015P/keep1_for50ms'
-//  '<S121>' : 'QC2015P_EVCC/QC2015P/keep50ms1'
-//  '<S122>' : 'QC2015P_EVCC/QC2015P/keep50ms2'
-//  '<S123>' : 'QC2015P_EVCC/QC2015P/normal1000'
-//  '<S124>' : 'QC2015P_EVCC/QC2015P/normal1000_1'
-//  '<S125>' : 'QC2015P_EVCC/QC2015P/normal1000_50for3'
-//  '<S126>' : 'QC2015P_EVCC/QC2015P/normal1000_50for3_'
-//  '<S127>' : 'QC2015P_EVCC/QC2015P/normal250_3'
-//  '<S128>' : 'QC2015P_EVCC/QC2015P/Bit Shift/bit_shift'
-//  '<S129>' : 'QC2015P_EVCC/QC2015P/Bit Shift1/bit_shift'
-//  '<S130>' : 'QC2015P_EVCC/QC2015P/Bit Shift10/bit_shift'
-//  '<S131>' : 'QC2015P_EVCC/QC2015P/Bit Shift11/bit_shift'
-//  '<S132>' : 'QC2015P_EVCC/QC2015P/Bit Shift2/bit_shift'
-//  '<S133>' : 'QC2015P_EVCC/QC2015P/Bit Shift3/bit_shift'
-//  '<S134>' : 'QC2015P_EVCC/QC2015P/Bit Shift4/bit_shift'
-//  '<S135>' : 'QC2015P_EVCC/QC2015P/Bit Shift5/bit_shift'
-//  '<S136>' : 'QC2015P_EVCC/QC2015P/Bit Shift6/bit_shift'
-//  '<S137>' : 'QC2015P_EVCC/QC2015P/Bit Shift7/bit_shift'
-//  '<S138>' : 'QC2015P_EVCC/QC2015P/Bit Shift8/bit_shift'
-//  '<S139>' : 'QC2015P_EVCC/QC2015P/Bit Shift9/bit_shift'
-//  '<S140>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic'
-//  '<S141>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic1'
-//  '<S142>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic2'
-//  '<S143>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic3'
-//  '<S144>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic4'
-//  '<S145>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic5'
+//  '<S68>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant10'
+//  '<S69>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant11'
+//  '<S70>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant12'
+//  '<S71>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant13'
+//  '<S72>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant14'
+//  '<S73>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant15'
+//  '<S74>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant16'
+//  '<S75>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant17'
+//  '<S76>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant18'
+//  '<S77>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant19'
+//  '<S78>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant2'
+//  '<S79>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant20'
+//  '<S80>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant21'
+//  '<S81>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant22'
+//  '<S82>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant23'
+//  '<S83>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant24'
+//  '<S84>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant25'
+//  '<S85>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant27'
+//  '<S86>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant28'
+//  '<S87>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant29'
+//  '<S88>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant3'
+//  '<S89>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant30'
+//  '<S90>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant31'
+//  '<S91>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant32'
+//  '<S92>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant33'
+//  '<S93>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant34'
+//  '<S94>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant35'
+//  '<S95>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant36'
+//  '<S96>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant37'
+//  '<S97>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant38'
+//  '<S98>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant39'
+//  '<S99>'  : 'QC2015P_EVCC/QC2015P/Compare To Constant4'
+//  '<S100>' : 'QC2015P_EVCC/QC2015P/Compare To Constant41'
+//  '<S101>' : 'QC2015P_EVCC/QC2015P/Compare To Constant5'
+//  '<S102>' : 'QC2015P_EVCC/QC2015P/Compare To Constant6'
+//  '<S103>' : 'QC2015P_EVCC/QC2015P/Compare To Constant7'
+//  '<S104>' : 'QC2015P_EVCC/QC2015P/Compare To Constant8'
+//  '<S105>' : 'QC2015P_EVCC/QC2015P/Compare To Constant9'
+//  '<S106>' : 'QC2015P_EVCC/QC2015P/LM_Recv'
+//  '<S107>' : 'QC2015P_EVCC/QC2015P/LM_Send'
+//  '<S108>' : 'QC2015P_EVCC/QC2015P/MAIN_CNT'
+//  '<S109>' : 'QC2015P_EVCC/QC2015P/MATLAB Function'
+//  '<S110>' : 'QC2015P_EVCC/QC2015P/MATLAB Function1'
+//  '<S111>' : 'QC2015P_EVCC/QC2015P/MsgSend'
+//  '<S112>' : 'QC2015P_EVCC/QC2015P/PACK_LM'
+//  '<S113>' : 'QC2015P_EVCC/QC2015P/Pack_LM_ACK'
+//  '<S114>' : 'QC2015P_EVCC/QC2015P/QC2015P_MAIN'
+//  '<S115>' : 'QC2015P_EVCC/QC2015P/QC2015P_STOP'
+//  '<S116>' : 'QC2015P_EVCC/QC2015P/SOC'
+//  '<S117>' : 'QC2015P_EVCC/QC2015P/VN'
+//  '<S118>' : 'QC2015P_EVCC/QC2015P/get_lm_tfra'
+//  '<S119>' : 'QC2015P_EVCC/QC2015P/keep1_for10000ms3'
+//  '<S120>' : 'QC2015P_EVCC/QC2015P/keep1_for10ms'
+//  '<S121>' : 'QC2015P_EVCC/QC2015P/keep1_for10ms1'
+//  '<S122>' : 'QC2015P_EVCC/QC2015P/keep1_for50ms'
+//  '<S123>' : 'QC2015P_EVCC/QC2015P/keep50ms1'
+//  '<S124>' : 'QC2015P_EVCC/QC2015P/keep50ms2'
+//  '<S125>' : 'QC2015P_EVCC/QC2015P/normal1000'
+//  '<S126>' : 'QC2015P_EVCC/QC2015P/normal1000_1'
+//  '<S127>' : 'QC2015P_EVCC/QC2015P/normal1000_50for3'
+//  '<S128>' : 'QC2015P_EVCC/QC2015P/normal1000_50for3_'
+//  '<S129>' : 'QC2015P_EVCC/QC2015P/normal250_3'
+//  '<S130>' : 'QC2015P_EVCC/QC2015P/Bit Shift/bit_shift'
+//  '<S131>' : 'QC2015P_EVCC/QC2015P/Bit Shift1/bit_shift'
+//  '<S132>' : 'QC2015P_EVCC/QC2015P/Bit Shift10/bit_shift'
+//  '<S133>' : 'QC2015P_EVCC/QC2015P/Bit Shift11/bit_shift'
+//  '<S134>' : 'QC2015P_EVCC/QC2015P/Bit Shift2/bit_shift'
+//  '<S135>' : 'QC2015P_EVCC/QC2015P/Bit Shift3/bit_shift'
+//  '<S136>' : 'QC2015P_EVCC/QC2015P/Bit Shift4/bit_shift'
+//  '<S137>' : 'QC2015P_EVCC/QC2015P/Bit Shift5/bit_shift'
+//  '<S138>' : 'QC2015P_EVCC/QC2015P/Bit Shift6/bit_shift'
+//  '<S139>' : 'QC2015P_EVCC/QC2015P/Bit Shift7/bit_shift'
+//  '<S140>' : 'QC2015P_EVCC/QC2015P/Bit Shift8/bit_shift'
+//  '<S141>' : 'QC2015P_EVCC/QC2015P/Bit Shift9/bit_shift'
+//  '<S142>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic'
+//  '<S143>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic1'
+//  '<S144>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic2'
+//  '<S145>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic3'
+//  '<S146>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic4'
+//  '<S147>' : 'QC2015P_EVCC/QC2015P/MsgSend/sendCyclic5'
 
 #endif                                 // RTW_HEADER_QC2015P_EVCC_h_
 

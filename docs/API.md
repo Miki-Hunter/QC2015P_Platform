@@ -10,7 +10,9 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 **CORS**: 所有接口均支持跨域访问 (`Access-Control-Allow-Origin: *`)
 
-**连接**: 所有响应均带 `Connection: close`，不做 HTTP keep-alive
+**连接**: HTTP keep-alive（连接复用），`/api/stream` 为 SSE 长连接（`Content-Type: text/event-stream`）
+
+**本机专属接口**: `/api/app/restart`、`/api/py/exec` 仅允许 `127.0.0.1` 调用，其他来源返回 403
 
 ---
 
@@ -104,6 +106,37 @@ HTTP API接口文档，供前端和Python脚本使用。
 ```
 
 > `/api/evcc/ui_logs` 与SECC对称。
+
+### GET /api/app/restart（仅本机）
+
+正常收尾后重启本程序：先停止 SECC/EVCC 模型与录制、断开并关闭 CAN 设备，再由外部脚本延迟约 3 秒拉起新实例（等旧进程释放 9527/9528）。
+
+**响应**:
+```json
+{"success": true, "restarting": true, "pid": 12345}
+```
+
+**说明**:
+- 仅允许 `127.0.0.1` 调用，其他来源返回 403
+- 正常收尾可避免强杀后 ZLG 驱动通道残留（`VCI_InitCAN failed`）
+- 重启后 CAN 不会自动重连，需要重新连接；Python 客户端用 `restart_hil()` 会自动等待新实例就绪
+
+### GET /api/py/exec（仅本机）
+
+在服务端执行一段 Python 代码，用于自动化面板的「Python 代码段 / 表达式」积木。
+
+**参数**:
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `code` | string | 是 | URL 编码的 Python 代码 |
+
+**响应**:
+```json
+{"success": true, "exitCode": 0, "output": "..."}
+```
+
+> 仅允许 `127.0.0.1` 调用。
 
 ---
 
@@ -267,6 +300,44 @@ GET /api/secc/params/set_batch?ChargeSta=1&CC2=3.5&SECC_2015P_Enable=true
 
 > 任一参数失败时 `success` 为 `false`，但已成功的参数仍然生效。
 
+### GET /api/params/set_batch_all
+
+跨模型批量设置（一条请求同时写 SECC 与 EVCC），自动化面板导出场景使用。
+
+**参数**:
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `items` | string | 是 | 形如 `SECC:name=value;EVCC:name2=value2`，分号分隔多条，冒号后为模型 |
+
+**示例**:
+```
+GET /api/params/set_batch_all?items=SECC:ChargeSta=1;EVCC:ChargeSta=1
+```
+
+**响应**:
+```json
+{"success": true, "applied": 2, "failed": 0}
+```
+
+### GET /api/param（轻量单点读取）
+
+只读取单个参数，响应约 32 字节（相比 `/api/secc/params` 全量 27KB），供自动化面板高频轮询。
+
+**参数**:
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model` | string | SECC | `SECC` 或 `EVCC` |
+| `name` | string | — | 参数名 |
+
+**响应**:
+```json
+{"success": true, "value": "1"}
+```
+
+参数不存在时返回 `{"success": false, "value": ""}`。
+
 ### GET /api/params/set（通用）
 
 不带模型前缀的通用写入端点，参数名需为模型结构体中的原始字段名。
@@ -360,6 +431,32 @@ GET /api/params/set?name=ChargeSta&value=1
 ```
 
 **响应**（报文未收到过）: `{}`
+
+### GET /api/dbc/msg（轻量单报文）
+
+自动化面板高频轮询用的轻量版：只解码指定报文，响应约 330 字节（相比 `/api/secc/dbc_params` 全量 52KB）。
+
+**参数**:
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `id` | uint32 | 是 | 报文ID（十进制） |
+
+**响应**:
+```json
+{
+    "success": true,
+    "id": 406123606,
+    "name": "LM_SECC",
+    "dlc": 8,
+    "lastUpdate": 1234567,
+    "direction": "TX",
+    "data": [1, 2, 3, 4, 5, 6, 7, 8],
+    "signals": {"PGI05_K1": "42"}
+}
+```
+
+报文未收到过时返回 `{"success": false}`。
 
 ---
 
@@ -492,6 +589,32 @@ GET /api/params/set?name=ChargeSta&value=1
 ```json
 {"success": true}
 ```
+
+### GET /api/stream（SSE 实时推送）
+
+服务端推送长连接（`text/event-stream`），约每 2ms 推送一次，用于自动化面板运行时更新本地缓存——getter 直接读缓存（亚毫秒），循环采样可稳定小于 10ms。
+
+**参数**:
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `ids` | string | 否 | 要订阅的报文 ID，逗号分隔（十进制），如 `406123606,204953332` |
+| `params` | string | 否 | 要订阅的模型参数，`模型:参数名` 逗号分隔，如 `SECC:ChargeSta,EVCC:CC2` |
+| `mon` | string | 否 | 要订阅的 Monitor 变量，格式同上，如 `SECC:MAIN_SEQ` |
+
+**推送格式**（每个事件一行 `data:`，空行结尾）:
+```
+data: {"d":{"406123606":{"u":1234567,"a":[1,2,3,4,5,6,7,8],"s":{"PGI05_K1":"42"}}},"p":{"SECC|ChargeSta":"1"},"m":{"SECC|MAIN_SEQ":"303"}}
+
+```
+
+| 字段 | 说明 |
+|------|------|
+| `d` | 以报文 ID 为键：`u`=时间戳(us)，`a`=原始字节，`s`=解码信号 |
+| `p` | 参数值，键为 `模型|参数名` |
+| `m` | Monitor 值，键为 `模型|变量名` |
+
+> 浏览器无 `EventSource` 时客户端会自动回退 HTTP 轮询。
 
 ---
 
@@ -755,6 +878,7 @@ from qc2015p_client import *
 | `rename_log(model, name)` | 重命名录制文件（支持中文） | `rename_log("SECC", "充电测试1")` |
 | `get_trace(model)` | 获取报文追踪 | `get_trace("SECC")` |
 | `configure(host, port)` | 修改服务器地址 | `configure("192.168.1.10")` |
+| `restart_hil(timeout)` | 正常收尾后重启程序并等待就绪（重启后需重新 `connect()`） | `restart_hil()` |
 
 ### 连续写多条示例
 

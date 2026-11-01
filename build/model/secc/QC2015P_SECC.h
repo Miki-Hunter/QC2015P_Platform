@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_SECC'.
 //
-// Model version                  : 1.588
+// Model version                  : 1.605
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Wed Oct 28 23:32:31 2026
+// C/C++ source code generated on : Sun Nov  1 16:54:38 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor
@@ -163,36 +163,54 @@ struct rt_Simulink_Struct_type {
   boolean_T LM_SECC_Data_SW;          // Referenced by: '<S96>/LM_SECC_Data_SW'
   boolean_T LM_SECC_Enable_SW;      // Referenced by: '<S96>/LM_SECC_Enable_SW'
   boolean_T LM_SECC_Enable_Va;      // Referenced by: '<S96>/LM_SECC_Enable_Va'
+  boolean_T PGI01_Enable;              // Referenced by: '<S6>/PGI01_Enable'
+  boolean_T PGI03_Enable;              // Referenced by: '<S6>/PGI03_Enable'
+  boolean_T PGI05_Enable;              // Referenced by: '<S6>/PGI05_Enable'
   boolean_T PGI05_K1_SW;               // Referenced by: '<S6>/PGI05_K1_SW'
   boolean_T PGI05_K2_SW;               // Referenced by: '<S6>/PGI05_K2_SW'
   boolean_T PGI07_ELock_SW;            // Referenced by: '<S6>/PGI07_ELock_SW'
+  boolean_T PGI07_Enable;              // Referenced by: '<S6>/PGI07_Enable'
+  boolean_T PGI08_Enable;              // Referenced by: '<S6>/PGI08_Enable'
   boolean_T PGI08_wakeup_SW;           // Referenced by: '<S6>/PGI08_wakeup_SW'
+  boolean_T PGI11_Enable;              // Referenced by: '<S6>/PGI11_Enable'
+  boolean_T PGI21_Enable;              // Referenced by: '<S6>/PGI21_Enable'
   boolean_T PGI31_CAuthenStatus_SW;
                                 // Referenced by: '<S6>/PGI31_CAuthenStatus_SW'
+  boolean_T PGI31_Enable;              // Referenced by: '<S6>/PGI31_Enable'
   boolean_T PGI33_AuthenResult_SW;
                                  // Referenced by: '<S6>/PGI33_AuthenResult_SW'
+  boolean_T PGI33_Enable;              // Referenced by: '<S6>/PGI33_Enable'
   boolean_T PGI33_SAuthenFDC_SW;   // Referenced by: '<S6>/PGI33_SAuthenFDC_SW'
   boolean_T PGI51_Data_SW;             // Referenced by: '<S6>/PGI51_Data_SW'
+  boolean_T PGI51_Enable;              // Referenced by: '<S6>/PGI51_Enable'
   boolean_T PGI71_ChargerReady_SW;
                                  // Referenced by: '<S6>/PGI71_ChargerReady_SW'
+  boolean_T PGI71_Enable;              // Referenced by: '<S6>/PGI71_Enable'
+  boolean_T PGI75_Enable;              // Referenced by: '<S6>/PGI75_Enable'
   boolean_T PGI75_MaxOutput_A_SW; // Referenced by: '<S6>/PGI75_MaxOutput_A_SW'
   boolean_T PGI75_OutputChangeReason_SW;
                            // Referenced by: '<S6>/PGI75_OutputChangeReason_SW'
   boolean_T PGI76_A_Exe_SW;            // Referenced by: '<S6>/PGI76_A_Exe_SW'
+  boolean_T PGI76_Enable;              // Referenced by: '<S6>/PGI76_Enable'
   boolean_T PGI76_V_Exe_SW;            // Referenced by: '<S6>/PGI76_V_Exe_SW'
+  boolean_T PGI78_Enable;              // Referenced by: '<S6>/PGI78_Enable'
   boolean_T PGI78_Pause_SW;            // Referenced by: '<S6>/PGI78_Pause_SW'
   boolean_T PGI92_AllowDetectCheck_SW;
                              // Referenced by: '<S6>/PGI92_AllowDetectCheck_SW'
+  boolean_T PGI92_Enable;              // Referenced by: '<S6>/PGI92_Enable'
   boolean_T PGI93_ChargeCapacity_SW;
                                // Referenced by: '<S6>/PGI93_ChargeCapacity_SW'
   boolean_T PGI93_DishargeCapacity_SW;
                              // Referenced by: '<S6>/PGI93_DishargeCapacity_SW'
+  boolean_T PGI93_Enable;              // Referenced by: '<S6>/PGI93_Enable'
   boolean_T SECC_2015P_Enable;     // Referenced by: '<Root>/SECC_2015P_Enable'
   boolean_T SECC_ChargeSta;           // Referenced by: '<Root>/SECC_ChargeSta'
   boolean_T SECC_DefineMsg_Enable;
                                 // Referenced by: '<S96>/SECC_DefineMsg_Enable'
   boolean_T SECC_DiagSW;               // Referenced by: '<S6>/SECC_DiagSW'
-  boolean_T SECC_LM_ManualSTOP;     // Referenced by: '<S6>/SECC_LM_ManualSTOP'
+  boolean_T SECC_LM_Pause;             // Referenced by: '<S6>/SECC_LM_Pause'
+  boolean_T SECC_LM_STOPRecv;         // Referenced by: '<S6>/SECC_LM_STOPRecv'
+  boolean_T SECC_LM_STOPSend;         // Referenced by: '<S6>/SECC_LM_STOPSend'
   boolean_T SECC_ManualSTOP;           // Referenced by: '<S6>/SECC_ManualSTOP'
   boolean_T SECC_Pause;                // Referenced by:
                                           //  '<S5>/Constant10'
@@ -602,8 +620,8 @@ class QC2015P_SECC final
     real_T LM_NACK;                    // '<S6>/LM_Send'
     real_T sendFlg;                    // '<S6>/LM_Send'
     real_T n_num;                      // '<S6>/LM_Send'
-    real_T sendFlg_c;                  // '<S6>/LM_Recv'
-    real_T n_num_d;                    // '<S6>/LM_Recv'
+    real_T sendFlg_o;                  // '<S6>/LM_Recv'
+    real_T n_num_k;                    // '<S6>/LM_Recv'
     real_T k_num;                      // '<S6>/LM_Recv'
     real_T recv_tfra;                  // '<S6>/LM_Recv'
     real_T totalBytes;                 // '<S6>/LM_Recv'
@@ -710,7 +728,7 @@ class QC2015P_SECC final
     uint8_T Data_CST[8];               // '<S5>/MAIN'
     uint8_T CTS_Data[8];               // '<S5>/J1939_TP.CM_Recv'
     uint8_T SPN;                       // '<S5>/J1939_TP.CM_Recv'
-    boolean_T LogicalOperator28;       // '<S6>/Logical Operator28'
+    boolean_T Delay;                   // '<S6>/Delay'
     B_MAIN_CNT_QC2015P_SECC_T sf_MAIN_CNT_e;// '<S6>/MAIN_CNT'
     B_MAIN_CNT_QC2015P_SECC_T sf_MAIN_CNT;// '<S5>/MAIN_CNT'
   };
@@ -742,6 +760,7 @@ class QC2015P_SECC final
     real_T T2;                         // '<S6>/QC2015P_MAIN'
     real_T STOP_reason;                // '<S6>/QC2015P_MAIN'
     real_T STOP_type;                  // '<S6>/QC2015P_MAIN'
+    real_T Temp_PGI03_Enable;          // '<S6>/QC2015P_MAIN'
     real_T cnt_j;                      // '<S96>/sendCyclic5'
     real_T err_cnt;                    // '<S6>/LM_Send'
     real_T LMS_T1;                     // '<S6>/LM_Send'
@@ -751,9 +770,9 @@ class QC2015P_SECC final
     real_T local_k;                    // '<S6>/LM_Send'
     real_T send_cnt;                   // '<S6>/LM_Send'
     real_T recv_no;                    // '<S6>/LM_Recv'
-    real_T LMS_T2_b;                   // '<S6>/LM_Recv'
-    real_T err_cnt_p;                  // '<S6>/LM_Recv'
-    real_T LMS_T3_c;                   // '<S6>/LM_Recv'
+    real_T LMS_T2_a;                   // '<S6>/LM_Recv'
+    real_T err_cnt_l;                  // '<S6>/LM_Recv'
+    real_T LMS_T3_f;                   // '<S6>/LM_Recv'
     real_T lm_tfra;                    // '<S6>/LM_Recv'
     real_T recv_num;                   // '<S6>/LM_Recv'
     real_T totalBytes;                 // '<S6>/AnalysisLM'
@@ -819,12 +838,12 @@ class QC2015P_SECC final
     int_T CANPack29_ModeSignalID;      // '<S5>/CAN Pack29'
     int_T CANPack32_ModeSignalID;      // '<S5>/CAN Pack32'
     uint16_T temporalCounter_i1;       // '<S6>/keep1_for10000ms'
-    uint16_T temporalCounter_i1_b;     // '<S6>/QC2015P_MAIN'
+    uint16_T temporalCounter_i1_m;     // '<S6>/QC2015P_MAIN'
     uint16_T temporalCounter_i2;       // '<S6>/QC2015P_MAIN'
     uint16_T temporalCounter_i1_a;     // '<S5>/MAIN'
     uint16_T temporalCounter_i2_i;     // '<S5>/MAIN'
     uint16_T temporalCounter_i3;       // '<S5>/J1939_TP.CM_Recv'
-    uint16_T temporalCounter_i1_bu;    // '<S5>/Chart'
+    uint16_T temporalCounter_i1_b;     // '<S5>/Chart'
     uint8_T UnitDelay11_DSTATE[255];   // '<S6>/Unit Delay11'
     uint8_T UnitDelay5_DSTATE;         // '<S6>/Unit Delay5'
     uint8_T UnitDelay7_DSTATE;         // '<S6>/Unit Delay7'
@@ -832,6 +851,7 @@ class QC2015P_SECC final
     uint8_T UnitDelay2_DSTATE[8];      // '<S6>/Unit Delay2'
     uint8_T UnitDelay_DSTATE[8];       // '<S6>/Unit Delay'
     uint8_T UnitDelay_DSTATE_l[255];   // '<S5>/Unit Delay'
+    boolean_T Delay_DSTATE[10];        // '<S6>/Delay'
     boolean_T UnitDelay4_DSTATE;       // '<S6>/Unit Delay4'
     boolean_T UnitDelay6_DSTATE;       // '<S6>/Unit Delay6'
     boolean_T UnitDelay19_DSTATE;      // '<S6>/Unit Delay19'
@@ -861,16 +881,16 @@ class QC2015P_SECC final
     uint8_T is_Authentic;              // '<S6>/QC2015P_MAIN'
     uint8_T is_Authentic_Main;         // '<S6>/QC2015P_MAIN'
     uint8_T is_Send_PGI31;             // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_a;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_b;             // '<S6>/QC2015P_MAIN'
     uint8_T is_FN;                     // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_p;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_h;             // '<S6>/QC2015P_MAIN'
     uint8_T is_OutLoopDete;            // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_n;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_i;             // '<S6>/QC2015P_MAIN'
     uint8_T is_Send_PGI51;             // '<S6>/QC2015P_MAIN'
     uint8_T is_Detecting;              // '<S6>/QC2015P_MAIN'
     uint8_T is_ManualSet;              // '<S6>/QC2015P_MAIN'
     uint8_T is_ParmCfg;                // '<S6>/QC2015P_MAIN'
-    uint8_T is_FC_Start_k;             // '<S6>/QC2015P_MAIN'
+    uint8_T is_FC_Start_f;             // '<S6>/QC2015P_MAIN'
     uint8_T is_PreChgEnTrans;          // '<S6>/QC2015P_MAIN'
     uint8_T is_EnTrans;                // '<S6>/QC2015P_MAIN'
     uint8_T is_PreChg;                 // '<S6>/QC2015P_MAIN'
@@ -886,7 +906,7 @@ class QC2015P_SECC final
     uint8_T is_active_c11_QC2015P_SECC;// '<S6>/LM_Recv'
     uint8_T is_c11_QC2015P_SECC;       // '<S6>/LM_Recv'
     uint8_T is_S1;                     // '<S6>/LM_Recv'
-    uint8_T temporalCounter_i1_n;      // '<S6>/LM_Recv'
+    uint8_T temporalCounter_i1_g;      // '<S6>/LM_Recv'
     uint8_T is_active_c29_QC2015P_SECC;// '<S5>/MAIN'
     uint8_T is_c29_QC2015P_SECC;       // '<S5>/MAIN'
     uint8_T is_Chage_Step;             // '<S5>/MAIN'
@@ -1148,14 +1168,8 @@ extern const QC2015P_SECC::ConstP_QC2015P_SECC_T QC2015P_SECC_ConstP;
 //  Block '<S5>/Switch1' : Unused code path elimination
 //  Block '<S5>/Switch2' : Unused code path elimination
 //  Block '<S5>/Switch44' : Unused code path elimination
-//  Block '<S6>/Constant10' : Unused code path elimination
-//  Block '<S6>/Constant25' : Unused code path elimination
 //  Block '<S6>/Constant59' : Unused code path elimination
-//  Block '<S6>/Constant9' : Unused code path elimination
 //  Block '<S6>/Min of Elements3' : Unused code path elimination
-//  Block '<S6>/Selector15' : Unused code path elimination
-//  Block '<S6>/Selector16' : Unused code path elimination
-//  Block '<S6>/Selector19' : Unused code path elimination
 //  Block '<S6>/Switch55' : Unused code path elimination
 //  Block '<S6>/Unit Delay14' : Unused code path elimination
 //  Block '<Root>/Data Type Conversion' : Eliminate redundant data type conversion

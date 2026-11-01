@@ -23,6 +23,38 @@ import urllib.request
 import urllib.parse
 from typing import Any, Dict, List, Optional, Union
 
+# Windows定时器精度：默认time.sleep(0.001)实际粒度约15.6ms，
+# 会导致轮询类脚本（如长消息中断测试）检测延迟1~2个10ms帧。
+# 提升到1ms精度（进程级设置，退出后自动恢复）。
+try:
+    import ctypes
+    ctypes.windll.winmm.timeBeginPeriod(1)
+except Exception:
+    pass
+
+
+def qcsleep(ms: float) -> None:
+    """高精度等待（毫秒）。
+    Windows 下 time.sleep(0.001) 实际粒度约15.6ms，逐帧（10ms）轮询会晚1~2帧。
+    <=5ms 用忙等保证精度；更长先 sleep 再忙等收尾。
+    """
+    _end = time.perf_counter() + ms / 1000.0
+    if ms > 5:
+        time.sleep(max(0.0, ms / 1000.0 - 0.005))
+    while time.perf_counter() < _end:
+        pass
+
+
+def qc_monitor(model: str, name: str) -> Any:
+    """读取 UserMonitor 变量（如 MAIN_SEQ、ChargeCapacity、RelinkAllow）。
+    数据来源: /api/<model>/monitor_params；变量不存在时抛 QC2015PError。
+    """
+    data = _get(f"/api/{str(model).lower()}/monitor_params")
+    for p in data.get("data", []):
+        if p.get("name") == name:
+            return p.get("value")
+    raise QC2015PError(f"monitor参数未找到: {model}.{name}")
+
 # ============================================================
 # 服务器配置
 # ============================================================
@@ -387,6 +419,40 @@ def is_running(model: str = "SECC") -> bool:
     """检查模型是否在运行"""
     st = get_status()
     return st.get(model.lower(), {}).get("running", False)
+
+
+def restart_hil(timeout: float = 20.0) -> bool:
+    """重启 QC2015P_HIL.exe（仅本机）。
+
+    会先停止 SECC/EVCC 模型与录制、断开并关闭 CAN 设备，再延迟约 3 秒重启，
+    因此不会像强杀那样把 ZLG 驱动通道留在占用状态（VCI_InitCAN failed）。
+
+    Returns:
+        True=新实例已就绪；False=超时。
+    注意：重启后 CAN 不会自动重连，需要重新 connect()。
+    """
+    global _fast_sock
+    if _fast_sock is not None:
+        try:
+            _fast_sock.close()
+        except Exception:
+            pass
+        _fast_sock = None
+    try:
+        _get("/api/app/restart")
+    except Exception:
+        pass   # 旧进程退出时连接可能被重置，属正常现象
+    # 旧进程会先回包、约100ms后才退出；先等它释放端口，
+    # 否则第一次 /api/status 会打到旧进程，误判为“新实例已就绪”。
+    time.sleep(0.5)
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            _get("/api/status")
+            return True
+        except Exception:
+            time.sleep(0.3)
+    return False
 
 
 def logging(state: int, ch: int = 0, fmt: int = 0) -> bool:

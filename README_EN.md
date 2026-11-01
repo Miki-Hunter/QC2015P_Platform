@@ -30,10 +30,11 @@ Download the original recording from the [Releases](https://github.com/Miki-Hunt
 
 </details>
 
+---
 
 ## 📖 What Is This?
 
-In one sentence: **A single PC + a CAN adapter can fully simulate the entire charging communication process between an EVSE (charger) and an EV in the lab.**
+In one sentence: **A single PC + a CAN adapter (a small USB-to-CAN box) can fully simulate the entire charging communication process between an EVSE (charger) and an EV in the lab.**
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -57,8 +58,6 @@ In one sentence: **A single PC + a CAN adapter can fully simulate the entire cha
 └──────────────────────────────────────────────────────────┘
 ```
 
-### 🤔 Why Do You Need It?
-
 **In one line: it turns charging-communication testing from "you need a real car, a real charger and somebody staring at a screen" into "one PC, repeatable on demand, fully recorded".**
 
 | The traditional way | With this platform |
@@ -69,7 +68,9 @@ In one sentence: **A single PC + a CAN adapter can fully simulate the entire cha
 | After a failure, someone has to recall what was on screen | 100K communication records kept automatically, exportable anytime for review |
 | Messages are raw hex and unreadable to humans | Auto-translated into named values (voltage / current / SOC), each message colour-coded |
 
-> If all you want to know is "what's good about it" — **fewer people, less equipment, less time, and repeatable results.** The rest of this page covers the UI and usage.
+> If all you want to know is "what's good about it" — **fewer people, less equipment, less time, and repeatable results.**
+
+**Typical uses**: development self-test · pre-certification / acceptance testing · customer demos · field-failure reproduction
 
 ---
 
@@ -86,7 +87,7 @@ The charger and the vehicle run **side by side** on the same PC, each advancing 
 <td width="50%" valign="top">
 
 ### 📊 Open a Browser and You're In
-No client to install — open a URL and **change parameters, watch the messages, follow the charging progress**, with the current phase visible at a glance.
+No client to install: **change parameters, watch messages, follow the charging progress**, with the current phase visible at a glance.
 
 </td>
 </tr>
@@ -99,22 +100,8 @@ Drag a parameter onto the canvas, edit the value, click "Apply" — **effective 
 </td>
 <td width="50%" valign="top">
 
-### 🐍 If You Can Script, You Can Automate
-Read/write parameters and read messages in one line of code — **hand the repetitive testing to a script** instead of clicking through the UI.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### 📝 Recorded and Replayable End to End
-Export the traffic as **ASC** (opens directly in CANoe) or **BLF**, ready for after-the-fact review, evidence, or analysis in your usual tools.
-
-</td>
-<td width="50%" valign="top">
-
-### 🎨 Dark / Light Theme
-Two built-in themes — **dark tech style** for demos, **light clean style** for daily development, switch with one click.
+### 🤖 Automate Without Writing Code
+**Drag blocks together** to build a test script, hit run, and get a PASS/FAIL verdict; anyone who writes Python can export the same script and run it offline.
 
 </td>
 </tr>
@@ -122,160 +109,17 @@ Two built-in themes — **dark tech style** for demos, **light clean style** for
 <td width="50%" valign="top">
 
 ### 🔄 Both Protocol Generations Supported
-One model ships the **2024 national standard** and the **2015 legacy fast-charging protocol** — which one runs is negotiated between the two ends, and individual messages and signals can be overridden.
+One model ships the **2024 national standard** and the **2015 legacy fast-charging** protocol stacks — which one runs is negotiated between the two ends.
 
 </td>
 <td width="50%" valign="top">
 
-### ⚡ Fast Enough for High-Frequency Testing
-A scripted parameter change costs **≈0.3ms** (over a persistent connection to the internal high-speed command port), so thousands of automated cases won't slow the platform down.
+### 📝 Recorded and Replayable End to End
+Export the traffic as **ASC** (opens directly in CANoe) or **BLF**, ready for review, evidence, or analysis in your usual tools.
 
 </td>
 </tr>
 </table>
-
----
-
-## 🔌 Backward Compatible with GB/T 27930-2015
-
-**What it buys you**: one platform tests both the new national standard (2024) and the old one (2015). Combos like "new charger + old vehicle" no longer need different hardware or a different build — each side declares whether it supports the new protocol, the two ends negotiate which one to run, and all you do is tick a box in the UI.
-
-Technically, one model ships both the 2024 (2015P) and 2015 protocol stacks, and **which flow actually runs is decided by negotiation between the two ends** — neither side picks unilaterally.
-
-| Side | Switch | Default | Meaning |
-|:-----|:-------|:-------:|:--------|
-| EVSE side (SECC) | `SECC_2015P_Enable` | `true` | Whether **this end supports 2015P** (i.e. GB/T 27930.2-2024) |
-| EV side (EVCC) | `EVCC_2015P_Enable` | `true` | same |
-
-This is a **local capability flag, not a protocol selector**:
-
-| Value | Behaviour of this end |
-|:-----:|:----------------------|
-| `true` (default) | Supports 2015P, **while remaining 2015-compatible**. Which flow runs depends on negotiation — even with both ends enabled, it may still fall back to the 2015 flow, for example when the **version number is below 2.0.0** |
-| `false` | This end runs the **2015 protocol only** (2015P is itself backward compatible with 2015, so charging still works) |
-
-> ⚠️ **If either end is set to `false`**, only two outcomes are possible: the whole session runs the 2015 flow, or charging fails.
-
-### Supported 2015 Messages
-
-| Side | Message Set | Per-message control |
-|:-----|:------------|:--------------------|
-| 🔌 SECC (EVSE) | `CHM` handshake · `CRM` recognition · `CRO` ready · `CML` params · `CCS` charging · `CST` stop · `CSD` statistics · `CEM` error | ✅ all 8 |
-| 🚗 EVCC (EV) | `BHM` handshake · `BRO` ready · `BCL` demand · `BSM` monitoring · `BST` stop · `BSD` statistics · `BEM` error | ✅ all 7 |
-| 🚗 EVCC (EV) | `BRM` recognition · `BCP` params · `BCS` status | ⚙️ Sent automatically by internal model logic (no dedicated enable parameter); payload still overridable per signal via SPN parameters |
-
-> Transport-layer messages on both sides are grouped under the `TP_*` prefix.
-
-### 2015 Messages Are Decoded in the UI Too
-
-In the message trace, 2015 messages show **names and decoded signals** exactly like 2024 ones:
-
-- The built-in message dictionary (DBC) covers **all 38 messages** — 13 from 2024 plus 25 from 2015 (`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` and so on)
-- Long multi-packet messages such as `BRM` / `BCP` / `BCS` are **automatically reassembled** (J1939 transport protocol) before decoding, so the panel shows the complete signals — no manual stitching
-
-In other words: running a 2015 session, you can still read "battery type, total voltage, SOC" straight off the trace without knowing hex.
-
-📊 **Want to see the real thing?** The repository root ships a **sample recording** captured with this platform: [`向下兼容2015协议_V1.0.blf`](向下兼容2015协议_V1.0.blf) — a complete 2015 legacy-protocol charging session. Open it directly in CANoe / CANalyzer; no hardware required.
-
-### Four Control Parameters per Message
-
-Taking `CRM` as an example, every message marked ✅ above exposes the same four parameters — editable in the Web UI or from a Python script.
-
-> **Naming convention** — every paired parameter in this project follows the `_SW` + `_Va` rule:
-> `_SW` is the switch (boolean, **defaults to `false`**) and `_Va` is only consumed while `_SW` is `true`.
-> In other words: **touch nothing and the internal state machine drives everything**; to let a script take over one specific point, set its `_SW` to `true` and supply the desired value in `_Va`.
-
-| Parameter | Type | Default | Description |
-|:----------|:-----|:-------:|:------------|
-| `CRM_Enable_SW` | boolean | `false` | Manual takeover switch: when `true`, `CRM_Enable_Va` decides whether this message is transmitted; when `false` (default) the internal state machine controls it |
-| `CRM_Enable_Va` | boolean | `false` | Manual enable value, effective only while `CRM_Enable_SW` is `true` |
-| `CRM_Cycle_Va` | real | 250 | Transmit cycle (ms) |
-| `CRM_Data_SW` | boolean | `false` | Data override switch: when `true` the payload is rewritten from the SPN parameters below; when `false` (default) the model's internal logic is used |
-
-### Per-Signal Override (SPN Parameters)
-
-With `CRM_Data_SW` on, every signal inside the message can be overridden individually — parameter names follow `SPN<number>_<MSG>_<signal>`, where `_SW` arms the override and `_Va` supplies the value:
-
-```python
-# Override the "BMS identification" signal in CRM, keep all other fields from model logic
-SECC_ValueSet("CRM_Data_SW", True)                  # arm the data override
-SECC_ValueSet("SPN2560_CRM_BMSIdentify_SW", True)   # arm this one signal
-SECC_ValueSet("SPN2560_CRM_BMSIdentify_Va", 0x5A)   # write a custom value
-```
-
-This round of model updates adds **99** parameters on the SECC side and **180** on the EVCC side, spanning three levels of control: message level (enable / cycle / data override), signal level (per-field SPN override) and raw message injection.
-
-### Raw Message Injection
-
-Each side has a `DefineMsg_*` parameter group that injects an arbitrary extra message onto the bus (disabled by default):
-
-| Parameter | Default | Description |
-|:----------|:-------:|:------------|
-| `SECC_DefineMsg_Enable` | `false` | Whether to inject |
-| `SECC_DefineMsg_ID` | `405206102` | Message ID (including extended-frame flag) |
-| `SECC_DefineMsg_Extended` | `1` | Extended frame (uint8: 1 = extended, 0 = standard) |
-| `SECC_DefineMsg_Length` | `8` | DLC |
-| `SECC_DefineMsg_Cycle` | `50` | Transmit cycle (ms) |
-
-### Legacy Phases in the UI
-
-The top SEQ badge also maps the 2015 protocol phases (SEQ 10~99); those labels carry an `(old)` suffix to distinguish them from the 2024 ones — see [Charging Phase Indicator](#1️⃣-real-time-charging-phase-indicator).
-
----
-
-## 🧪 Protocol Conformance Testing (GB/T 34658-2025)
-
-**What it buys you**: now that the new national standard is in force, "it charges" is no longer enough — certification bodies and OEM acceptance teams ask whether **every single item the standard requires** is satisfied. This folder holds **recorded traffic from conformance runs** executed on this platform, ready to keep as test evidence, hand over, or review after the fact — no real vehicle or charger needed, and nobody watching a screen.
-
-### What the standard covers
-
-**GB/T 34658-2025 — "Conformance test of the communication protocol between off-board conductive chargers and the battery management system of electric vehicles"** is the **companion test standard** to the GB/T 27930 series. It defines *how to verify each item one by one* so you can prove the communication between the charger (SECC) and the battery management system / vehicle side (EVCC) genuinely **complies with the protocol**, rather than merely "happens to work".
-
-Test items are organised by protocol layer:
-
-| Layer | What it checks | Typical items |
-|:------|:---------------|:--------------|
-| **Physical (PL)** | Electrical characteristics | CAN bus terminating resistor (120 Ω ±10%), bit rate (250 kbit/s) |
-| **Data link (DL)** | Whether a single frame is compliant | Data frame format, **version negotiation** |
-| **Transport (TL)** | Whether multi-frame long messages get through | Long-message send / receive (LM / RM / URM) |
-| **Application (AL)** | End-to-end charging business logic | Wake-up, function negotiation, parameter configuration, authentication, charging schedule, power supply mode, pre-charging & energy transfer, phase ack, suspend, end of charging, backward compatibility… |
-
-The standard contains roughly **370 test cases**, split evenly between the charger side and the vehicle side; each item comes in a **positive** variant (verify the normal flow) and a **negative** variant (inject a fault and check the device under test responds correctly):
-
-| Device under test | Positive | Negative | Total |
-|:------------------|:--------:|:--------:|:-----:|
-| 🔌 SECC (charger) | 71 | 114 | **185** |
-| 🚗 EVCC (vehicle) | 67 | 117 | **184** |
-
-### Recordings included in this repository
-
-📂 [`通信协议一致性_GBT34658-2025/`](通信协议一致性_GBT34658-2025/)
-
-```
-通信协议一致性_GBT34658-2025/
-└── EVCC/                                              ← device under test: vehicle side
-    ├── TC_C.EVCC_P_DL_VersionNegotiation_001~003.blf
-    ├── TC_C.EVCC_P_DL_VersionNegotiation_004.blf
-    ├── …
-    └── TC_C.EVCC_N_DL_VersionNegotiation_008.blf
-```
-
-A first batch of **14 BLF recordings** covering the **EVCC version negotiation (data link layer)** positive and negative cases — all captured automatically by this platform and openable frame by frame in CANoe / CANalyzer.
-
-### How to read a test-case ID
-
-```
-TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
-  │      │    │   │          │              │
-  │      │    │   │          │              └─ index within the item
-  │      │    │   │          └──────────────── test item (version negotiation)
-  │      │    │   └─────────────────────────── protocol layer: PL / DL / TL / AL
-  │      │    └─────────────────────────────── case type: P positive / N negative
-  │      └──────────────────────────────────── device under test: EVCC vehicle / SECC charger
-  └─────────────────────────────────────────── test case
-```
-
-> 🚧 **Work in progress**: EVCC version negotiation is done so far; the remaining EVCC layers follow in standard order, then the SECC layers.
 
 ---
 
@@ -285,40 +129,38 @@ TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
 
 <p align="center">
   <img src="docs/screenshots/01-home.png" width="90%" alt="Home Page" />
-  <br/><em>▲ Home — Select SECC (EVSE side) or EVCC (vehicle side) test page</em>
+  <br/><em>▲ Home — choose SECC (EVSE side), EVCC (vehicle side) or the automation panel</em>
 </p>
 
 ### SECC Page (EVSE Side) — Full View
 
 <p align="center">
   <img src="docs/screenshots/02-secc-full.png" width="90%" alt="SECC Page Full View" />
-  <br/><em>▲ SECC Page — Top: charging phase indicator + Left: parameter list + Center: parameter canvas + Bottom: message trace</em>
+  <br/><em>▲ SECC page — charging phase indicator on top, parameter list on the left, parameter canvas in the middle, message trace at the bottom</em>
 </p>
 
 ### EVCC Page (Vehicle Side) — Full View
 
 <p align="center">
   <img src="docs/screenshots/03-evcc-full.png" width="90%" alt="EVCC Page Full View" />
-  <br/><em>▲ EVCC Page — Layout matches SECC, parameters and messages correspond to the vehicle side</em>
+  <br/><em>▲ EVCC page — same layout as SECC, with parameters and messages for the vehicle side</em>
 </p>
 
 ---
 
-## 🔍 Feature Details (With Screenshots)
+## 🔍 Feature Details
 
 ### 1️⃣ Real-time Charging Phase Indicator
 
-The top navigation bar displays the current charging phase in real-time, with colors changing automatically:
+The top navigation bar shows the current charging phase in real time, with colours changing automatically:
 
 <p align="center">
   <img src="docs/screenshots/06-charging-phase.png" width="70%" alt="Charging Phase Indicator" />
-  <br/><em>▲ Top SEQ badge — Current phase: "Authentication", pink background</em>
+  <br/><em>▲ Top SEQ badge — current phase "Authentication", pink background</em>
 </p>
 
-Full charging phase color map — **GB/T 27930.2-2024 (new protocol)**:
-
-| Phase | SEQ Value | Color |
-|:------|:---------:|:-----:|
+| Phase | SEQ Value | Colour |
+|:------|:---------:|:------:|
 | Initial | 0 | 🩶 Gray |
 | Version Negotiation | 1 | 🩵 Cyan |
 | Function Negotiation | 2~200 | 💙 Blue |
@@ -329,77 +171,48 @@ Full charging phase color map — **GB/T 27930.2-2024 (new protocol)**:
 | Power Supply Mode | 601~700 | 🟠 Dark Orange |
 | Pre-charge | 701~750 | 💚 Green |
 | Energy Transfer | 751~777 | 🟢 Bright Green |
-| Charging Pause | 778~780 | 💛 Yellow |
-| Charging Termination | 781~800 | ❤️ Red |
+| Charging Pause / Termination | 778~800 | 💛 / ❤️ |
 | Charging Complete | 801~900 | 🩵 Teal |
 
-**GB/T 27930-2015 (legacy protocol, labels carry an `(old)` suffix)**:
+> The 2015 legacy phases (SEQ 10~99, labelled `(old)`) and the reconnect/reboot branches (SEQ 1000~1020) are shown too; unknown values render as "unknown".
 
-| Phase | SEQ Value | Color |
-|:------|:---------:|:-----:|
-| Handshake (old) | 10~29 | 🤎 Brown |
-| Parameter Config (old) | 30~49 | 🩶 Blue Gray |
-| Charging (old) | 50~59 | 🟩 Green |
-| Charging Stopped (old) | 60~79 | ❤️ Red |
-| Finished (old) | 80~99 | 🩵 Teal |
+### 2️⃣ Parameter Canvas — Drag & Drop
 
-**Error / reconnect branches (shared by both protocols)**:
-
-| Phase | SEQ Value | Color |
-|:------|:---------:|:-----:|
-| Waiting to reconnect/reboot | 1000 | 💟 Purple |
-| Waiting to reboot | 1001 | 💜 Light Purple |
-| Reboot waking up | 1008~1009 | 🩵 Sky Blue |
-| Reboot timeout | 1010 | ❤️ Red |
-| Reconnect/reboot forbidden | 1020 | 🤎 Dark Brown |
-
-> Any SEQ value outside these ranges renders as `SEQ=xxx - Unknown(xxx)` on a gray background.
-
-### 2️⃣ Parameter Canvas — Drag & Drop Editing
-
-Drag parameters from the left list to the canvas area to **view and modify** values in real-time:
+Drag parameters from the left list onto the canvas to **view and modify** values in real time:
 
 <p align="center">
   <img src="docs/screenshots/04-canvas-detail.png" width="70%" alt="Parameter Canvas" />
-  <br/><em>▲ Parameter Canvas — Drag parameter cards to canvas, edit values in real-time, gray text shows notes</em>
+  <br/><em>▲ Parameter canvas — drag cards onto the canvas, edit values in real time, gray text shows notes</em>
 </p>
-
-**Three parameter types supported:**
 
 | Type | Editable | Description |
 |:-----|:--------:|:------------|
 | 🔧 Model Parameters | ✅ Read/Write | **The test conditions you want to change** (voltage, current, enable switches…); effective immediately |
-| 📡 DBC Signals | 👁️ Read-only | What is actually on the bus, **translated into named values and numbers** |
+| 📡 DBC Signals | 👁️ Read-only | Signal values carried in messages (voltage, current, …), **translated into names and numbers** |
 | 📊 Monitor Variables | 👁️ Read-only | Live internal state (charging progress, detection results, …) |
 
-**Convenient Operations:**
-- 🖱️ **Drag to Add** — Drag from left list to canvas
-- ✏️ **Click to Edit** — Click values on cards to modify directly
-- 📋 **Apply All** — Batch submit all modifications at once
-- 💾 **Import/Export** — Save canvas configuration as JSON for next use
-- 📌 **Default Config** — Pre-configured common parameters, shown on startup
+- 🖱️ **Drag to add** · ✏️ **Click to edit** · 📋 **Apply all** · 💾 **Import/Export** (JSON) · 📌 **Default config** (common parameters on startup)
 
-### 3️⃣ Message Trace — 15-Color Identification
+### 3️⃣ Message Trace — 15-Colour Identification
 
-The charger and the vehicle exchange hundreds of messages per second (the trade term is "messages" / "frames"). This panel lists them live, **assigning each message its own colour** so you can tell at a glance who is talking:
+The charger and the vehicle exchange hundreds of messages per second (the trade term is "frames"). This panel lists them live, **assigning each message its own colour** so you can tell at a glance who is talking:
 
 <p align="center">
   <img src="docs/screenshots/05-trace-detail.png" width="90%" alt="Message Trace" />
-  <br/><em>▲ Message Trace — 15 colors assigned by ID, with color bar + ID text + subtle background</em>
+  <br/><em>▲ Message trace — 15 colours assigned by ID, with colour bar + ID text + subtle background</em>
 </p>
 
-**Core Capabilities:**
-- 📦 **100K Message Buffer** — Both backend and frontend retain 100K messages, virtual scrolling smooth
-- 🔍 **Real-time Filtering** — Quick filter by ID or name
-- ⬆️ **Scroll Up to Review** — Auto-load earlier history when scrolling to top
-- 🖱️ **Click to Decode** — Click any message row to see DBC signal decode details
-- ⏱️ **Message Period** — Auto-calculate send period for each message
+- 📦 **100K-message buffer** — backend and frontend each keep 100K; virtual scrolling stays smooth
+- 🔍 **Live filtering** — by ID or name
+- ⬆️ **Scroll-up history** — earlier messages load automatically at the top
+- 🖱️ **Click to decode** — open any message row for DBC signal details
+- ⏱️ **Message period** — computed automatically for each ID
 
 ### 4️⃣ Recording & Export
 
 <p align="center">
   <img src="docs/screenshots/10-recording.png" width="50%" alt="Recording Panel" />
-  <br/><em>▲ Recording Control — Select ASC or BLF format, one-click start/stop recording</em>
+  <br/><em>▲ Recording control — pick ASC or BLF, start/stop with one click</em>
 </p>
 
 | Format | Description | Tool |
@@ -407,12 +220,18 @@ The charger and the vehicle exchange hundreds of messages per second (the trade 
 | **ASC** | Text format, human-readable | Open directly in CANoe / CANalyzer |
 | **BLF** | Vector binary format, smaller files | CANoe / CANalyzer / Python |
 
+- SECC and EVCC record **independently**; files are named automatically (e.g. `SECC_20260830_143022.asc`)
+
 ### 5️⃣ Parameter List — Three in One
 
 <p align="center">
   <img src="docs/screenshots/09-param-list.png" width="40%" alt="Parameter List" />
-  <br/><em>▲ Parameter List — Model parameters, DBC signals, Monitor variables unified display</em>
+  <br/><em>▲ Parameter list — model parameters, DBC signals and Monitor variables in one place</em>
 </p>
+
+- 🔧 **Model parameters** — filter by category, search, editable
+- 📡 **DBC signals** — grouped by message, with TX/RX direction and sender
+- 📊 **Monitor variables** — live refresh, read-only
 
 ### 6️⃣ Dark / Light Theme
 
@@ -420,22 +239,184 @@ The charger and the vehicle exchange hundreds of messages per second (the trade 
   <img src="docs/screenshots/07-dark-theme.png" width="45%" alt="Dark Theme" />
   &nbsp;&nbsp;
   <img src="docs/screenshots/08-light-theme.png" width="45%" alt="Light Theme" />
-  <br/><em>▲ Left: Dark theme (tech style, for demos) | Right: Light theme (clean, for daily use)</em>
+  <br/><em>▲ Left: dark theme (tech style, for demos) | Right: light theme (clean, for daily use)</em>
 </p>
+
+---
+
+## 🔌 Dual Protocol: 2024 Standard + 2015 Legacy
+
+One model ships both protocol stacks, and **which flow actually runs is decided by negotiation between the two ends** — "new charger + old vehicle" and "old charger + new vehicle" need neither different hardware nor a different build.
+
+| Side | Switch | Default | Meaning |
+|:-----|:-------|:-------:|:--------|
+| EVSE side (SECC) | `SECC_2015P_Enable` | `true` | Whether **this end supports 2015P** (i.e. the 2024 standard) |
+| EV side (EVCC) | `EVCC_2015P_Enable` | `true` | same |
+
+- **`true` (default)**: supports 2024 and remains 2015-compatible. Negotiation decides — even with both ends enabled it may fall back to 2015 when the **version is below 2.0.0**; if either end is `false`, the session runs 2015 or fails to charge.
+- **`false`**: this end runs 2015 only (2015P is backward compatible with 2015, so charging still works).
+
+**Supported 2015 messages**
+
+| Side | Message set |
+|:-----|:------------|
+| 🔌 SECC | `CHM` handshake · `CRM` recognition · `CRO` ready · `CML` params · `CCS` charging · `CST` stop · `CSD` statistics · `CEM` error |
+| 🚗 EVCC | `BHM` handshake · `BRM` recognition · `BCP` params · `BRO` ready · `BCL` demand · `BCS` status · `BSM` monitoring · `BST` stop · `BSD` statistics · `BEM` error |
+
+> Transport-layer messages are grouped under the `TP_*` prefix.
+
+**How deep the control goes** (full parameter reference in [docs/API.md](docs/API.md)):
+
+- **Message level**: decide per message whether it is sent, how often, and whether its payload uses custom values
+- **Signal level**: rewrite one specific field inside a message (battery type, SOC, …)
+- **Raw injection**: inject an extra message of your own to simulate a faulty device
+- **How parameters are named**: pairs of `_SW` (switch, default off) + `_Va` (the value used once the switch is on) — leave everything untouched and the model drives it; full names in [docs/API.md](docs/API.md)
+
+**2015 messages are decoded in the UI too**: the built-in dictionary has 38 messages (13 from 2024 + 25 from 2015); multi-packet `BRM`/`BCP`/`BCS` are reassembled via J1939 before decoding, so the trace shows names and signal values directly.
+
+📊 A real sample recording ships in the repository root: [`向下兼容2015协议_V1.0.blf`](向下兼容2015协议_V1.0.blf) — open it in CANoe / CANalyzer, no hardware required.
+
+---
+
+## 🧪 Protocol Conformance Testing (GB/T 34658-2025)
+
+**What it buys you**: now that the new national standard is in force, "it charges" is no longer enough — certification bodies and OEM acceptance teams ask whether **every item the standard requires** is satisfied. This folder holds **recorded traffic from conformance runs** on this platform, ready to keep as evidence, hand over, or review.
+
+**GB/T 34658-2025 — "Conformance test of the communication protocol between off-board conductive chargers and the battery management system of electric vehicles"** is the **companion test standard** to the GB/T 27930 series: it defines *how to verify each item one by one*.
+
+| Layer | What it checks | Typical items |
+|:------|:---------------|:--------------|
+| **Physical (PL)** | Electrical characteristics | CAN terminating resistor (120 Ω ±10%), bit rate (250 kbit/s) |
+| **Data link (DL)** | Single-frame compliance | Data frame format, **version negotiation** |
+| **Transport (TL)** | Multi-frame long messages | Long-message send / receive (LM / RM / URM) |
+| **Application (AL)** | End-to-end charging logic | Wake-up, function negotiation, parameter configuration, authentication, charging schedule, power supply mode, pre-charging & energy transfer, phase ack, suspend, end of charging, backward compatibility… |
+
+The standard contains roughly **370 cases**, split evenly between charger and vehicle, each in a **positive** (normal flow) and a **negative** (fault injection) variant:
+
+| Device under test | Positive | Negative | Total |
+|:------------------|:--------:|:--------:|:-----:|
+| 🔌 SECC (charger) | 71 | 114 | **185** |
+| 🚗 EVCC (vehicle) | 67 | 117 | **184** |
+
+### Recordings included
+
+📂 [`通信协议一致性_GBT34658-2025/`](通信协议一致性_GBT34658-2025/) — **53 BLF files** so far:
+
+| Device under test | Covered items |
+|:------------------|:--------------|
+| 🚗 EVCC (vehicle) | Version negotiation (DL), long messages LM.X (TL), function negotiation / parameter configuration / phase ack (AL) |
+| 🔌 SECC (charger) | Function negotiation / parameter configuration (AL) |
+
+All captured automatically by this platform and openable frame by frame in CANoe / CANalyzer.
+
+How to read a test-case ID:
+
+```
+TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
+  │      │    │   │          │              └─ index within the item
+  │      │    │   │          └──────────────── test item
+  │      │    │   └─────────────────────────── layer: PL / DL / TL / AL
+  │      │    └─────────────────────────────── type: P positive / N negative
+  │      └──────────────────────────────────── device under test: EVCC / SECC
+  └─────────────────────────────────────────── test case
+```
+
+> 🚧 **Work in progress**: EVCC version negotiation, long messages and some application-layer cases are covered, plus some SECC application-layer cases; the rest follow in standard order.
+
+---
+
+## 🤖 Automation
+
+### Drag-and-Drop Test Panel (no coding)
+
+**What it buys you**: regression testing no longer means an engineer clicking through the UI, and nobody has to learn Python — drag "connect CAN → wait for model → set parameter → read signal → check → record verdict" together like blocks, press run, and the platform executes it end to end with a **PASS / FAIL** verdict.
+
+**Entry point**: the "Automation" card on the home page, or go straight to http://localhost:9527/testpanel.html
+
+<p align="center">
+  <img src="docs/screenshots/11-testpanel.png" width="95%" alt="Automation Test Panel" />
+  <br/><em>▲ Automation test panel — block library on the left, drag-and-drop canvas in the middle, run steps and Python preview on the right, PASS / FAIL verdict bar on top</em>
+</p>
+
+| Pane | What you do there |
+|:-----|:------------------|
+| 🧱 **Block library (left)** | Categories: Action / Python / Parameter·Signal / Variable / Control / Verdict / Logic — drag what you need onto the canvas |
+| 🧩 **Canvas (middle)** | Assemble the blocks into a test flow; yellow notes are **comments** (for humans, not executed), and blocks can be **disabled** (kept but skipped) |
+| 📋 **Run steps (right)** | Scrolls in real time with a PASS/FAIL badge, timestamp and duration per step; the **Python preview** is generated underneath |
+| 🟢 **Verdict bar (top)** | Pass/fail counts and total duration — a failing step is visible immediately |
+
+**The example in the screenshot** is a real conformance case, `TC_C.SECC_N_AL_FunctionNegotiation.FDC1_001`; read top to bottom it *is* the test procedure:
+
+1. **Set up**: connect both CAN channels (0 = charger, 1 = vehicle) → wait 500ms → start BLF recording
+2. **Build the condition**: set charger and vehicle parameters (notes such as "disable this side's diagnostics (observe the device under test)")
+3. **Wait for the result**: inside a 5500ms timeout loop, read `S_SECC_PGI` repeatedly; on the target value, `result + 1` and break out
+4. **Wrap up**: stop and name the recording → disconnect both channels → verdict "`result = 1`, reason: complete"
+5. **Optional**: end with "restart HIL app" to shut down cleanly and release the ZLG channel state
+
+Afterwards the right-hand panel lists PASS/FAIL and duration for all 30 steps and the top bar shows **PASS**. This script uses no `assert` checks, hence the 0 / 0 counters; add asserts and they accumulate per check.
+
+**Available blocks**
+
+| Category | Blocks |
+|:---------|:-------|
+| 🔌 Connection | Connect / disconnect CAN, wait for model, restart HIL app |
+| ⚙️ Parameter·Signal | Set parameter, get parameter, read DBC signal, read Monitor variable, current timestamp |
+| 🔁 Control | Wait N ms, wait_until, if / elseif / else, for / while, break / continue |
+| ✅ Verdict | assert check, log, recording control, PASS / FAIL |
+| 🧩 Variable·Logic | Arrays, variables, arithmetic, comparison and logic |
+| 🐍 Python | Python code snippet, Python expression (inserted verbatim — any code goes) |
+
+**Key capabilities**
+
+- **Step-by-step visualization**: the step panel scrolls live and the executing block is highlighted — when something goes wrong you see exactly where
+- **Save and share**: the workspace saves to JSON as a template; export to a **Python script** that runs offline with `qc2015p_client.py` (bottom-right of the screenshot, syntax-checked)
+- **Fast**: lightweight single-item endpoints + connection reuse + server-side push (SSE) — about 1ms per interaction, loop sampling under 10ms
+- **Local only**: Python snippets and the restart endpoint are restricted to `127.0.0.1`
+
+### Python Scripts (Optional)
+
+For hundreds or thousands of repeated runs (conformance cases, regressions), you can also write Python directly — the client library uses only the standard library.
+
+```python
+import sys
+sys.path.insert(0, "docs")
+from qc2015p_client import *
+
+connect(baud=250000)            # connect CAN (both channels)
+SECC_ValueSet("ChargeSta", 1)   # set an EVSE parameter
+print(EVCC_ValueGet("ChargeSta"))
+print(MsgGet(0x1836F456, "PGI05_K1"))
+```
+
+| Function | Description | Example |
+|:---------|:------------|:--------|
+| `connect(baud, device)` | Connect both CAN channels (`device` = `zlg` / `zlgcanfd`) | `connect(device="zlgcanfd")` |
+| `disconnect()` | Disconnect both channels | `disconnect()` |
+| `SECC_ValueSet / Get` | Read/write SECC parameters | `SECC_ValueSet("ChargeSta", 1)` |
+| `EVCC_ValueSet / Get` | Read/write EVCC parameters | `EVCC_ValueGet("ChargeSta")` |
+| `MsgGet(id[, what])` | Read a message / raw bytes / one signal | `MsgGet(0x1836F456, "PGI05_K1")` |
+| `wait_params / poll_params` | Wait for a value / sample repeatedly | `wait_params("SECC_ChargeSta", 1)` |
+| `logging / rename_log` | Recording control / rename a recording | `logging(1, ch=0, fmt=1)` |
+| `get_trace / get_status` | Message trace / system status | `get_trace("SECC")` |
+| `restart_hil(timeout)` | Restart the program cleanly | `restart_hil()` |
+
+> ⚡ `*_ValueSet` / `*_ValueGet` / `MsgGet` use the program's **internal high-speed channel (persistent TCP, port 9528)** at ≈0.3ms each, and fall back to plain HTTP automatically — no script changes needed.
+> 📌 Parameter names are the **field names exactly as shown in the Web UI**: pass `"ChargeSta"` for `ChargeSta`, and the full name for `SECC_2015P_Enable`.
+> 📄 Full reference: [docs/API.md](docs/API.md) | Client source: [docs/qc2015p_client.py](docs/qc2015p_client.py)
 
 ---
 
 ## 🏗️ System Architecture
 
-In plain terms: **the browser handles "seeing" and "clicking", the C++ program does the "computing" and "communicating", and both charging models are built graphically in Simulink and turned into code automatically** — the division of labour:
+The browser handles "seeing" and "clicking", the C++ program does the "computing" and "communicating", and the charging logic is built graphically in Simulink and turned into code automatically:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                       Browser (Chrome / Edge)                        │
 │                                                                     │
 │   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐       │
-│   │   Home   │   │ SECC Page│   │ EVCC Page│   │  Canvas  │       │
-│   │          │   │          │   │          │   │  Trace   │       │
+│   │   Home   │   │ SECC Page│   │ EVCC Page│   │ Automation│       │
+│   │          │   │          │   │          │   │  Trace    │       │
 │   └────┬─────┘   └────┬─────┘   └────┬─────┘   └──────────┘       │
 │        └───────────────┼──────────────┘                             │
 │                        │ HTTP API (JSON)                             │
@@ -451,8 +432,8 @@ In plain terms: **the browser handles "seeing" and "clicking", the C++ program d
 │          │              │              │                             │
 │   ┌──────┴──────┐ ┌─────┴──────┐ ┌────┴──────┐                     │
 │   │  SECC Model  │ │  EVCC Model │ │ CAN Driver│                    │
-│   │  CPU2 Bound  │ │  CPU4 Bound  │ │ZLG USBCAN2│                   │
-│   │  1ms Step    │ │  1ms Step    │ │ Dual Ch   │                    │
+│   │  CPU2 Bound  │ │  CPU4 Bound  │ │ZLG Dual Ch│                    │
+│   │  1ms Step    │ │  1ms Step    │ │USBCAN2/FD │                    │
 │   └──────┬──────┘ └─────┬──────┘ └────┬──────┘                     │
 │          │              │              │                             │
 │   Simulink Coder  Simulink Coder   CAN Bus                         │
@@ -460,19 +441,7 @@ In plain terms: **the browser handles "seeing" and "clicking", the C++ program d
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-### Data Flow
-
-In one line: **traffic arriving from the hardware is stored and shown to you, and also translated into parameter values; a parameter you edit in the UI lands in the model on the next millisecond.**
-
-```
-CAN Hardware ──→ CAN Driver ──→ Message Buffer ──→ Frontend Polling Display
-                    │
-                    ├──→ DBC Signal Decode ──→ Frontend Parameter Update
-                    │
-                    └──→ Long Msg Assembly ──→ PGI Complete Message ──→ Display
-
-Frontend Param Edit ──→ HTTP API ──→ Model Memory Write ──→ Effective in 1ms
-```
+Data flow in one line: **frames from the hardware are stored for display and decoded into parameter values; a parameter you edit lands in the model on the next millisecond.**
 
 ---
 
@@ -482,7 +451,7 @@ Frontend Param Edit ──→ HTTP API ──→ Model Memory Write ──→ Ef
 
 | Dependency | Description | Required |
 |:-----------|:------------|:--------:|
-| **ZLG USBCAN2** or **USBCANFD-200U** | CAN adapter hardware (either one; the newer USBCANFD is supported too) | ✅ |
+| **ZLG USBCAN2** or **USBCANFD-200U** | CAN adapter hardware (either one) | ✅ |
 | **Windows 10/11** | Operating system | ✅ |
 | **Chrome / Edge** | Browser | ✅ |
 
@@ -490,98 +459,22 @@ Frontend Param Edit ──→ HTTP API ──→ Model Memory Write ──→ Ef
 
 This repository provides **pre-compiled executables** — no build environment needed.
 
-**Step 1: Download**
+**Step 1: Download** — grab the `build` folder, or the packaged archive from [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases).
 
-Download the `build` folder from this repository, or download the packaged archive from the [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases) page.
+**Step 2: Connect CAN Hardware** — plug in a USBCAN2 (or USBCANFD-200U) via USB and install the driver. Pick the matching model in the web CAN panel; the program selects the driver automatically.
 
-**Step 2: Connect CAN Hardware**
+**Step 3: Launch** — enter the `build` folder and double-click `QC2015P_HIL.exe`.
 
-Plug in a ZLG USBCAN2 (or the newer USBCANFD-200U) via USB, ensure drivers are installed. Pick the matching model in the web CAN panel — "USBCAN2" for the older stick, "USBCANFD-200U" for the newer one — and the program loads the right driver automatically.
-
-**Step 3: Launch**
-
-```
-Enter the build folder, double-click QC2015P_HIL.exe
-```
-
-> ⚠️ Ensure all files in the `build` directory (DLLs, web folder, model folder, DBC file) remain intact — the program reads these resources at runtime.
+> ⚠️ Keep the `build` directory intact (DLLs, `web`, `model`, DBC files) — the program reads them at runtime.
 
 **Step 4: Access in Browser**
-
-After startup, open in browser:
 
 | Page | URL | Description |
 |:-----|:----|:------------|
 | 🏠 Home | http://localhost:9527 | Navigation entry |
 | 🔌 SECC | http://localhost:9527/secc.html | EVSE side testing |
 | 🚗 EVCC | http://localhost:9527/evcc.html | Vehicle side testing |
-
----
-
-## 🐍 Python Automation (Optional)
-
-The repository includes a Python client library — zero dependencies, ready to use.
-
-**What it buys you**: when you need **hundreds or thousands of repeated runs** (consistency cases, regression suites), nobody has to click through the UI each time — a few lines of Python let the platform change parameters, wait for states, read results and save records by itself. Simplest example below.
-
-### Quick Example
-
-```python
-import sys
-sys.path.insert(0, "docs")
-from qc2015p_client import SECC_ValueSet, SECC_ValueGet, EVCC_ValueGet, MsgGet, connect
-
-# Connect CAN (dual channel)
-connect(baud=250000)
-
-# Set EVSE parameter (one line)
-SECC_ValueSet("ChargeSta", 1)
-
-# Read vehicle parameter
-val = EVCC_ValueGet("ChargeSta")
-print(f"EVCC charging status: {val}")
-
-# Read CAN message signal
-soc = MsgGet(0x1836F456, "PGI05_K1")
-print(f"SOC value: {soc}")
-```
-
-### Writing Several Parameters in a Row
-
-Single writes go over the fast TCP channel (≈0.3ms each), so writing a few parameters one after another is already quick — just call them in sequence (no batch wrapper anymore):
-
-```python
-# Example: switch to the 2015 protocol and force CHM on
-SECC_ValueSet("SECC_2015P_Enable", False)  # false = run the 2015 legacy protocol
-SECC_ValueSet("CHM_Enable_SW", True)       # take manual control of CHM transmission
-SECC_ValueSet("CHM_Enable_Va", True)       # force it on
-```
-
-### API Quick Reference
-
-| Function | Description | Example |
-|:---------|:------------|:--------|
-| `connect(baud, device)` | Connect CAN dual channel | `connect(baud=250000)`<br>`connect(device="zlgcanfd")` |
-| `disconnect()` | Disconnect CAN dual channel | `disconnect()` |
-| `SECC_ValueSet(name, val)` | Set SECC parameter | `SECC_ValueSet("ChargeSta", 1)` |
-| `SECC_ValueGet(name)` | Read SECC parameter | `SECC_ValueGet("ChargeSta")` |
-| `EVCC_ValueSet(name, val)` | Set EVCC parameter | `EVCC_ValueSet("ChargeSta", 1)` |
-| `EVCC_ValueGet(name)` | Read EVCC parameter | `EVCC_ValueGet("ChargeSta")` |
-| `MsgGet(id)` | Read full message info | `MsgGet(0x1836F456)` |
-| `MsgGet(id, "Data")` | Read raw byte array | `MsgGet(0x1836F456, "Data")` |
-| `MsgGet(id, signal)` | Read single signal | `MsgGet(0x1836F456, "PGI05_K1")` |
-| `wait_params(name, expect, timeout)` | Wait until a parameter reaches a value | `wait_params("SECC_ChargeSta", 1)` |
-| `poll_params(name, count, interval)` | Sample a parameter repeatedly | `poll_params("SECC_ChargeSta", 10, 0.1)` |
-| `logging(state, ch, fmt)` | Recording control | `logging(1, ch=0, fmt=1)` |
-| `rename_log(model, name)` | Rename a recording file (UTF-8 names OK) | `rename_log("SECC", "charge_test_1")` |
-| `get_trace(model)` | Get message trace | `get_trace("SECC")` |
-| `get_status()` | Get system status | `get_status()` |
-
-> ⚡ `*_ValueSet` / `*_ValueGet` / `MsgGet` use the **persistent TCP connection on 127.0.0.1:9528** (≈0.3ms per operation), an order of magnitude faster than HTTP. If 9528 is unavailable they fall back to HTTP automatically — no script changes needed.
-
-> 📌 Parameter names are the **field names exactly as shown in the Web UI parameter list** — no prefix added or stripped: pass `"ChargeSta"` for a field named `ChargeSta`, and the full name for fields that already carry it, such as `SECC_2015P_Enable`.
-
-> 📄 Full API documentation: [docs/API.md](docs/API.md) | Source code: [docs/qc2015p_client.py](docs/qc2015p_client.py)
+| 🤖 Automation | http://localhost:9527/testpanel.html | Drag-and-drop test scripting with PASS/FAIL |
 
 ---
 
@@ -592,197 +485,117 @@ QC2015P_Platform/
 │
 ├── 📂 build/                        ← Compiled output (run directly)
 │   ├── QC2015P_HIL.exe              ← Main program
-│   ├── *.dll                        ← Runtime dependencies (GCC / USBCAN / zlgcan / binlog)
-│   ├── 27930_2024_MIX_update.dbc    ← DBC definitions (38 messages: 13 from 2024 + 25 from 2015, the one the program loads)
+│   ├── *.dll                        ← Runtime deps (GCC / USBCAN / zlgcan / binlog)
+│   ├── 27930_2024_MIX_update.dbc    ← DBC (38 messages: 13 x 2024 + 25 x 2015, the one loaded)
 │   ├── 27930_2024_MIX.dbc           ← Older DBC (2024 only, kept as backup)
-│   ├── 📂 kerneldlls/               ← Full set of ZLG device driver DLLs (USBCAN2 / USBCANFD etc.)
-│   ├── 📂 web/                      ← Frontend pages (built)
-│   │   ├── index.html               ← Home page
-│   │   ├── secc.html                ← SECC page
-│   │   ├── evcc.html                ← EVCC page
-│   │   └── assets/                  ← JS/CSS resources
+│   ├── 📂 kerneldlls/               ← Full ZLG device driver DLL set
+│   ├── 📂 web/                      ← Frontend pages (built, incl. automation panel)
 │   ├── 📂 model/                    ← Simulink model headers
-│   │   ├── secc/                    ← SECC model headers
-│   │   └── evcc/                    ← EVCC model headers
-│   └── 📂 Logger/                   ← Message recording output
-│       └── canvas/                  ← Canvas default config
+│   └── 📂 Logger/                   ← Recording output and canvas defaults
 │
-├── 📂 docs/                         ← Documentation, scripts & screenshots
+├── 📂 docs/
 │   ├── API.md                       ← HTTP API reference
 │   ├── qc2015p_client.py            ← Python client library (zero deps)
 │   ├── demo.py                      ← Demo script
-│   └── screenshots/                 ← UI screenshots (10 images)
+│   └── screenshots/                 ← UI screenshots (11 images)
 │
-├── 📂 通信协议一致性_GBT34658-2025/   ← GB/T 34658-2025 conformance test recordings
-│   └── EVCC/                        ← device under test (vehicle side), first batch of 14 BLF files
+├── 📂 通信协议一致性_GBT34658-2025/   ← Conformance test recordings (EVCC version negotiation)
 │
 ├── 📄 README.md                     ← Chinese README
-├── 📄 README_EN.md                  ← English README (this file)
-├── 🎬 演示视频_compressed.mp4        ← Demo video (1080p 60fps, 26MB)
-└── 📊 向下兼容2015协议_V1.0.blf       ← Sample recording of a 2015-protocol charging session (opens in CANoe)
+├── 🎬 演示视频_compressed.mp4        ← Demo video (1080p, 26MB)
+└── 📊 向下兼容2015协议_V1.0.blf       ← Sample 2015 charging session (opens in CANoe)
 ```
 
 ---
 
 ## 🔧 Tech Stack
 
-<table>
-<tr>
-<td align="center" width="120">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="48"/><br/>
-  <b>C++ 17</b><br/>Backend Core
-</td>
-<td align="center" width="120">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" width="48"/><br/>
-  <b>Vue.js 3</b><br/>Frontend UI
-</td>
-<td align="center" width="120">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" width="48"/><br/>
-  <b>Vite 5</b><br/>Build Tool
-</td>
-<td align="center" width="120">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="48"/><br/>
-  <b>Python 3</b><br/>Automation
-</td>
-<td align="center" width="120">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" width="48"/><br/>
-  <b>Simulink</b><br/>Model Design
-</td>
-</tr>
-</table>
-
 | Layer | Technology | What it does (in plain words) |
 |:------|:-----------|:------------------------------|
-| **Frontend** | Vue.js 3 + Vite 5 | The UI you see and click in the browser — **no client install**, dark/light theme |
-| **Backend** | C++ 17 + MinGW-w64 | The program that actually simulates and sends/receives frames, **advancing one step per millisecond** |
-| **CAN** | ZLG USBCAN2 / USBCANFD | The hardware box that talks to real chargers / vehicles (older and newer sticks both supported) |
-| **Model** | Simulink Coder | The charging logic of charger and vehicle, **built graphically and turned into code automatically** — no hand-written code |
-| **Protocol** | GB/T 27930.2-2024 + GB/T 27930-2015 | Both generations of the national standard are supported |
-| **DBC** | CANdb++ format | The message spec: **which bits are voltage, which are current** — the platform uses it to translate automatically |
+| **Frontend** | Vue.js 3 + Vite 5 | The UI in the browser — **no client install** |
+| **Backend** | C++ 17 + MinGW-w64 | The program that simulates and sends/receives frames, **one step per millisecond** |
+| **CAN** | ZLG USBCAN2 / USBCANFD | The hardware box talking to real chargers / vehicles (old and new sticks) |
+| **Model** | Simulink Coder | Charging logic built graphically, **code generated automatically** |
+| **Protocol** | GB/T 27930.2-2024 + GB/T 27930-2015 | Both generations of the national standard |
+| **DBC** | CANdb++ format | The message spec: **which bits are voltage, which are current** |
+| **Automation** | Blockly 13 | **Drag blocks** in the browser; export to Python |
+
+---
+
+<details>
+<summary><b>📚 Glossary</b> (new to charging communication? open this)</summary>
+
+| Term | In one sentence |
+|:-----|:----------------|
+| **SECC** | The charger side (the one supplying power) |
+| **EVCC** | The vehicle side (the one drawing power) |
+| **Message / frame** | A short piece of data exchanged between the two ends — one sentence in a conversation |
+| **CAN** | The serial bus commonly used by vehicles and charging equipment; one cable connects everyone |
+| **DBC** | The message "spec sheet": which bits mean voltage, which mean current |
+| **Conformance test** | Checking a device item by item against the national standard for full compliance |
+| **Positive / negative case** | The normal flow works / a fault is injected deliberately and the device must react correctly |
+
+</details>
 
 ---
 
 ## ❓ FAQ
 
 <details>
-<summary><b>Q: Double-clicking exe does nothing?</b></summary>
+<summary><b>Q: Double-clicking the exe does nothing?</b></summary>
 
-Try running from command line to see error messages. Common causes:
-1. Missing DLLs — Ensure all DLL files in the `build` directory are intact
-2. Port occupied — Ensure port 9527 is not used by another program
+Run it from a command line to see the error. Common causes: missing DLLs (keep the `build` directory intact) or port 9527 already in use.
 
-> Port 9528 (the high-speed command port) being occupied does not prevent startup — the program prints `[WARN] Fast port 9528 bind failed` and keeps running; the Python client falls back to HTTP automatically.
+> Port 9528 (high-speed command port) being occupied does not prevent startup — the program prints `[WARN] Fast port 9528 bind failed` and keeps running; the Python client falls back to HTTP.
 </details>
 
 <details>
 <summary><b>Q: CAN connection failed?</b></summary>
 
-1. Ensure **no other CAN software** (e.g., CANoe, USBCAN tools) is using the same device — ZLG devices don't allow multiple programs to open them at once.
-2. Check that the **model selected in the CAN panel matches the stick you plugged in**: "USBCAN2" for the older stick, "USBCANFD-200U (new)" for the newer one. A wrong selection won't connect.
+1. Ensure **no other CAN software** (CANoe, USBCAN tools, …) has the same device open.
+2. Check that the **model selected in the CAN panel matches the stick**: "USBCAN2" for the older one, "USBCANFD-200U" for the newer one.
 </details>
 
 <details>
 <summary><b>Q: Parameter changes not taking effect?</b></summary>
 
-1. Ensure you clicked the "**Apply**" button
-2. Ensure the corresponding **Enable** parameter is set to `true`
-3. Ensure the model is running (CAN connected)
+1. Make sure you clicked "**Apply**"
+2. Make sure the corresponding **Enable** parameter is `true`
+3. Make sure the model is running (CAN connected)
 </details>
 
 <details>
-<summary><b>Q: What does the <code>2015P_Enable</code> switch actually mean, and what happens if I turn it off?</b></summary>
+<summary><b>Q: What does the <code>2015P_Enable</code> switch mean?</b></summary>
 
-It states **whether this end supports 2015P** (i.e. GB/T 27930.2-2024). It is a **capability flag**, not a protocol selector:
-
-| Value | Behaviour of this end |
-|:-----:|:----------------------|
-| `true` (default) | Supports 2015P and remains 2015-compatible. Which flow runs is negotiated — it **still falls back to the 2015 flow when the version number is below 2.0.0** |
-| `false` | This end runs the 2015 protocol only (2015P is backward compatible with 2015, so charging still works) |
-
-Two things to keep in mind:
-
-- Both ends being enabled (`true`) **does not guarantee the 2024 flow** — the negotiation result decides.
-- **If either end is `false`**, the session either runs the 2015 flow or fails to charge.
-
-Search for `2015P_Enable` in the Web UI parameter list, or change it from Python in one line:
-
-```python
-# make the EVSE end run the 2015 protocol only
-SECC_ValueSet("SECC_2015P_Enable", False)
-```
+It states **whether this end supports 2015P (the 2024 standard)**: `true` (default) supports 2024 while remaining 2015-compatible, and negotiation decides which flow runs; `false` makes this end run 2015 only. If either end is `false`, the session runs 2015 or fails to charge. See [Dual Protocol](#🔌-dual-protocol-2024-standard--2015-legacy).
 </details>
 
 <details>
 <summary><b>Q: Browser page is blank?</b></summary>
 
 1. Ensure the `build/web` directory is complete
-2. Ensure the program has started without errors
-3. Try clearing browser cache and refreshing
+2. Ensure the program started without errors
+3. Clear the browser cache and refresh
 </details>
 
 ---
 
 ## 📄 Related Documentation
 
-- [HTTP API Reference](docs/API.md) — Complete API interface documentation
-- [Python Client Library](docs/qc2015p_client.py) — Zero dependencies, import and use directly
-- [Python Demo Script](docs/demo.py) — Full feature demo, run with `python demo.py`
+- [HTTP API Reference](docs/API.md) — complete interface docs (fast TCP, SSE, automation-panel endpoints)
+- [Python Client Library](docs/qc2015p_client.py) — zero dependencies, import and use
+- [Python Demo Script](docs/demo.py) — run with `python demo.py`
 
 ---
 
 <details>
 <summary><b>📝 Changelog</b> (click to expand)</summary>
 
-**2026-10-28 — USBCANFD device support + 2015 message decoding in the UI**
-
-- **New device support**: ZLG **USBCANFD-200U** (the newer CAN FD stick) now works alongside the classic USBCAN2
-  - The CAN panel gained a model dropdown, so a wrong device selection is no longer a connection failure
-  - New `/api/can/devices` endpoint; Python `connect()` gained a `device=` parameter (`connect(device="zlgcanfd")`)
-  - `build/kerneldlls/` ships the full set of ZLG device driver DLLs with the repository — no more copying them from the ZLG SDK by hand
-  - Added `binlog.dll` (Vector): fixes BLF recording, which could previously fail
-- **2015 messages decoded in the UI**: 2015 messages (`CHM`/`CRM`/`BHM`/`BRM`/`BCP`/`BCS` and 20 more — 25 in total) now show **names and decoded signals** in the message trace
-  - The built-in message dictionary (DBC) grew from 13 to **38 messages** (the full 2024 + 2015 set)
-  - Multi-packet long messages `BRM`/`BCP`/`BCS` are **reassembled** via the J1939 transport protocol before decoding, so the UI shows complete signals
-  - Connecting a device now resets the model state, so switching sticks needs no program restart
-- **Python client**: `connect()` supports device selection; writes go one-by-one over the fast channel (≈0.3ms each); the old batch helpers (`BatchSet`/`ValueSetBatch`) were removed — just loop the single writes
-- Simulink model code regenerated for both SECC and EVCC
-
-**2026-10-09 — GB/T 34658-2025 protocol conformance test recordings added**
-
-- **New folder `通信协议一致性_GBT34658-2025/`**: a first batch of 14 BLF recordings covering the **EVCC version negotiation (data link layer)** positive and negative cases of GB/T 34658-2025, all captured automatically by this platform
-- **New README section**: introduces the standard (the companion conformance test standard to the GB/T 27930 series), its four-layer structure (physical / data link / transport / application), the full suite size (185 SECC + 184 EVCC cases) and the test-case ID scheme
-- The remaining EVCC layers will follow in standard order, then the SECC layers
-
-**2026-09-27 — Backward compatibility with GB/T 27930-2015**
-
-- **Sample recording added**: `向下兼容2015协议_V1.0.blf` in the repository root — a real 2015 legacy-protocol charging session captured with this platform, openable directly in CANoe / CANalyzer without any hardware
-
-- **Models updated**: SECC v1.503, EVCC v1.494
-- **2015 protocol support**: 99 new parameters on the SECC side, 180 on the EVCC side, covering every 2015 message
-  - SECC: `CHM` `CRM` `CRO` `CML` `CCS` `CST` `CSD` `CEM`
-  - EVCC: `BHM` `BRM` `BCP` `BRO` `BCL` `BCS` `BSM` `BST` `BSD` `BEM`
-- **2015P capability flag**: new `SECC_2015P_Enable` / `EVCC_2015P_Enable` (default `true`) stating **whether this end supports 2015P (2024)**; set to `false` and that end runs the 2015 protocol only. The two ends are independent, and the flow actually used is decided by negotiation
-- **Per-message control**: every message exposes `<MSG>_Enable_SW` (manual transmit takeover) / `_Enable_Va` (manual enable value) / `_Cycle_Va` (cycle) / `_Data_SW` (data override)
-- **Per-signal override**: new `SPN<number>_<MSG>_<signal>_SW` / `_Va` parameters for field-level payload rewriting
-- **Raw message injection**: new `<SECC|EVCC>_DefineMsg_ID/Length/Enable/Extended/Cycle` parameter group
-- **Phase display**: the top SEQ badge gained the legacy protocol mapping (SEQ 10~99), labels suffixed with `(old)`
-- **High-speed TCP command port 9528**: script parameter I/O now uses a persistent connection at ≈0.3ms per operation (previously one HTTP thread spawn per call)
-- **Python client**: added `SECC/EVCC_ValueSetBatch`, the `BatchSet` context manager, `wait_params`, `poll_params`, `rename_log`
-- Build side: `compile.bat`'s objcopy step now weakens 5 additional symbols (`MultiWordAnd`, `uMultiWordShl`, `uMultiWordShr`, `rt_urand`, `rt_nrand`) to resolve link conflicts after the model update
-
-> This update has been synced into the repository's `build/` folder — download and run directly. Python users should also refresh `docs/qc2015p_client.py`.
-
-**Earlier versions**
-
-- **2026-09-05** — Python client convenience wrappers (`SECC_ValueSet/Get` etc.), cross-model shared parameters via `shared_params.conf`
-- **2026-08-19** — `ValueSet` switched to direct model write with server-side 1ms rate limiting; script command queue path removed
-- **2026-08-18** — Charging phase indicator (SEQ badge) in the top nav
-- **2026-08-17** — Thorough trace clearing, fixed table column widths, canvas default config files (`Logger/canvas/*.canvas`)
-- **2026-08-16** — 100K-message trace buffer with virtual scrolling and scroll-up history; ASC/BLF dual-format export
-- **2026-08-13** — Trace performance work (hex data strings, incremental rendering), frontend path fix
-- **2026-08-09** — Automatic model code sync, auto-kill of the running instance before build, dual-stack listener fixing `localhost` latency (2387ms → 11.5ms), batch parameter writes
-- **2026-08-07** — GBT27930 long-message reassembly (`LongMessageAssembler`), CAN FD 64-byte support
-- **2026-08-06** — First release: dual model + 1ms fixed step + dual-channel CAN + Vue.js frontend
+- **2026-11-01** — Automation test panel (Blockly drag-and-drop, step visualization, PASS/FAIL, JSON/Python export); CAN asynchronous I/O fixing USBCANFD-200U message-period drift; lightweight `/api/param`, `/api/dbc/msg` and SSE `/api/stream` (about 1ms per interaction)
+- **2026-10-28** — ZLG USBCANFD-200U support (`zlgcanfd` driver, driver DLLs shipped with the repo); 2015 message decoding in the UI (38-message DBC + J1939 multi-packet reassembly for BRM/BCP/BCS)
+- **2026-10-09** — GB/T 34658-2025 conformance test recordings added (first batch: EVCC version negotiation)
+- **2026-09-27** — GB/T 27930-2015 compatibility: legacy phase display, 2015 protocol stack and parameter set, sample recording `向下兼容2015协议_V1.0.blf`
+- **Earlier** — long-message reassembly, 100K-message trace with virtual scrolling, parameter canvas, 1ms fixed step, dual-channel CAN, etc.
 
 </details>
 

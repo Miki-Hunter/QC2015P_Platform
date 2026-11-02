@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_EVCC'.
 //
-// Model version                  : 1.601
+// Model version                  : 1.604
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Sun Nov  1 17:36:11 2026
+// C/C++ source code generated on : Mon Nov  2 20:31:11 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor

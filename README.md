@@ -58,6 +58,8 @@
 └──────────────────────────────────────────────────────────┘
 ```
 
+> 💡 **没有 CAN 盒子也能跑**：内置「虚拟 CAN」，充电桩和车辆两路在电脑内部直连互通。
+
 **一句话价值：把充电通信测试从"必须真车真桩、靠人盯"变成"一台电脑、可反复重现、全过程留痕"。**
 
 | 传统做法 | 用本平台 |
@@ -272,7 +274,7 @@
 - **自定义注入**：还能凭空注入一条报文，模拟异常设备
 - **参数怎么命名**：都以 `_SW`（开关，默认关）+ `_Va`（开关打开后才生效的值）成对出现——不动任何参数时，全部由模型自动控制；具体参数名见 [docs/API.md](docs/API.md)
 
-**界面里也能直接看懂 2015 报文**：内置 38 条报文词典（2024 的 13 条 + 2015 的 25 条），`BRM`/`BCP`/`BCS` 多包长报文经 J1939 传输协议自动重组后解码，追踪面板直接显示报文名和信号值。
+**界面里也能直接看懂 2015 报文**：内置 25 条报文词典（2024 的 10 条 + 2015 的 25 条），`BRM`/`BCP`/`BCS` 多包长报文经 J1939 传输协议自动重组后解码，追踪面板直接显示报文名和信号值。
 
 📊 仓库根目录附带真实样本 [`向下兼容2015协议_V1.0.blf`](向下兼容2015协议_V1.0.blf)，用 CANoe / CANalyzer 直接打开即可复盘。
 
@@ -359,7 +361,7 @@ TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
 
 | 类别 | 积木 |
 |:-----|:-----|
-| 🔌 连接 | 连接 / 断开 CAN、等待模型启动、重启 HIL 应用 |
+| 🔌 连接 | 连接 / 断开 CAN（虚拟或真实设备均可）、等待模型启动、重启 HIL 应用 |
 | ⚙️ 参数·信号 | 设置参数、读取参数、读 DBC 信号、读 Monitor 变量、当前时间戳 |
 | 🔁 控制 | 等待 N 毫秒、wait_until、if / elseif / else、for / while、break / continue |
 | ✅ 判断·结论 | assert 检查、记录日志、录制控制、PASS / FAIL 结论 |
@@ -390,7 +392,7 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 
 | 函数 | 说明 | 示例 |
 |:-----|:-----|:-----|
-| `connect(baud, device)` | 连接 CAN 双通道（`device` 可选 `zlg` / `zlgcanfd`） | `connect(device="zlgcanfd")` |
+| `connect(baud, device)` | 连接 CAN 双通道（`device` 可选 `virtual` / `zlg` / `zlgcanfd`） | `connect(device="virtual")` |
 | `disconnect()` | 断开 CAN 双通道 | `disconnect()` |
 | `SECC_ValueSet / Get` | 读写 SECC 参数 | `SECC_ValueSet("ChargeSta", 1)` |
 | `EVCC_ValueSet / Get` | 读写 EVCC 参数 | `EVCC_ValueGet("ChargeSta")` |
@@ -451,7 +453,7 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 
 | 依赖 | 说明 | 是否必需 |
 |:-----|:-----|:--------:|
-| **ZLG USBCAN2** 或 **USBCANFD-200U** | CAN 收发硬件（任选其一） | ✅ |
+| **ZLG USBCAN2** 或 **USBCANFD-200U** | CAN 收发硬件——用**虚拟 CAN** 模式时不需要，用真实硬件联调时才要 | ⭕ 可选 |
 | **Windows 10/11** | 操作系统 | ✅ |
 | **Chrome / Edge** | 浏览器 | ✅ |
 
@@ -461,7 +463,7 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 
 **第 1 步：下载** — 下载本仓库的 `build` 文件夹，或从 [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases) 下载压缩包。
 
-**第 2 步：连接 CAN 硬件** — 将 USBCAN2（或 USBCANFD-200U）插入 USB，确保驱动已装。在网页 CAN 面板选对应型号即可，程序会自动匹配驱动。
+**第 2 步：连接 CAN（或直接用虚拟的）** — 网页 CAN 面板默认就是「**虚拟CAN（无硬件）**」，直接点连接即可开始测试。要接真实设备时，把 USBCAN2（或 USBCANFD-200U）插上 USB、装好驱动，在面板里切换对应型号，程序会自动匹配驱动。
 
 **第 3 步：启动程序** — 进入 `build` 文件夹，双击 `QC2015P_HIL.exe`。
 
@@ -552,8 +554,8 @@ QC2015P_Platform/
 <details>
 <summary><b>Q: CAN 连接失败？</b></summary>
 
-1. 确保**没有其他 CAN 软件**（CANoe、USBCAN 工具等）占用同一设备。
-2. 确认 CAN 面板选的**设备型号与实际一致**：老款选「USBCAN2」，新款选「USBCANFD-200U」。
+1. 不插硬件也能测：面板里选「**虚拟CAN（无硬件）**」即可，它不占用任何设备。
+2. 用真实硬件时，确保**没有其他 CAN 软件**（CANoe、USBCAN 工具等）占用同一设备，且面板选的**型号与实际一致**（老款「USBCAN2」、新款「USBCANFD-200U」）。
 </details>
 
 <details>
@@ -591,6 +593,7 @@ QC2015P_Platform/
 <details>
 <summary><b>📝 更新记录</b>（点开查看）</summary>
 
+- **2026-11-02** — 新增**虚拟 CAN 设备**（`virtual`）：无硬件也能双端联调——充电桩与车辆两路在程序内部桥接互通，报文追踪、录制、DBC 解码与真实硬件路径完全一致；CAN 面板与自动化面板「连接CAN」积木均支持，网页端默认即虚拟设备
 - **2026-11-01** — 新增自动化测试面板（Blockly 拖拽编排、单步可视化、PASS/FAIL、JSON/Python 导出）；CAN 异步 I/O 修复 USBCANFD-200U 报文周期漂移；新增轻量接口 `/api/param`、`/api/dbc/msg` 与 SSE `/api/stream`，单次交互约 1ms
 - **2026-10-28** — 支持 ZLG USBCANFD-200U（`zlgcanfd` 驱动，驱动 DLL 随仓库分发）；2015 报文界面解码（38 条 DBC + BRM/BCP/BCS 的 J1939 多包重组）
 - **2026-10-09** — 新增 GB/T 34658-2025 一致性测试报文目录，首批 EVCC 版本协商用例

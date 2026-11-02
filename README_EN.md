@@ -58,6 +58,8 @@ In one sentence: **A single PC + a CAN adapter (a small USB-to-CAN box) can full
 └──────────────────────────────────────────────────────────┘
 ```
 
+> 💡 **No CAN adapter? No problem**: the built-in **virtual CAN** links the charger and vehicle channels inside the PC — get the test flow running (or demo it to your boss) first, and plug in real hardware later.
+
 **In one line: it turns charging-communication testing from "you need a real car, a real charger and somebody staring at a screen" into "one PC, repeatable on demand, fully recorded".**
 
 | The traditional way | With this platform |
@@ -272,7 +274,7 @@ One model ships both protocol stacks, and **which flow actually runs is decided 
 - **Raw injection**: inject an extra message of your own to simulate a faulty device
 - **How parameters are named**: pairs of `_SW` (switch, default off) + `_Va` (the value used once the switch is on) — leave everything untouched and the model drives it; full names in [docs/API.md](docs/API.md)
 
-**2015 messages are decoded in the UI too**: the built-in dictionary has 38 messages (13 from 2024 + 25 from 2015); multi-packet `BRM`/`BCP`/`BCS` are reassembled via J1939 before decoding, so the trace shows names and signal values directly.
+**2015 messages are decoded in the UI too**: the built-in dictionary has 25 messages (10 from 2024 + 25 from 2015); multi-packet `BRM`/`BCP`/`BCS` are reassembled via J1939 before decoding, so the trace shows names and signal values directly.
 
 📊 A real sample recording ships in the repository root: [`向下兼容2015协议_V1.0.blf`](向下兼容2015协议_V1.0.blf) — open it in CANoe / CANalyzer, no hardware required.
 
@@ -359,7 +361,7 @@ Afterwards the right-hand panel lists PASS/FAIL and duration for all 30 steps an
 
 | Category | Blocks |
 |:---------|:-------|
-| 🔌 Connection | Connect / disconnect CAN, wait for model, restart HIL app |
+| 🔌 Connection | Connect / disconnect CAN (virtual or real device), wait for model, restart HIL app |
 | ⚙️ Parameter·Signal | Set parameter, get parameter, read DBC signal, read Monitor variable, current timestamp |
 | 🔁 Control | Wait N ms, wait_until, if / elseif / else, for / while, break / continue |
 | ✅ Verdict | assert check, log, recording control, PASS / FAIL |
@@ -390,7 +392,7 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 
 | Function | Description | Example |
 |:---------|:------------|:--------|
-| `connect(baud, device)` | Connect both CAN channels (`device` = `zlg` / `zlgcanfd`) | `connect(device="zlgcanfd")` |
+| `connect(baud, device)` | Connect both CAN channels (`device` = `virtual` / `zlg` / `zlgcanfd`) | `connect(device="virtual")` |
 | `disconnect()` | Disconnect both channels | `disconnect()` |
 | `SECC_ValueSet / Get` | Read/write SECC parameters | `SECC_ValueSet("ChargeSta", 1)` |
 | `EVCC_ValueSet / Get` | Read/write EVCC parameters | `EVCC_ValueGet("ChargeSta")` |
@@ -451,7 +453,7 @@ Data flow in one line: **frames from the hardware are stored for display and dec
 
 | Dependency | Description | Required |
 |:-----------|:------------|:--------:|
-| **ZLG USBCAN2** or **USBCANFD-200U** | CAN adapter hardware (either one) | ✅ |
+| **ZLG USBCAN2** or **USBCANFD-200U** | CAN adapter hardware — not needed in **virtual CAN** mode; only required when testing against real devices | ⭕ Optional |
 | **Windows 10/11** | Operating system | ✅ |
 | **Chrome / Edge** | Browser | ✅ |
 
@@ -461,7 +463,7 @@ This repository provides **pre-compiled executables** — no build environment n
 
 **Step 1: Download** — grab the `build` folder, or the packaged archive from [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases).
 
-**Step 2: Connect CAN Hardware** — plug in a USBCAN2 (or USBCANFD-200U) via USB and install the driver. Pick the matching model in the web CAN panel; the program selects the driver automatically.
+**Step 2: Connect CAN (or stay virtual)** — the web CAN panel defaults to "**Virtual CAN (no hardware)**", so you can connect and start testing right away. For real hardware, plug in a USBCAN2 (or USBCANFD-200U), install the driver and switch the panel to that model; the program picks the right driver automatically.
 
 **Step 3: Launch** — enter the `build` folder and double-click `QC2015P_HIL.exe`.
 
@@ -552,8 +554,8 @@ Run it from a command line to see the error. Common causes: missing DLLs (keep t
 <details>
 <summary><b>Q: CAN connection failed?</b></summary>
 
-1. Ensure **no other CAN software** (CANoe, USBCAN tools, …) has the same device open.
-2. Check that the **model selected in the CAN panel matches the stick**: "USBCAN2" for the older one, "USBCANFD-200U" for the newer one.
+1. No hardware needed: pick "**Virtual CAN (no hardware)**" in the panel — it occupies no device at all.
+2. With real hardware, make sure **no other CAN software** (CANoe, USBCAN tools, …) has the device open and the **model selected matches the stick** ("USBCAN2" for the older one, "USBCANFD-200U" for the newer).
 </details>
 
 <details>
@@ -591,6 +593,7 @@ It states **whether this end supports 2015P (the 2024 standard)**: `true` (defau
 <details>
 <summary><b>📝 Changelog</b> (click to expand)</summary>
 
+- **2026-11-02** — New **virtual CAN device** (`virtual`): dual-end testing with no hardware — the charger and vehicle channels are bridged inside the program, with tracing, recording and DBC decoding on exactly the same path as real hardware; supported by both the CAN panel and the automation panel's connect block, and it is the web default
 - **2026-11-01** — Automation test panel (Blockly drag-and-drop, step visualization, PASS/FAIL, JSON/Python export); CAN asynchronous I/O fixing USBCANFD-200U message-period drift; lightweight `/api/param`, `/api/dbc/msg` and SSE `/api/stream` (about 1ms per interaction)
 - **2026-10-28** — ZLG USBCANFD-200U support (`zlgcanfd` driver, driver DLLs shipped with the repo); 2015 message decoding in the UI (38-message DBC + J1939 multi-packet reassembly for BRM/BCP/BCS)
 - **2026-10-09** — GB/T 34658-2025 conformance test recordings added (first batch: EVCC version negotiation)

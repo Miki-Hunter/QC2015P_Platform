@@ -148,11 +148,12 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 **响应**:
 ```json
-{"devices": "zlg,zlgcanfd"}
+{"devices": "virtual,zlg,zlgcanfd"}
 ```
 
 | 驱动名 | 对应硬件 | 运行时 DLL |
 |--------|----------|-----------|
+| `virtual` | 虚拟双通道桥接（**无硬件**），通道0↔通道1 内部互通，模拟一条物理总线 | 无 |
 | `zlg` | ZLG USBCAN2 等老款 | `USBCAN.dll` |
 | `zlgcanfd` | ZLG USBCANFD-200U 等新款 CAN FD | `zlgcan.dll` |
 
@@ -164,9 +165,9 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `device` | string | `zlg` | 厂商驱动名：`zlg`（USBCAN2）或 `zlgcanfd`（USBCANFD-200U） |
-| `devType` | int | 按驱动而定 | 设备类型：`zlg` → 4(USBCAN2)，`zlgcanfd` → 41(USBCANFD-200U) |
-| `devIdx` | int | 0 | 设备索引 |
+| `device` | string | `zlg` | 驱动名：`virtual`（虚拟，无硬件）/ `zlg`（USBCAN2）/ `zlgcanfd`（USBCANFD-200U）。网页端默认传 `virtual` |
+| `devType` | int | 按驱动而定 | 设备类型：`zlg` → 4(USBCAN2)，`zlgcanfd` → 41(USBCANFD-200U)；`virtual` 忽略此参数 |
+| `devIdx` | int | 0 | 设备索引；`virtual` 忽略此参数 |
 | `ch` | int | 0 | 通道号 (0=SECC, 1=EVCC) |
 | `baud` | int | 250000 | 波特率 |
 

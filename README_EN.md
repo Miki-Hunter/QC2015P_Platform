@@ -302,14 +302,18 @@ The standard contains roughly **370 cases**, split evenly between charger and ve
 
 ### Recordings included
 
-📂 [`通信协议一致性_GBT34658-2025/`](通信协议一致性_GBT34658-2025/) — **53 BLF files** so far:
+📂 [`通信协议一致性_GBT34658-2025/`](通信协议一致性_GBT34658-2025/) — **78 BLF files** so far, grouped into folders by standard chapter:
 
-| Device under test | Covered items |
-|:------------------|:--------------|
-| 🚗 EVCC (vehicle) | Version negotiation (DL), long messages LM.X (TL), function negotiation / parameter configuration / phase ack (AL) |
-| 🔌 SECC (charger) | Function negotiation / parameter configuration (AL) |
+| Directory (chapter) | Content | Files |
+|:--------------------|:--------|:-----:|
+| `8.2.2 版本协商` | EVCC version negotiation (DL) | 14 |
+| `8.3.3 长消息` | EVCC multi-frame long messages (TL) | 16 |
+| `8.4.2 功能协商FDC=1` | Function negotiation (AL, both sides) | 13 |
+| `8.4.3 充电模式参数配置FDC=1` | Parameter configuration (AL, both sides) | 9 |
+| `8.4.5 扫码刷卡FDC=1` | Authentication / scan-to-charge (AL, both sides) | 15 |
+| `8.4.9 输出回路检测FDC=1` | Output circuit detection (AL, both sides) | 10 |
 
-All captured automatically by this platform and openable frame by frame in CANoe / CANalyzer.
+> By device under test: **55 EVCC + 23 SECC**, all captured automatically by this platform and openable frame by frame in CANoe / CANalyzer.
 
 How to read a test-case ID:
 
@@ -323,7 +327,7 @@ TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
   └─────────────────────────────────────────── test case
 ```
 
-> 🚧 **Work in progress**: EVCC version negotiation, long messages and some application-layer cases are covered, plus some SECC application-layer cases; the rest follow in standard order.
+> 🚧 **Work in progress**: EVCC version negotiation, long messages and application-layer cases (function negotiation / parameter configuration / authentication / output circuit detection) are covered, plus the matching SECC application-layer cases; the rest follow in standard order.
 
 ---
 
@@ -361,7 +365,7 @@ Afterwards the right-hand panel lists PASS/FAIL and duration for all 30 steps an
 
 | Category | Blocks |
 |:---------|:-------|
-| 🔌 Connection | Connect / disconnect CAN (virtual or real device), wait for model, restart HIL app |
+| 🔌 Connection | Connect (pick from 9 devices, device number, channel, termination resistor) / disconnect CAN, wait for model, full reset, restart HIL app |
 | ⚙️ Parameter·Signal | Set parameter, get parameter, read DBC signal, read Monitor variable, current timestamp |
 | 🔁 Control | Wait N ms, wait_until, if / elseif / else, for / while, break / continue |
 | ✅ Verdict | assert check, log, recording control, PASS / FAIL |
@@ -453,7 +457,7 @@ Data flow in one line: **frames from the hardware are stored for display and dec
 
 | Dependency | Description | Required |
 |:-----------|:------------|:--------:|
-| **ZLG USBCAN2** or **USBCANFD-200U** | CAN adapter hardware — not needed in **virtual CAN** mode; only required when testing against real devices | ⭕ Optional |
+| **Any supported CAN adapter** | ZLG / PEAK PCAN / Vector / Kvaser / TOSUN / TOOMOSS / SLCAN — not needed in **virtual CAN** mode | ⭕ Optional |
 | **Windows 10/11** | Operating system | ✅ |
 | **Chrome / Edge** | Browser | ✅ |
 
@@ -463,7 +467,7 @@ This repository provides **pre-compiled executables** — no build environment n
 
 **Step 1: Download** — grab the `build` folder, or the packaged archive from [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases).
 
-**Step 2: Connect CAN (or stay virtual)** — the web CAN panel defaults to "**Virtual CAN (no hardware)**", so you can connect and start testing right away. For real hardware, plug in a USBCAN2 (or USBCANFD-200U), install the driver and switch the panel to that model; the program picks the right driver automatically.
+**Step 2: Connect CAN (or stay virtual)** — the web CAN panel defaults to "**Virtual CAN (no hardware)**", so you can connect and start testing right away. For real hardware pick **brand → model** in the panel (ZLG / PEAK PCAN / Vector VN / Kvaser / TOSUN / TOOMOSS / SLCAN serial); it also offers termination-resistor control and single-channel independent operation. Note: PEAK / Kvaser / TOOMOSS need their official drivers installed; Vector and TOSUN DLLs ship with the package.
 
 **Step 3: Launch** — enter the `build` folder and double-click `QC2015P_HIL.exe`.
 
@@ -501,7 +505,7 @@ QC2015P_Platform/
 │   ├── demo.py                      ← Demo script
 │   └── screenshots/                 ← UI screenshots (11 images)
 │
-├── 📂 通信协议一致性_GBT34658-2025/   ← Conformance test recordings (EVCC version negotiation)
+├── 📂 通信协议一致性_GBT34658-2025/   ← Conformance test recordings (78 files, grouped by standard chapter)
 │
 ├── 📄 README.md                     ← Chinese README
 ├── 🎬 演示视频_compressed.mp4        ← Demo video (1080p, 26MB)
@@ -516,7 +520,7 @@ QC2015P_Platform/
 |:------|:-----------|:------------------------------|
 | **Frontend** | Vue.js 3 + Vite 5 | The UI in the browser — **no client install** |
 | **Backend** | C++ 17 + MinGW-w64 | The program that simulates and sends/receives frames, **one step per millisecond** |
-| **CAN** | ZLG USBCAN2 / USBCANFD | The hardware box talking to real chargers / vehicles (old and new sticks) |
+| **CAN** | 9 devices: ZLG / PEAK PCAN / Vector / Kvaser / TOSUN / TOOMOSS / SLCAN + virtual | The hardware box talking to real chargers / vehicles — all major brands covered |
 | **Model** | Simulink Coder | Charging logic built graphically, **code generated automatically** |
 | **Protocol** | GB/T 27930.2-2024 + GB/T 27930-2015 | Both generations of the national standard |
 | **DBC** | CANdb++ format | The message spec: **which bits are voltage, which are current** |
@@ -555,7 +559,8 @@ Run it from a command line to see the error. Common causes: missing DLLs (keep t
 <summary><b>Q: CAN connection failed?</b></summary>
 
 1. No hardware needed: pick "**Virtual CAN (no hardware)**" in the panel — it occupies no device at all.
-2. With real hardware, make sure **no other CAN software** (CANoe, USBCAN tools, …) has the device open and the **model selected matches the stick** ("USBCAN2" for the older one, "USBCANFD-200U" for the newer).
+2. With real hardware, first check the **brand and model are selected correctly** (two-level cascade in the panel) and the vendor driver is installed (PEAK / Kvaser / TOOMOSS need their official installers; Vector / TOSUN DLLs ship with the package). The device must not be open in other software (CANoe, …).
+3. Use the panel's "refresh devices" button to list the concrete channels; a missing driver DLL is reported clearly by the API.
 </details>
 
 <details>
@@ -593,6 +598,8 @@ It states **whether this end supports 2015P (the 2024 standard)**: `true` (defau
 <details>
 <summary><b>📝 Changelog</b> (click to expand)</summary>
 
+- **2026-11-08** — Devices expanded to **9** (PEAK PCAN, Vector VN, Kvaser, TOSUN, TOOMOSS, SLCAN serial + both ZLG generations + virtual), with brand→model selection, termination resistor and single-channel independent operation; automation panel gained "full reset / assert equal / assert near / wait for change / array index" blocks and a "full reset" button; conformance recordings grew to **78** files grouped by standard chapter (new: authentication, output circuit detection)
+- **2026-11-06** — New **full soft reset** `/api/system/reset` (no process restart, fresh state in milliseconds); DBC multiplex signal fix (full signal dropdown, per-group value retention); fixed-step performance hardening (windowed p99/max period stats, lock slimming)
 - **2026-11-02** — New **virtual CAN device** (`virtual`): dual-end testing with no hardware — the charger and vehicle channels are bridged inside the program, with tracing, recording and DBC decoding on exactly the same path as real hardware; supported by both the CAN panel and the automation panel's connect block, and it is the web default
 - **2026-11-01** — Automation test panel (Blockly drag-and-drop, step visualization, PASS/FAIL, JSON/Python export); CAN asynchronous I/O fixing USBCANFD-200U message-period drift; lightweight `/api/param`, `/api/dbc/msg` and SSE `/api/stream` (about 1ms per interaction)
 - **2026-10-28** — ZLG USBCANFD-200U support (`zlgcanfd` driver, driver DLLs shipped with the repo); 2015 message decoding in the UI (38-message DBC + J1939 multi-packet reassembly for BRM/BCP/BCS)

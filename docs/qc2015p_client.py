@@ -14,14 +14,24 @@ QC2015P 本地测试平台 Python 脚本库
     SECC侧设置会自动同步到EVCC，反之亦然。两侧都可读写。
 
 底层接口仍可用: set_params("SECC_ChargeSta", 1) / get_params("SECC_ChargeSta")
+
+专业 HIL 自动化测试机制（详见 scripts/README.md）:
+    with QcSession(device="zlg", baud=250000, restart=True) as s:  # 连接+开录制+参数快照
+        s.addCleanup(fn)                    # 逆序清理（模仿 unittest.addCleanup）
+        assert_eq(a, b, "消息")             # 断言失败抛 QcAssertError
+    # 会话退出自动: 停录制→rename→恢复被改参数→关通道/设备→restart_hil
+    finish(True, "完成")                    # 打印 "结论: PASS - 完成"，返回退出码 0/1
 """
 
 import json
+import os
+import sys
 import time
 import socket
+import subprocess
 import urllib.request
 import urllib.parse
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 # Windows定时器精度：默认time.sleep(0.001)实际粒度约15.6ms，
 # 会导致轮询类脚本（如长消息中断测试）检测延迟1~2个10ms帧。
@@ -215,6 +225,9 @@ def set_params(name: str, value: Union[str, int, float, bool, list]) -> bool:
     else:
         raise QC2015PError(f"不支持的值类型: {type(value).__name__}")
 
+    # 会话内记录改动（退出时自动恢复原值）
+    _record_set(model, real_name)
+
     # 直接写入（服务端限速1ms/次）
     result = _get(f"/api/{model.lower()}/params/set", {
         "name": real_name, "value": value_str
@@ -360,31 +373,54 @@ def _parse_value(value_str: str) -> Any:
 # 设备操作 (也是setter/getter风格)
 # ============================================================
 
-def connect(baud: int = 250000, device: str = "zlg", dev_type: int = 0, dev_idx: int = 0) -> bool:
+def connect(baud: int = 250000, device: str = "zlg", dev_type: int = 0,
+            dev_idx: int = 0, ch: Optional[int] = None, term: bool = True,
+            secc_phys: Optional[int] = None, evcc_phys: Optional[int] = None) -> bool:
     """
-    连接CAN设备（双通道同时打开）。
+    连接CAN设备（一次请求，按通道语义打开）。
 
-    connect()                              # ZLG USBCAN2, 250k
+    connect()                              # ZLG USBCAN2, 250k（ch=all 双通道）
     connect(baud=500000)                   # 500k
     connect(device="zlgcanfd")             # ZLG USBCANFD-200U (zlgcan.dll)
+    connect(ch=0)                          # 只开通道0（SECC侧独立工作场景）
+    connect(term=False)                    # 不启用终端电阻（由后端按设备能力处理）
+
+    请求: GET /api/can/connect?device=&devIdx=&baud=&term=1|0&ch=all|0|1
+    （dev_type>0 时额外携带 devType= 参数）
+
+    可重复调用：已连接再调用仍返回成功；API 返回 success=false 时返回
+    False 而不抛异常（脚本自行检查返回值）。
 
     Args:
         baud: 波特率
-        device: 厂商驱动名（"zlg" / "zlgcanfd"）
+        device: 厂商驱动名（"zlg" / "zlgcanfd" / "virtual"）
         dev_type: 设备类型（0=按驱动默认：zlg→4, zlgcanfd→41）
         dev_idx: 设备索引
+        ch: 通道；None=ch=all（多通道设备同时开 0→SECC、1→EVCC，
+            单通道设备只开它能开的）；0/1=只开指定通道
+        term: 是否启用终端电阻（true/false → term=1|0）
+        secc_phys / evcc_phys: 模型↔设备物理通道绑定（0/1）。
+            None=继承后端当前配置（面板改过绑定则跟随面板；默认0/1）；
+            显式传入则强制该侧绑定（如连线固定为 SECC=通道0 时传 secc_phys=0）
 
     Returns:
-        True=两个通道都连接成功
+        True=至少打开一个通道（单通道设备开一个即成功）
     """
-    params = {"baud": baud, "device": device, "devIdx": dev_idx}
+    params = {
+        "baud": baud,
+        "device": device,
+        "devIdx": dev_idx,
+        "term": 1 if term else 0,
+        "ch": "all" if ch is None else str(int(ch)),
+    }
+    if secc_phys is not None:
+        params["seccPhys"] = int(secc_phys)
+    if evcc_phys is not None:
+        params["evccPhys"] = int(evcc_phys)
     if dev_type > 0:
         params["devType"] = dev_type
-    p0 = dict(params, ch=0)
-    p1 = dict(params, ch=1)
-    r0 = _get("/api/can/connect", p0)
-    r1 = _get("/api/can/connect", p1)
-    return r0.get("success", False) and r1.get("success", False)
+    result = _get("/api/can/connect", params)
+    return result.get("success", False)
 
 
 def disconnect() -> bool:
@@ -421,6 +457,73 @@ def is_running(model: str = "SECC") -> bool:
     return st.get(model.lower(), {}).get("running", False)
 
 
+def wait_ready(models=("SECC", "EVCC"), timeout: float = 10.0, interval: float = 0.05,
+               min_steps: int = 50) -> bool:
+    """等待模型真正进入运行状态（connect() 之后调用，消除冷启动竞态）。
+
+    除 running=true 外，还要求已步进 min_steps 步（默认 50 步≈50ms），
+    避免线程刚创建、还没开始 1ms 步进就往下执行。
+
+    Returns:
+        True=指定模型全部就绪；False=超时
+    """
+    end = time.time() + timeout
+    while time.time() < end:
+        try:
+            st = get_status()
+            ready = True
+            for m in models:
+                d = st.get(m.lower(), {})
+                if not d.get("running") or int(d.get("stepCount", 0)) < min_steps:
+                    ready = False
+                    break
+            if ready:
+                return True
+        except Exception:
+            pass
+        time.sleep(interval)
+    return False
+
+
+def reset_all(timeout: float = 15.0) -> bool:
+    """全量软复位：停录制 → 停模型/断CAN → 重置模型状态/IO → 参数恢复启动默认值
+    → 清空 DBC 报文缓存/复用组历史（默认 0）/报文追踪缓冲。
+
+    与 restart_hil() 的区别：只复位运行时状态，不重启进程。速度更快（毫秒级），
+    且没有进程冷启动带来的“connect 时模型尚未就绪”竞态；连续复位也不会把
+    CAN/模型线程留在卡死状态（restart_hil 连续调用可能触发 connect 无响应）。
+
+    复位后 CAN 不会自动重连，需要重新 connect()。
+
+    Returns:
+        True=复位成功（SECC/EVCC 均已停止）；False=后端不可达或复位失败
+    """
+    try:
+        r = _get("/api/system/reset")
+        return bool(r.get("success"))
+    except Exception:
+        return False
+
+
+def _restart_hil_delayed() -> bool:
+    """面板内执行时的重启：由外部进程延迟约3秒后发起优雅重启。
+
+    /api/py/exec 子进程若立刻杀掉 HIL，当前 HTTP 响应会连接重置（实测
+    脚本结束瞬间 RST），面板显示“执行失败”。改为 ping 延迟等响应返回后，
+    再由独立进程调 /api/app/restart（该接口自带“回包→退出→拉起新实例”）。
+    """
+    cmd = ("ping -n 4 127.0.0.1 >nul && curl -s --max-time 5 "
+           "http://" + _host + ":" + str(_port) + "/api/app/restart >nul")
+    try:
+        flags = getattr(subprocess, "DETACHED_PROCESS", 0x00000008) | 0x08000000  # DETACHED|NO_WINDOW
+        subprocess.Popen(["cmd", "/c", cmd], creationflags=flags, close_fds=True,
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL)
+        return True
+    except Exception:
+        return False
+
+
 def restart_hil(timeout: float = 20.0) -> bool:
     """重启 QC2015P_HIL.exe（仅本机）。
 
@@ -431,6 +534,10 @@ def restart_hil(timeout: float = 20.0) -> bool:
         True=新实例已就绪；False=超时。
     注意：重启后 CAN 不会自动重连，需要重新 connect()。
     """
+    if os.environ.get("QC2015P_UNDER_PANEL"):
+        # 面板(/api/py/exec)内执行：延迟重启，保护当前 HTTP 响应不被掐断
+        return _restart_hil_delayed()
+
     global _fast_sock
     if _fast_sock is not None:
         try:
@@ -552,6 +659,7 @@ def SECC_ValueSet(name: str, value: Union[str, int, float, bool, list]) -> bool:
        SECC_ValueSet("ChargeSta", 1)  →  直接写入 SECC 模型的 ChargeSta 参数
     """
     value_str = _format_value(value)
+    _record_set("SECC", name)  # 会话内记录原值（写入前）
     try:
         return _fast_set("SECC", name, value_str)
     except (ConnectionError, OSError):
@@ -580,6 +688,7 @@ def EVCC_ValueSet(name: str, value: Union[str, int, float, bool, list]) -> bool:
        EVCC_ValueSet("ChargeSta", 1)  →  直接写入 EVCC 模型的 ChargeSta 参数
     """
     value_str = _format_value(value)
+    _record_set("EVCC", name)  # 会话内记录原值（写入前）
     try:
         return _fast_set("EVCC", name, value_str)
     except (ConnectionError, OSError):
@@ -685,3 +794,496 @@ def poll_params(name: str, count: int = 10, interval: float = 0.1) -> list:
             values.append(None)
         time.sleep(interval)
     return values
+
+
+# ============================================================
+# 断言辅助（专业 HIL 自动化测试机制）
+# 失败统一抛 QcAssertError，顶层捕获后经 finish() 转成 FAIL 结论 + 退出码
+# ============================================================
+
+EXIT_PASS = 0   # CI 退出码约定: PASS
+EXIT_FAIL = 1   # CI 退出码约定: FAIL
+
+
+class QcAssertError(Exception):
+    """断言失败（携带失败消息），由 finish()/run_case() 统一转成 FAIL 结论"""
+
+    def __init__(self, msg: str = ""):
+        self.msg = str(msg)
+        super().__init__(self.msg)
+
+    def __str__(self) -> str:
+        return self.msg
+
+
+def assert_true(cond: Any, msg: str = "") -> None:
+    """断言条件为真，否则抛 QcAssertError。
+
+    assert_true(res == 2, "版本协商序列未完成")
+    """
+    if not cond:
+        raise QcAssertError(msg or f"条件不满足: {cond!r}")
+
+
+def assert_eq(a: Any, b: Any, msg: str = "") -> None:
+    """断言 a == b，否则抛 QcAssertError（携带双方取值）。
+
+    assert_eq(EVCC_ValueGet("ProtocolVersion"), 2, "协议版本号")
+    """
+    if a != b:
+        head = msg or "值不相等"
+        raise QcAssertError(f"{head}: 实际={a!r}, 期望={b!r}")
+
+
+def assert_changed(getter: Callable[[], Any], before: Any, timeout: float = 5.0,
+                   interval: float = 0.05, msg: str = "") -> Any:
+    """轮询等待 getter() 的返回值偏离 before（值发生变化），带超时。
+
+    变化发生 → 返回新值（可继续二次断言）；超时 → 抛 QcAssertError。
+    轮询期间 getter 抛可恢复异常（如参数瞬时不可读）视为"尚未变化"继续等。
+
+    new = assert_changed(lambda: MsgGet(0xC3956F4, "timestamp"), ts0, timeout=3)
+    assert_changed(lambda: SECC_ValueGet("ChargeSta"), 0, timeout=2)
+    """
+    end = time.time() + timeout
+    while True:
+        try:
+            cur = getter()
+        except (QC2015PError, ConnectionError, OSError):
+            cur = _QC_UNREADABLE  # 读不到 → 视为尚未变化
+        if cur is not _QC_UNREADABLE and cur != before:
+            return cur
+        if time.time() >= end:
+            raise QcAssertError(
+                msg or f"值未在 {timeout}s 内变化 (before={before!r})"
+            )
+        time.sleep(interval)
+
+
+_QC_UNREADABLE = object()  # 内部哨兵：轮询期间 getter 读取失败
+
+
+def assert_in(container: Any, item: Any, msg: str = "") -> None:
+    """断言 item 在容器内（列表/字符串/字典/集合）。
+
+    assert_in([2,255,255], MsgGet(0xC3756F4, "Data")[0:3])   # 数据段包含
+    assert_in("PASS", line)                                   # 字符串包含
+    """
+    try:
+        ok = item in container
+    except TypeError:
+        ok = False
+    if not ok:
+        raise QcAssertError(msg or f"assert_in 失败: {item!r} not in {container!r}")
+
+
+def assert_near(a: Any, b: Any, tol: float = 1e-6, msg: str = "") -> None:
+    """断言 |a-b| <= tol（数值容差比较，适合带缩放/浮点的信号值）。"""
+    try:
+        ok = abs(float(a) - float(b)) <= tol
+    except (TypeError, ValueError):
+        ok = False
+    if not ok:
+        raise QcAssertError(msg or f"assert_near 失败: |{a!r} - {b!r}| > {tol}")
+
+
+def wait_until(cond: Callable[[], bool], timeout: float = 5.0, interval: float = 0.01,
+               msg: str = "") -> None:
+    """轮询等待任意条件成立（cond 为无参可调用），超时抛 QcAssertError。
+
+    与 assert_changed 的分工：
+      wait_until   —— 等"条件为真"（如 lambda: MsgGet(...) == 2）
+      assert_changed —— 等"值发生变化"
+    与 qc_wait_until 面板积木语义一致（超时=断言失败）。
+
+    wait_until(lambda: qc_monitor("SECC", "MAIN_SEQ") >= 200, timeout=3)
+    """
+    if not callable(cond):
+        raise QcAssertError("wait_until: cond 必须是可调用对象（如 lambda: ...）")
+    end = time.time() + timeout
+    while True:
+        try:
+            if cond():
+                return
+        except (QC2015PError, ConnectionError, OSError):
+            pass   # 读不到 → 继续等
+        if time.time() >= end:
+            raise QcAssertError(msg or f"wait_until 超时({timeout}s): 条件未成立")
+        time.sleep(interval)
+
+
+def retry(fn: Callable[[], Any], attempts: int = 3, delay: float = 0.2,
+         exceptions: tuple = (QC2015PError, ConnectionError, OSError)) -> Any:
+    """重试执行 fn()，返回其结果；attempts 次全失败则抛最后一次异常。
+
+    常用于建立连接/开录制等可能瞬时失败的操作：
+        sock = retry(lambda: connect(...), attempts=3)
+    """
+    last: Exception = RuntimeError("retry: attempts 必须 >= 1")
+    for i in range(max(1, attempts)):
+        try:
+            return fn()
+        except exceptions as e:
+            last = e
+            if i < attempts - 1:
+                time.sleep(delay)
+    raise last
+
+
+def finish(result: Any, reason: str = "") -> int:
+    """输出与测试面板一致的结论行，并返回进程退出码。
+
+    打印格式: 结论: PASS/FAIL - 原因   （与面板 qc_result 积木一致）
+    返回:    0=PASS, 1=FAIL   →  if __name__ 下直接 sys.exit(finish(...))
+
+    return finish(True, "完成")
+    return finish(False, str(e))
+    """
+    ok = bool(result)
+    print(f"结论: {'PASS' if ok else 'FAIL'} - {reason}", flush=True)
+    return EXIT_PASS if ok else EXIT_FAIL
+
+
+def run_case(fn: Callable[[], Any]) -> int:
+    """顶层统一入口：执行测试函数并把各类失败统一转成 FAIL 结论 + 退出码。
+
+    - QcAssertError / QC2015PError / 其他异常 → finish(False, 消息)
+    - fn 返回 (bool, reason) 元组             → 按该结果输出
+    - fn 返回 True / None                     → PASS "完成"
+    - fn 返回 False / 字符串 reason           → FAIL/PASS 对应处理
+
+    sys.exit(run_case(do_test))
+    """
+    try:
+        ret = fn()
+    except QcAssertError as e:
+        return finish(False, e.msg)
+    except QC2015PError as e:
+        return finish(False, f"平台错误: {e}")
+    except ConnectionError as e:
+        return finish(False, f"连接失败: {e}")
+    except Exception as e:  # noqa: BLE001 —— 顶层兜底，任何异常都算 FAIL
+        return finish(False, f"未预期异常: {type(e).__name__}: {e}")
+    if isinstance(ret, tuple) and len(ret) == 2:
+        return finish(ret[0], ret[1])
+    if isinstance(ret, str):
+        return finish(True, ret)
+    if ret is None:
+        return finish(True, "完成")
+    return finish(bool(ret), "完成")
+
+
+# ============================================================
+# 参数快照 / 恢复（autocleanup 核心）
+# 快照一次全量拉取（约27KB/模型），之后只按 diff 恢复，避免频繁整包传输
+# ============================================================
+
+def _raw_set(model: str, name: str, value: Any) -> None:
+    """按模型直接写参数（不做 SECC_/EVCC_ 前缀解析，供恢复逻辑使用）。"""
+    if value is None:
+        return
+    value_str = _format_value(value)
+    result = _get(f"/api/{_model_base(model)}/params/set",
+                  {"name": name, "value": value_str})
+    if not result.get("success"):
+        raise QC2015PError(f"恢复参数失败: {model}.{name}: "
+                           f"{result.get('error', 'unknown')}")
+
+
+def snapshot_params(model: str) -> Dict[str, Any]:
+    """抓取模型当前全量参数快照（一次 HTTP 拉取）。
+
+    snap = snapshot_params("SECC")     # {"ChargeSta": 1, "CVList": [...], ...}
+
+    Args:
+        model: "SECC" / "EVCC"（大小写不敏感）
+
+    Returns:
+        {参数名: 当前值}
+    """
+    result = _get(f"/api/{_model_base(model)}/params")
+    snap: Dict[str, Any] = {}
+    for p in result.get("data", []):
+        name = p.get("name")
+        if name is not None:
+            snap[name] = p.get("value")
+    return snap
+
+
+def restore_params(model: str, snap: Dict[str, Any]) -> List[str]:
+    """把模型参数恢复到快照值（只写入有差异的参数）。
+
+    恢复前重新拉取一次当前值做 diff —— 与快照相同的参数不会被重写，
+    因此正常情况下写入次数 = 实际被改动的参数个数。
+
+    Args:
+        model: "SECC" / "EVCC"
+        snap: snapshot_params() 的返回值
+
+    Returns:
+        实际被恢复（写入）的参数名列表
+    """
+    current = snapshot_params(model)
+    restored: List[str] = []
+    for name, want in snap.items():
+        if name not in current:
+            continue  # 快照后参数被移除，跳过
+        if _val_equal(current.get(name), want):
+            continue  # 无差异，不写
+        _raw_set(model, name, want)
+        restored.append(name)
+    return restored
+
+
+def _val_equal(a: Any, b: Any) -> bool:
+    """参数值等价比较（容忍 True==1、1==1.0 这类类型差异，但 True!=2）。"""
+    if a == b:
+        return True
+    # bool 与数字混用：按 0/1 语义比较（True 等价 1，不等价其他数字）
+    if isinstance(a, bool) and isinstance(b, (int, float)) and not isinstance(b, bool):
+        return b in (0, 1) and bool(a) == bool(b)
+    if isinstance(b, bool) and isinstance(a, (int, float)) and not isinstance(a, bool):
+        return a in (0, 1) and bool(a) == bool(b)
+    return False
+
+
+# ============================================================
+# QcSession：测试会话上下文管理器（连接 → 录制 → 快照 → 逆序清理 → 收尾）
+# ============================================================
+
+# 当前活动会话（供 set 路径记录改动；无会话时为 None，不影响既有脚本）
+_active_session: Optional["QcSession"] = None
+
+
+def _record_set(model: str, name: str) -> None:
+    """set 路径钩子：若处于 QcSession 内，记录该参数的原值（仅首次）。"""
+    sess = _active_session
+    if sess is not None:
+        sess._record_set(model, name)
+
+
+class QcSession:
+    """HIL 测试会话上下文管理器（模仿 unittest 的生命周期管理）。
+
+    with QcSession(device="zlg", baud=250000, restart=True) as s:
+        s.addCleanup(fn)                  # 注册逆序清理（后进先出）
+        ...                               # setup → act → assert
+    # 退出（无论成败）自动执行:
+    #   用户 addCleanup(逆序) → 停录制 → rename → 恢复被改参数
+    #   → disconnect → (可选) restart_hil
+
+    Args:
+        device/baud/dev_type/dev_idx: 透传给 connect()
+        restart: 退出时是否 restart_hil（默认 True）
+        record:  进入时是否开录制（默认 True）
+        record_ch: 录制通道 0=SECC / 1=EVCC
+        log_name: rename_log 的目标文件名；None=取当前脚本文件名，
+                  仍为 None 且取不到脚本名时跳过 rename
+        restore: 退出时是否自动恢复会话内被改动的参数（默认 True）
+        models:  参与快照/恢复的模型（默认两侧都抓，进入时各拉一次）
+        settle_ms: 连接后的稳定等待（毫秒，默认 500，与面板导出脚本一致）
+        wait_running: 进入时是否等待 SECC/EVCC 模型运行（默认 False）
+    """
+
+    def __init__(self, device: str = "zlg", baud: int = 250000,
+                 dev_type: int = 0, dev_idx: int = 0, restart: bool = True,
+                 record: bool = True, record_ch: int = 0,
+                 log_name: Optional[str] = None, restore: bool = True,
+                 models: tuple = ("SECC", "EVCC"), settle_ms: float = 500,
+                 wait_running: bool = False, run_timeout: float = 10.0):
+        self.device = device
+        self.baud = baud
+        self.dev_type = dev_type
+        self.dev_idx = dev_idx
+        self.restart = restart
+        self.record = record
+        self.record_ch = record_ch
+        self.log_name = log_name
+        self.restore = restore
+        self.models = tuple(str(m).upper() for m in models)
+        self.settle_ms = settle_ms
+        self.wait_running = wait_running
+        self.run_timeout = run_timeout
+
+        self._cleanups: List[Callable[[], Any]] = []
+        self._snaps: Dict[str, Dict[str, Any]] = {}      # model → 参数快照
+        self._changed: Dict[tuple, Any] = {}             # (model, name) → 原值
+        self._connected = False
+        self._recording = False
+        self._entered = False
+
+    # ---------- unittest 风格注册清理 ----------
+
+    def addCleanup(self, fn: Callable[[], Any], *args: Any, **kwargs: Any) -> None:
+        """注册逆序清理函数（与 unittest.TestCase.addCleanup 语义一致）。
+        会话退出时后进先出执行；单个清理失败不影响其余清理执行。
+        """
+        if args or kwargs:
+            self._cleanups.append(lambda: fn(*args, **kwargs))
+        else:
+            self._cleanups.append(fn)
+
+    # ---------- set 路径钩子 ----------
+
+    def _record_set(self, model: str, name: str) -> None:
+        """记录参数原值（每参数仅记录首次改动前的值）。"""
+        if not self.restore:
+            return
+        model = str(model).upper()
+        key = (model, name)
+        if key in self._changed:
+            return
+        snap = self._snaps.get(model, {})
+        if name in snap and snap[name] is not None:
+            self._changed[key] = snap[name]
+            return
+        # 快照缺失（restore 未开快照或参数不在快照内）→ 直读当前值兜底
+        try:
+            cur = _parse_value(_fast_get(model, name))
+            if cur is not None:
+                self._changed[key] = cur
+        except (ConnectionError, OSError, QC2015PError):
+            pass  # 读不到原值则放弃恢复该参数
+
+    # ---------- 上下文协议 ----------
+
+    def __enter__(self) -> "QcSession":
+        global _active_session
+        if self._entered:
+            raise QC2015PError("QcSession 不可重入")
+        self._entered = True
+
+        # 1) 连接 CAN（失败则清理半开状态并抛出）
+        try:
+            ok = connect(baud=self.baud, device=self.device,
+                         dev_type=self.dev_type, dev_idx=self.dev_idx)
+        except BaseException:
+            self._entered = False  # 未真正进入，允许重试
+            raise
+        if not ok:
+            try:
+                disconnect()
+            except Exception:
+                pass
+            self._entered = False  # 未真正进入，允许重试
+            raise QC2015PError(
+                f"CAN连接失败: device={self.device} baud={self.baud}")
+        self._connected = True
+
+        # 进入阶段后续步骤失败时回滚（__enter__ 抛出后 __exit__ 不会执行）
+        try:
+            # 2) 稳定等待
+            if self.settle_ms and self.settle_ms > 0:
+                qcsleep(self.settle_ms)
+
+            # 3) 等待模型运行（可选）
+            if self.wait_running:
+                end = time.time() + self.run_timeout
+                while time.time() < end:
+                    if is_running("SECC") and is_running("EVCC"):
+                        break
+                    time.sleep(0.1)
+                else:
+                    raise QcAssertError(
+                        f"SECC或EVCC未在{self.run_timeout}s内启动")
+
+            # 4) 开录制（尽力而为：录制失败不阻断测试）
+            if self.record:
+                try:
+                    self._recording = bool(logging(1, ch=self.record_ch))
+                except (ConnectionError, QC2015PError) as e:
+                    print(f"[WARN] 开启录制失败: {e}")
+                    self._recording = False
+
+            # 5) 参数快照（每模型仅此一次全量拉取，供退出时恢复 diff）
+            if self.restore:
+                for m in self.models:
+                    try:
+                        self._snaps[m] = snapshot_params(m)
+                    except (ConnectionError, QC2015PError) as e:
+                        print(f"[WARN] 参数快照失败({m}): {e}")
+                        self._snaps[m] = {}
+        except BaseException:
+            # 回滚：停已开的录制、关已连的通道/设备
+            if self._recording:
+                try:
+                    logging(0, ch=self.record_ch)
+                except Exception:
+                    pass
+                self._recording = False
+            if self._connected:
+                try:
+                    disconnect()
+                except Exception:
+                    pass
+                self._connected = False
+            self._entered = False
+            raise
+
+        _active_session = self
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> bool:
+        global _active_session
+        # 用户 addCleanup 的错误 → 无主体异常时升级为失败；
+        # 基础设施收尾（停录制/rename/恢复/断开/重启）失败 → 仅告警，
+        # 与既有脚本 try/except: pass 的"尽力收尾"语义一致。
+        cleanup_errors: List[BaseException] = []
+
+        def _step(fn: Callable[[], Any], what: str,
+                  fatal: bool = False) -> None:
+            """执行单步收尾，异常处理后继续（保证后续步骤都能执行）。"""
+            try:
+                fn()
+            except Exception as e:  # noqa: BLE001 —— 收尾步骤全部容错
+                if fatal:
+                    cleanup_errors.append(e)
+                print(f"[WARN] {what}: {e}")
+
+        try:
+            # 1) 用户注册的清理：逆序（LIFO）
+            while self._cleanups:
+                fn = self._cleanups.pop()
+                _step(fn, "cleanup失败", fatal=True)
+
+            # 2) 停录制 + rename（保持与面板导出脚本一致的收尾顺序）
+            if self._recording:
+                def _stop_and_rename():
+                    model = "EVCC" if self.record_ch == 1 else "SECC"
+                    logging(0, ch=self.record_ch)
+                    name = self.log_name
+                    if name is None:
+                        argv0 = sys.argv[0] if sys.argv else ""
+                        if argv0 and argv0 not in ("-c", ""):
+                            name = os.path.splitext(os.path.basename(argv0))[0]
+                    if name:
+                        rename_log(model, name)
+                _step(_stop_and_rename, "停止录制/重命名失败")
+
+            # 3) 恢复会话内被改动的参数（逐个写回，单个失败不阻断其余）
+            if self.restore and self._changed:
+                def _restore_changed():
+                    for (model, name), value in list(self._changed.items()):
+                        if value is None:
+                            continue
+                        try:
+                            _raw_set(model, name, value)
+                        except Exception as e:  # noqa: BLE001
+                            print(f"[WARN] 恢复参数失败 {model}.{name}: {e}")
+                _step(_restore_changed, "参数自动恢复失败")
+
+            # 4) 关通道/关设备
+            if self._connected:
+                _step(disconnect, "断开CAN失败")
+
+            # 5) 重启 HIL（可选）
+            if self.restart:
+                _step(lambda: restart_hil(), "重启HIL失败")
+        finally:
+            _active_session = None
+
+        # 无主体异常时，用户清理的错误升级为失败（有主体异常则保留原异常）
+        if exc_type is None and cleanup_errors:
+            raise cleanup_errors[0]
+        return False  # 永不吞掉主体异常
+

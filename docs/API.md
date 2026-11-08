@@ -47,8 +47,11 @@ HTTP API接口文档，供前端和Python脚本使用。
     "secc": {
         "running": true,
         "stepCount": 12345,
-        "avgPeriodUs": 998.5,
+        "avgPeriodUs": 1000.3,
         "jitterUs": 12.3,
+        "maxPeriodUs": 1272.3,
+        "p99PeriodUs": 1000.4,
+        "maxPhaseErrUs": 118.0,
         "overrunCount": 0
     },
     "evcc": {
@@ -70,9 +73,12 @@ HTTP API接口文档，供前端和Python脚本使用。
 |------|------|
 | `secc.running` | SECC模型是否在运行 |
 | `secc.stepCount` | 累计步进次数 |
-| `secc.avgPeriodUs` | 平均周期(微秒) |
+| `secc.avgPeriodUs` | 窗口（1000 步）真实平均周期(微秒) |
 | `secc.jitterUs` | 平均抖动(微秒) |
-| `secc.overrunCount` | 超时次数 |
+| `secc.maxPeriodUs` | 窗口内最大周期(微秒) |
+| `secc.p99PeriodUs` | 窗口内 p99 周期(微秒) |
+| `secc.maxPhaseErrUs` | 窗口内最大相位误差(微秒) |
+| `secc.overrunCount` | 周期 > 1.5ms 的次数（窗口化统计，不被历史稀释） |
 | `can.ch0.connected` | 通道0是否连接 |
 | `logging.secc` | SECC是否正在录制 |
 
@@ -84,6 +90,19 @@ HTTP API接口文档，供前端和Python脚本使用。
 ```json
 {"success": true}
 ```
+
+### GET /api/system/reset（全量软复位）
+
+不重启进程、毫秒级恢复到"刚启动"的全新状态，测试脚本收尾 / 用例间清理用。
+
+执行顺序：停录制 → 停模型、断开并关闭 CAN → 参数恢复启动默认值 → 重建模型对象（重置状态/初始状态/输入输出）→ 再次恢复参数 → 清空 DBC 报文缓存与报文追踪缓冲。
+
+**响应**:
+```json
+{"success": true, "seccRunning": false, "evccRunning": false}
+```
+
+> 与 `/api/model/reset` 的区别：`model/reset` 只重置模型状态（参数、追踪、DBC 缓存保留）；`system/reset` 是全量清理。失败时可回退 `restart_hil()`（重启进程）。Python 客户端对应 `reset_all()`。
 
 ### GET /api/secc/ui_logs
 
@@ -148,7 +167,7 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 **响应**:
 ```json
-{"devices": "virtual,zlg,zlgcanfd"}
+{"devices": "kvaser,pcan,slcan,toomoss,tosun,vector,virtual,zlg,zlgcanfd"}
 ```
 
 | 驱动名 | 对应硬件 | 运行时 DLL |
@@ -156,6 +175,39 @@ HTTP API接口文档，供前端和Python脚本使用。
 | `virtual` | 虚拟双通道桥接（**无硬件**），通道0↔通道1 内部互通，模拟一条物理总线 | 无 |
 | `zlg` | ZLG USBCAN2 等老款 | `USBCAN.dll` |
 | `zlgcanfd` | ZLG USBCANFD-200U 等新款 CAN FD | `zlgcan.dll` |
+| `pcan` | PEAK PCAN-USB / USB FD / Pro / Pro FD | `PCANBasic.dll`（官方安装器装入系统） |
+| `vector` | Vector VN1610/1630/1640/1611、VN5610/5650 | `vxlapi64.dll`（随包分发） |
+| `kvaser` | Kvaser 全系列（Leaf / Mercury / EAGLE…） | `canlib32.dll`（官方安装器装入系统） |
+| `tosun` | TOSUN 同星 TCANFD 系列（USB / 以太网） | `libTSCAN.dll` + `libTSH.dll`（随包分发） |
+| `toomoss` | TOOMOSS USB2CAN / USB2CANFD | `USB2XXX.dll`（官方安装器装入系统） |
+| `slcan` | SLCAN 串口 CAN（`devType` = COM 口号 1~8） | 厂商串口驱动 |
+
+### GET /api/can/channels
+
+枚举指定设备的通道清单（CAN 面板「刷新设备」用它展示具体通道名）。
+
+**参数**:
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `device` | string | `zlg` | 驱动名（同上表） |
+| `devType` | int | -1 | 设备类型/型号，-1 = 按驱动默认探测 |
+| `devIdx` | int | 0 | 设备索引（同型号多台选第 N 台） |
+
+**响应**:
+```json
+{
+    "success": true,
+    "device": "virtual",
+    "error": null,
+    "channels": [
+        {"ch": 0, "name": "虚拟通道0 → SECC模型（桥接到通道1）", "available": true},
+        {"ch": 1, "name": "虚拟通道1 → EVCC模型（桥接到通道0）", "available": true}
+    ]
+}
+```
+
+设备打不开时 `success=false`，`error` 给出「驱动DLL缺失、未安装厂商驱动或设备不可用」等提示。
 
 ### GET /api/can/connect
 
@@ -165,22 +217,33 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `device` | string | `zlg` | 驱动名：`virtual`（虚拟，无硬件）/ `zlg`（USBCAN2）/ `zlgcanfd`（USBCANFD-200U）。网页端默认传 `virtual` |
-| `devType` | int | 按驱动而定 | 设备类型：`zlg` → 4(USBCAN2)，`zlgcanfd` → 41(USBCANFD-200U)；`virtual` 忽略此参数 |
-| `devIdx` | int | 0 | 设备索引；`virtual` 忽略此参数 |
-| `ch` | int | 0 | 通道号 (0=SECC, 1=EVCC) |
+| `device` | string | `zlg` | 驱动名（上表 9 款之一）。网页端默认传 `virtual` |
+| `devType` | int | 按驱动而定 | 型号/类型：`zlg`→4、`zlgcanfd`→41、`vector`=hwType、`slcan`=COM口号、`toomoss`=通道数；`virtual` 忽略 |
+| `devIdx` | int | 0 | 设备索引，同型号多台选第 N 台 |
+| `ch` | string | `all` | `all`=多通道设备同时开 ch0(SECC)+ch1(EVCC)；`0`/`1`=只开指定通道（**未开通道对应的模型不启动**，单侧接实物可独立工作） |
 | `baud` | int | 250000 | 波特率 |
+| `term` | int | 1 | 终端电阻请求（硬件支持软件配置的驱动生效） |
+| `seccPhys` | int | 0 | SECC 模型绑定的设备物理通道（0..设备通道数-1） |
+| `evccPhys` | int | 1 | EVCC 模型绑定的设备物理通道；单通道设备仅可绑 0 |
 
 **响应**:
 ```json
 {
     "success": true,
     "channel": 0,
-    "connected": true
+    "connected": true,
+    "deviceChannels": 2,
+    "seccPhys": 0,
+    "evccPhys": 1,
+    "opened": [0, 1]
 }
 ```
 
-**说明**: 连接通道0会自动启动SECC模型线程，连接通道1会自动启动EVCC模型线程。前端在连接设备前会先调用 `/api/model/reset` 复位模型状态（参数与历史报文追踪保留），换用另一只 CAN 盒子后无需重启程序。
+**说明**:
+- 每打开一个通道就启动对应模型线程（`opened` 未包含的通道对应模型不启动）
+- 单通道设备（如 PCAN-USB）逻辑通道自动归一到 0，避免两个模型抢占同一物理通道
+- 连接前会检测设备名变化并整体断开旧连接，换设备不会误报"连接成功"
+- 前端连接前先调用 `/api/model/reset` 复位模型状态（参数与历史报文追踪保留）
 
 ### GET /api/can/disconnect
 
@@ -400,7 +463,8 @@ GET /api/params/set?name=ChargeSta&value=1
 | `sender` | DBC中定义的发送方节点（SECC/EVCC） |
 | `lastUpdate` | 最后更新时间戳(微秒) |
 | `data` | 原始数据（字节数组） |
-| `signals` | 解码后的信号值 |
+| `signals` | 解码后的信号值（当前复用组 + 各历史组合并，多路复用信号随时可读） |
+| `signalNames` | 该报文的**全量**信号名列表（含未激活的复用组，供面板信号下拉使用） |
 
 ### GET /api/evcc/dbc_params
 
@@ -879,6 +943,8 @@ from qc2015p_client import *
 | `rename_log(model, name)` | 重命名录制文件（支持中文） | `rename_log("SECC", "充电测试1")` |
 | `get_trace(model)` | 获取报文追踪 | `get_trace("SECC")` |
 | `configure(host, port)` | 修改服务器地址 | `configure("192.168.1.10")` |
+| `reset_all(timeout)` | 全量软复位（不重启进程；停录制/断CAN/恢复默认参数/重建模型/清追踪） | `reset_all()` |
+| `wait_ready(timeout)` | 等双模型 running 且步进 ≥50（消除冷启动竞态后再开始测试计时） | `wait_ready()` |
 | `restart_hil(timeout)` | 正常收尾后重启程序并等待就绪（重启后需重新 `connect()`） | `restart_hil()` |
 
 ### 连续写多条示例

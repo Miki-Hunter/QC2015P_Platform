@@ -167,20 +167,30 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 **响应**:
 ```json
-{"devices": "kvaser,pcan,slcan,toomoss,tosun,vector,virtual,zlg,zlgcanfd"}
+{"devices": "chuangxin,ebel,esd,etas,intrepid,kvaser,ni,pcan,slcan,toomoss,tosun,vector,virtual,zlg,zlgcanfd"}
 ```
 
 | 驱动名 | 对应硬件 | 运行时 DLL |
 |--------|----------|-----------|
 | `virtual` | 虚拟双通道桥接（**无硬件**），通道0↔通道1 内部互通，模拟一条物理总线 | 无 |
 | `zlg` | ZLG USBCAN2 等老款 | `USBCAN.dll` |
-| `zlgcanfd` | ZLG USBCANFD-200U 等新款 CAN FD | `zlgcan.dll` |
+| `zlgcanfd` | ZLG USBCANFD-200U / 400U 等新款 CAN FD | `zlgcan.dll` |
 | `pcan` | PEAK PCAN-USB / USB FD / Pro / Pro FD | `PCANBasic.dll`（官方安装器装入系统） |
 | `vector` | Vector VN1610/1630/1640/1611、VN5610/5650 | `vxlapi64.dll`（随包分发） |
 | `kvaser` | Kvaser 全系列（Leaf / Mercury / EAGLE…） | `canlib32.dll`（官方安装器装入系统） |
 | `tosun` | TOSUN 同星 TCANFD 系列（USB / 以太网） | `libTSCAN.dll` + `libTSH.dll`（随包分发） |
 | `toomoss` | TOOMOSS USB2CAN / USB2CANFD | `USB2XXX.dll`（官方安装器装入系统） |
 | `slcan` | SLCAN 串口 CAN（`devType` = COM 口号 1~8） | 厂商串口驱动 |
+| `chuangxin` | 创芯 USBCAN-2A/2C、CANalyst-II（兼容 ZLG VCI） | `ControlCAN.dll` / `ControlCANFD.dll`（随包分发） |
+| `esd` | ESD NTCAN CAN 接口卡 | `ntcan64.dll`（系统安装） |
+| `ni` | NI-XNET | `nixnet.dll`（NI-XNET 驱动） |
+| `etas` | ETAS BOA V2 | BOA 驱动（注册表定位） |
+| `intrepid` | Intrepid neoVI | `icsneo40.dll`（系统安装） |
+| `ebel` | Eberspächer FlexCard（**仅经典 CAN**） | `fcbase.dll`（系统安装） |
+
+> 后 6 款（`chuangxin`/`esd`/`ni`/`etas`/`intrepid`/`ebel`）经统一硬件适配层 `src/can_canhw.cpp` → `vendor/canhw` 接入；原有 9 款驱动代码与行为不变。
+> 这 6 款**无软件终端电阻**（`term` 忽略）；`devIdx` 对 `ni` 不适用（接口名固定 `CAN1`/`CAN2`）。
+> 完整支持矩阵与各厂商寻址方式见 [docs/can-hardware.md](can-hardware.md)。
 
 ### GET /api/can/channels
 
@@ -217,8 +227,8 @@ HTTP API接口文档，供前端和Python脚本使用。
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `device` | string | `zlg` | 驱动名（上表 9 款之一）。网页端默认传 `virtual` |
-| `devType` | int | 按驱动而定 | 型号/类型：`zlg`→4、`zlgcanfd`→41、`vector`=hwType、`slcan`=COM口号、`toomoss`=通道数；`virtual` 忽略 |
+| `device` | string | `zlg` | 驱动名（上表 **15 款**之一）。网页端默认传 `virtual` |
+| `devType` | int | 按驱动而定 | 型号/类型：`zlg`→4、`zlgcanfd`→41、`vector`=hwType、`slcan`=COM口号、`toomoss`=通道数、`chuangxin`=VCI device_type(3/4/20/21)；`esd`/`ni`/`etas`/`intrepid`/`ebel`/`virtual` 忽略 |
 | `devIdx` | int | 0 | 设备索引，同型号多台选第 N 台 |
 | `ch` | string | `all` | `all`=多通道设备同时开 ch0(SECC)+ch1(EVCC)；`0`/`1`=只开指定通道（**未开通道对应的模型不启动**，单侧接实物可独立工作） |
 | `baud` | int | 250000 | 波特率 |
@@ -926,6 +936,11 @@ from qc2015p_client import *
 > 而底层接口 `set_params()` / `get_params()` 相反，**必须**带 `SECC_`/`EVCC_` 前缀（它靠前缀判断写哪个模型）。
 
 > 📌 **连续写多条**：单条写入已足够快（≈0.3ms），逐条循环调用即可。旧版客户端的 `SECC/EVCC_ValueSetBatch`、`BatchSet` 批量封装已移除（HTTP 端点 `params/set_batch` 仍可用，见 [3. SECC参数API](#3-secc参数api)）。
+
+> 🔁 **跨台架切换硬件**：`connect()` 支持环境变量覆盖 `QC2015P_DEVICE / BAUD / DEVTYPE / DEVIDX / TERM / CH / SECC_PHYS / EVCC_PHYS`，同一份脚本无需改动即可在不同硬件台架运行；不设置任何变量时行为与旧版完全一致。例如：
+> ```bash
+> QC2015P_DEVICE=chuangxin QC2015P_DEVTYPE=4 python TC_xxx.py
+> ```
 
 ### 底层接口（仍可用）
 

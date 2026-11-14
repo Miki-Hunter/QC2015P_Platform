@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_SECC'.
 //
-// Model version                  : 1.618
+// Model version                  : 1.622
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Sun Nov  8 21:04:57 2026
+// C/C++ source code generated on : Fri Nov 13 22:58:18 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor
@@ -163,7 +163,9 @@ struct rt_Simulink_Struct_type {
   boolean_T LM_SECC_Enable_SW;      // Referenced by: '<S98>/LM_SECC_Enable_SW'
   boolean_T LM_SECC_Enable_Va;      // Referenced by: '<S98>/LM_SECC_Enable_Va'
   boolean_T PGI01_Enable;              // Referenced by: '<S5>/PGI01_Enable'
+  boolean_T PGI02_Enable;              // Referenced by: '<S5>/PGI02_Enable'
   boolean_T PGI03_Enable;              // Referenced by: '<S5>/PGI03_Enable'
+  boolean_T PGI04_Enable;              // Referenced by: '<S5>/PGI04_Enable'
   boolean_T PGI05_Enable;              // Referenced by: '<S5>/PGI05_Enable'
   boolean_T PGI05_K1_SW;               // Referenced by: '<S5>/PGI05_K1_SW'
   boolean_T PGI05_K2_SW;               // Referenced by: '<S5>/PGI05_K2_SW'
@@ -171,7 +173,9 @@ struct rt_Simulink_Struct_type {
   boolean_T PGI07_Enable;              // Referenced by: '<S5>/PGI07_Enable'
   boolean_T PGI08_Enable;              // Referenced by: '<S5>/PGI08_Enable'
   boolean_T PGI08_wakeup_SW;           // Referenced by: '<S5>/PGI08_wakeup_SW'
+  boolean_T PGI09_Enable;              // Referenced by: '<S5>/PGI09_Enable'
   boolean_T PGI11_Enable;              // Referenced by: '<S5>/PGI11_Enable'
+  boolean_T PGI12_Enable;              // Referenced by: '<S5>/PGI12_Enable'
   boolean_T PGI21_Enable;              // Referenced by: '<S5>/PGI21_Enable'
   boolean_T PGI31_CAuthenStatus_SW;
                                 // Referenced by: '<S5>/PGI31_CAuthenStatus_SW'
@@ -182,6 +186,7 @@ struct rt_Simulink_Struct_type {
   boolean_T PGI33_SAuthenFDC_SW;   // Referenced by: '<S5>/PGI33_SAuthenFDC_SW'
   boolean_T PGI51_Data_SW;             // Referenced by: '<S5>/PGI51_Data_SW'
   boolean_T PGI51_Enable;              // Referenced by: '<S5>/PGI51_Enable'
+  boolean_T PGI52_Enable;              // Referenced by: '<S5>/PGI52_Enable'
   boolean_T PGI71_ChargerReady_SW;
                                  // Referenced by: '<S5>/PGI71_ChargerReady_SW'
   boolean_T PGI71_Enable;              // Referenced by: '<S5>/PGI71_Enable'
@@ -194,6 +199,7 @@ struct rt_Simulink_Struct_type {
   boolean_T PGI76_V_Exe_SW;            // Referenced by: '<S5>/PGI76_V_Exe_SW'
   boolean_T PGI78_Enable;              // Referenced by: '<S5>/PGI78_Enable'
   boolean_T PGI78_Pause_SW;            // Referenced by: '<S5>/PGI78_Pause_SW'
+  boolean_T PGI79_Enable;              // Referenced by: '<S5>/PGI79_Enable'
   boolean_T PGI92_AllowDetectCheck_SW;
                              // Referenced by: '<S5>/PGI92_AllowDetectCheck_SW'
   boolean_T PGI92_Enable;              // Referenced by: '<S5>/PGI92_Enable'
@@ -202,6 +208,7 @@ struct rt_Simulink_Struct_type {
   boolean_T PGI93_DishargeCapacity_SW;
                              // Referenced by: '<S5>/PGI93_DishargeCapacity_SW'
   boolean_T PGI93_Enable;              // Referenced by: '<S5>/PGI93_Enable'
+  boolean_T PGI94_Enable;              // Referenced by: '<S5>/PGI94_Enable'
   boolean_T SECC_2015P_Enable;     // Referenced by: '<Root>/SECC_2015P_Enable'
   boolean_T SECC_ChargeSta;           // Referenced by: '<Root>/SECC_ChargeSta'
   boolean_T SECC_DefineMsg_Enable;

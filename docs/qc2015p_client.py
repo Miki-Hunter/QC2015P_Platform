@@ -373,6 +373,17 @@ def _parse_value(value_str: str) -> Any:
 # 设备操作 (也是setter/getter风格)
 # ============================================================
 
+def _env_int(name: str, default: int) -> int:
+    """读取整数环境变量（支持十进制/0x 十六进制）；未设置或非法时返回默认值。"""
+    value = os.environ.get(name)
+    if value is None or value.strip() == "":
+        return default
+    try:
+        return int(value.strip(), 0)
+    except ValueError:
+        return default
+
+
 def connect(baud: int = 250000, device: str = "zlg", dev_type: int = 0,
             dev_idx: int = 0, ch: Optional[int] = None, term: bool = True,
             secc_phys: Optional[int] = None, evcc_phys: Optional[int] = None) -> bool:
@@ -405,7 +416,38 @@ def connect(baud: int = 250000, device: str = "zlg", dev_type: int = 0,
 
     Returns:
         True=至少打开一个通道（单通道设备开一个即成功）
+
+    跨硬件复用（可选环境变量，未设置时行为与旧版完全一致）:
+        QC2015P_DEVICE      覆盖 device（zlg/zlgcanfd/pcan/vector/kvaser/slcan/
+                            toomoss/tosun/chuangxin/esd/ni/etas/intrepid/ebel/virtual）
+        QC2015P_BAUD        覆盖 baud
+        QC2015P_DEVTYPE     覆盖 dev_type
+        QC2015P_DEVIDX      覆盖 dev_idx
+        QC2015P_TERM        覆盖 term（0/1）
+        QC2015P_CH          覆盖 ch（all/0/1）
+        QC2015P_SECC_PHYS / QC2015P_EVCC_PHYS  覆盖模型↔物理通道绑定
+        示例: QC2015P_DEVICE=chuangxin QC2015P_DEVTYPE=4 python TC_xxx.py
     """
+    # ---------- 跨硬件复用：可选环境变量覆盖 ----------
+    device = os.environ.get("QC2015P_DEVICE") or device
+    baud = _env_int("QC2015P_BAUD", baud)
+    dev_type = _env_int("QC2015P_DEVTYPE", dev_type)
+    dev_idx = _env_int("QC2015P_DEVIDX", dev_idx)
+    term = bool(_env_int("QC2015P_TERM", 1 if term else 0))
+    env_ch = os.environ.get("QC2015P_CH")
+    if env_ch is not None and env_ch.strip() != "":
+        env_ch = env_ch.strip().lower()
+        try:
+            ch = None if env_ch == "all" else int(env_ch)
+        except ValueError:
+            pass
+    env_secc = os.environ.get("QC2015P_SECC_PHYS")
+    if env_secc is not None and env_secc.strip() != "":
+        secc_phys = _env_int("QC2015P_SECC_PHYS", 0)
+    env_evcc = os.environ.get("QC2015P_EVCC_PHYS")
+    if env_evcc is not None and env_evcc.strip() != "":
+        evcc_phys = _env_int("QC2015P_EVCC_PHYS", 1)
+
     params = {
         "baud": baud,
         "device": device,

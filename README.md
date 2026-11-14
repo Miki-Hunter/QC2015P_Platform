@@ -365,7 +365,7 @@ TC_C . EVCC _ P _ DL _ VersionNegotiation _ 001
 
 | 类别 | 积木 |
 |:-----|:-----|
-| 🔌 连接 | 连接（可选 9 款设备、设备号、通道、终端电阻）/ 断开 CAN、等待模型启动、全量复位、重启 HIL 应用 |
+| 🔌 连接 | 连接（可选 15 款设备、设备号、通道、终端电阻）/ 断开 CAN、等待模型启动、全量复位、重启 HIL 应用 |
 | ⚙️ 参数·信号 | 设置参数、读取参数、读 DBC 信号、读 Monitor 变量、当前时间戳 |
 | 🔁 控制 | 等待 N 毫秒、wait_until、if / elseif / else、for / while、break / continue |
 | ✅ 判断·结论 | assert 检查、记录日志、录制控制、PASS / FAIL 结论 |
@@ -409,6 +409,32 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 > ⚡ `*_ValueSet` / `*_ValueGet` / `MsgGet` 走程序内部的**高速通道（TCP 长连接，端口 9528）**，单次约 0.3ms；不可用时自动回退普通 HTTP，脚本无需改动。
 > 📌 参数名按 **Web 参数列表里的字段名原样传入**：`ChargeSta` 就传 `"ChargeSta"`，`SECC_2015P_Enable` 就传全名。
 > 📄 完整说明见 [docs/API.md](docs/API.md) | 客户端源码 [docs/qc2015p_client.py](docs/qc2015p_client.py)
+
+---
+
+## 🔌 支持的 CAN 硬件（15 款）
+
+**对你的价值**：不用为了这个平台换盒子——手上有哪种 CAN 设备就用哪种；一台都没有，直接用内置的「虚拟 CAN」。
+
+| 类别 | 品牌 / 型号 | 驱动 DLL |
+|:-----|:-----------|:---------|
+| **原生驱动（9 款）** | ZLG USBCAN2 / USBCANFD-200U、PEAK PCAN 全系、Vector VN 系列、Kvaser 全系、TOSUN 同星 TCANFD、TOOMOSS USB2CAN、SLCAN 串口 | `USBCAN.dll` / `zlgcan.dll` / `vxlapi64.dll` / `libTSCAN.dll` 等 |
+| **本次新增（6 款，经适配层）** | 创芯 USBCAN-2A/2C · CANalyst-II、ESD NTCAN、NI-XNET、ETAS BOA、Intrepid neoVI、EbEl FlexCard（仅经典 CAN） | `ControlCAN.dll` / `ntcan64.dll` / `nixnet.dll` / BOA / `icsneo40.dll` / `fcbase.dll` |
+| **虚拟** | 虚拟双通道（无硬件，内部桥接） | 无 |
+
+> 驱动来源：ZLG 两代、Vector、TOSUN、创芯的 DLL **随包分发**；PEAK / Kvaser / TOOMOSS / ESD / NI / ETAS / Intrepid / EbEl 需安装各自**官方驱动**。
+
+### 硬件调用方式（本次更新）
+
+- **统一入口，换硬件不影响 1ms 定步长**：所有设备走同一个设备接口和同一条异步 I/O 通道——模型线程只管每 1 毫秒入队/出队，USB 与驱动调用在专用 I/O 线程完成。
+- **新厂商经适配层接入**：本次新增的 6 家统一由硬件抽象层（`vendor/canhw` + `src/can_canhw.cpp`）适配，不再为每家各写一套收发逻辑；**原有 9 款驱动的代码与行为完全不变**。
+- **脚本跨台架复用**：同一份测试脚本不用改，用环境变量切换硬件即可：
+  ```bash
+  QC2015P_DEVICE=chuangxin QC2015P_DEVTYPE=4 python TC_xxx.py
+  ```
+  支持 `QC2015P_DEVICE / BAUD / DEVTYPE / DEVIDX / TERM / CH / SECC_PHYS / EVCC_PHYS`；不设置时行为与旧版完全一致。
+
+> 📄 完整支持矩阵、各厂商寻址方式与验证状态见 [docs/can-hardware.md](docs/can-hardware.md)。
 
 ---
 
@@ -457,7 +483,7 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 
 | 依赖 | 说明 | 是否必需 |
 |:-----|:-----|:--------:|
-| **任意支持的 CAN 盒子** | ZLG / PEAK PCAN / Vector / Kvaser / TOSUN 同星 / TOOMOSS / SLCAN 串口——用**虚拟 CAN** 模式时不需要硬件 | ⭕ 可选 |
+| **任意支持的 CAN 盒子（15 款）** | ZLG / PEAK PCAN / Vector / Kvaser / TOSUN 同星 / TOOMOSS / SLCAN / 创芯 / ESD / NI-XNET / ETAS / Intrepid / EbEl——用**虚拟 CAN** 模式时不需要硬件 | ⭕ 可选 |
 | **Windows 10/11** | 操作系统 | ✅ |
 | **Chrome / Edge** | 浏览器 | ✅ |
 
@@ -467,7 +493,7 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 
 **第 1 步：下载** — 下载本仓库的 `build` 文件夹，或从 [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases) 下载压缩包。
 
-**第 2 步：连接 CAN（或直接用虚拟的）** — 网页 CAN 面板默认就是「**虚拟CAN（无硬件）**」，直接点连接即可开始测试。接真实设备时按**品牌 → 型号**两级选择（ZLG / PEAK PCAN / Vector VN / Kvaser / TOSUN 同星 / TOOMOSS / SLCAN 串口），面板还能选终端电阻、单一通道独立工作。注意：PEAK / Kvaser / TOOMOSS 需装各自官方驱动；Vector 与 TOSUN 的驱动 DLL 已随包分发。
+**第 2 步：连接 CAN（或直接用虚拟的）** — 网页 CAN 面板默认就是「**虚拟CAN（无硬件）**」，直接点连接即可开始测试。接真实设备时按**品牌 → 型号**两级选择（15 款品牌见[硬件支持](#🔌-支持的-can-硬件15-款)），面板还能选终端电阻、单一通道独立工作。注意：ZLG / Vector / TOSUN / 创芯的 DLL 随包；PEAK / Kvaser / TOOMOSS / ESD / NI / ETAS / Intrepid / EbEl 需安装各自官方驱动。
 
 **第 3 步：启动程序** — 进入 `build` 文件夹，双击 `QC2015P_HIL.exe`。
 
@@ -520,7 +546,7 @@ QC2015P_Platform/
 |:-----|:-----|:---------------------|
 | **前端** | Vue.js 3 + Vite 5 | 浏览器里的界面，**不用装客户端** |
 | **后端** | C++ 17 + MinGW-w64 | 真正跑仿真、收发报文的程序，**1 毫秒走一步** |
-| **CAN** | 9 款设备：ZLG / PEAK PCAN / Vector / Kvaser / 同星 / TOOMOSS / SLCAN + 虚拟 | 和真实充电桩 / 车辆通信的硬件盒子，各家都支持 |
+| **CAN** | 15 款设备：ZLG / PEAK PCAN / Vector / Kvaser / 同星 / TOOMOSS / SLCAN / 创芯 / ESD / NI / ETAS / Intrepid / EbEl + 虚拟 | 和真实充电桩 / 车辆通信的硬件盒子，主流厂商全覆盖 |
 | **模型** | Simulink Coder | 充电逻辑图形化搭建，**自动生成代码** |
 | **协议** | GB/T 27930.2-2024 + GB/T 27930-2015 | 新旧两版国标都支持 |
 | **DBC** | CANdb++ 格式 | 报文说明书：**哪几位是电压、哪几位是电流** |
@@ -598,6 +624,7 @@ QC2015P_Platform/
 <details>
 <summary><b>📝 更新记录</b>（点开查看）</summary>
 
+- **2026-11-14** — 支持设备扩至 **15 款**：新增创芯（USBCAN/CANalyst-II）、ESD NTCAN、NI-XNET、ETAS BOA、Intrepid neoVI、EbEl FlexCard 六家，统一经硬件适配层（`vendor/canhw`）接入，**原有 9 款驱动行为不变**；硬件调用统一走异步 I/O 通道，换任何设备都不影响 1ms 定步长；Python 脚本支持 `QC2015P_*` 环境变量，同一脚本跨台架直接切换硬件
 - **2026-11-08** — 设备大扩容至 **9 款**（PEAK PCAN、Vector VN、Kvaser、TOSUN 同星、TOOMOSS、SLCAN 串口 + ZLG 两代 + 虚拟），CAN 面板按品牌选型号、支持终端电阻与单通道独立工作；自动化面板新增「全量复位 / 检查相等 / 检查近似 / 等待值变化 / 数组取值」积木与「全量复位」按钮；一致性测试报文扩至 **78 个**并按标准章节分目录（新增扫码刷卡、输出回路检测）
 - **2026-11-06** — 新增**全量软复位** `/api/system/reset`（不重启进程，毫秒级恢复全新状态）；DBC 复用信号修复（信号下拉全量、各复用组保值）；定步长性能加固（窗口化 p99/max 周期统计、锁瘦身）
 - **2026-11-02** — 新增**虚拟 CAN 设备**（`virtual`）：无硬件也能双端联调——充电桩与车辆两路在程序内部桥接互通，报文追踪、录制、DBC 解码与真实硬件路径完全一致；CAN 面板与自动化面板「连接CAN」积木均支持，网页端默认即虚拟设备

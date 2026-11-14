@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'QC2015P_EVCC'.
 //
-// Model version                  : 1.607
+// Model version                  : 1.614
 // Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
-// C/C++ source code generated on : Fri Nov  6 01:51:49 2026
+// C/C++ source code generated on : Sat Nov 14 00:31:57 2026
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Custom Processor->Custom Processor
@@ -284,12 +284,15 @@ struct rt_Simulink_Struct_type {
   boolean_T LM_EVCC_Data_SW;         // Referenced by: '<S111>/LM_EVCC_Data_SW'
   boolean_T LM_EVCC_Enable_SW;     // Referenced by: '<S111>/LM_EVCC_Enable_SW'
   boolean_T LM_EVCC_Enable_Va;     // Referenced by: '<S111>/LM_EVCC_Enable_Va'
+  boolean_T PGI01_Enable;              // Referenced by: '<S5>/PGI01_Enable'
   boolean_T PGI02_Enable;              // Referenced by: '<S5>/PGI02_Enable'
   boolean_T PGI02_check_SW;            // Referenced by: '<S5>/PGI02_check_SW'
+  boolean_T PGI03_Enable;              // Referenced by: '<S5>/PGI03_Enable'
   boolean_T PGI04_Enable;              // Referenced by: '<S5>/PGI04_Enable'
   boolean_T PGI06_Enable;              // Referenced by: '<S5>/PGI06_Enable'
   boolean_T PGI06_K5_SW;               // Referenced by: '<S5>/PGI06_K5_SW'
   boolean_T PGI06_K6_SW;               // Referenced by: '<S5>/PGI06_K6_SW'
+  boolean_T PGI08_Enable;              // Referenced by: '<S5>/PGI08_Enable'
   boolean_T PGI09_Enable;              // Referenced by: '<S5>/PGI09_Enable'
   boolean_T PGI09_wakeup_SW;           // Referenced by: '<S5>/PGI09_wakeup_SW'
   boolean_T PGI12_Authentic_SW;     // Referenced by: '<S5>/PGI12_Authentic_SW'
@@ -299,6 +302,7 @@ struct rt_Simulink_Struct_type {
   boolean_T PGI32_Enable;              // Referenced by: '<S5>/PGI32_Enable'
   boolean_T PGI32_VAuthenStatus_SW;
                                 // Referenced by: '<S5>/PGI32_VAuthenStatus_SW'
+  boolean_T PGI33_Enable;              // Referenced by: '<S5>/PGI33_Enable'
   boolean_T PGI52_CheckState_SW;   // Referenced by: '<S5>/PGI52_CheckState_SW'
   boolean_T PGI52_Enable;              // Referenced by: '<S5>/PGI52_Enable'
   boolean_T PGI72_EVCCReady_SW;     // Referenced by: '<S5>/PGI72_EVCCReady_SW'
@@ -312,11 +316,13 @@ struct rt_Simulink_Struct_type {
   boolean_T PGI74_SOC_SW;              // Referenced by: '<S5>/PGI74_SOC_SW'
   boolean_T PGI74_TimeRemain_SW;   // Referenced by: '<S5>/PGI74_TimeRemain_SW'
   boolean_T PGI77_Enable;              // Referenced by: '<S5>/PGI77_Enable'
+  boolean_T PGI78_Enable;              // Referenced by: '<S5>/PGI78_Enable'
   boolean_T PGI79_Enable;              // Referenced by: '<S5>/PGI79_Enable'
   boolean_T PGI79_Pause_SW;            // Referenced by: '<S5>/PGI79_Pause_SW'
   boolean_T PGI91_EVCCDetectSta_SW;
                                 // Referenced by: '<S5>/PGI91_EVCCDetectSta_SW'
   boolean_T PGI91_Enable;              // Referenced by: '<S5>/PGI91_Enable'
+  boolean_T PGI93_Enable;              // Referenced by: '<S5>/PGI93_Enable'
   boolean_T PGI94_Enable;              // Referenced by: '<S5>/PGI94_Enable'
   boolean_T PGI94_SOC_SW;              // Referenced by: '<S5>/PGI94_SOC_SW'
   boolean_T SM_RM_EVCC_Data_SW;   // Referenced by: '<S111>/SM_RM_EVCC_Data_SW'

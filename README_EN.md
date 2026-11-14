@@ -365,7 +365,7 @@ Afterwards the right-hand panel lists PASS/FAIL and duration for all 30 steps an
 
 | Category | Blocks |
 |:---------|:-------|
-| 🔌 Connection | Connect (pick from 9 devices, device number, channel, termination resistor) / disconnect CAN, wait for model, full reset, restart HIL app |
+| 🔌 Connection | Connect (pick from 15 devices, device number, channel, termination resistor) / disconnect CAN, wait for model, full reset, restart HIL app |
 | ⚙️ Parameter·Signal | Set parameter, get parameter, read DBC signal, read Monitor variable, current timestamp |
 | 🔁 Control | Wait N ms, wait_until, if / elseif / else, for / while, break / continue |
 | ✅ Verdict | assert check, log, recording control, PASS / FAIL |
@@ -409,6 +409,32 @@ print(MsgGet(0x1836F456, "PGI05_K1"))
 > ⚡ `*_ValueSet` / `*_ValueGet` / `MsgGet` use the program's **internal high-speed channel (persistent TCP, port 9528)** at ≈0.3ms each, and fall back to plain HTTP automatically — no script changes needed.
 > 📌 Parameter names are the **field names exactly as shown in the Web UI**: pass `"ChargeSta"` for `ChargeSta`, and the full name for `SECC_2015P_Enable`.
 > 📄 Full reference: [docs/API.md](docs/API.md) | Client source: [docs/qc2015p_client.py](docs/qc2015p_client.py)
+
+---
+
+## 🔌 Supported CAN Hardware (15)
+
+**What it buys you**: you don't have to buy a specific adapter for this platform — use whatever CAN hardware you already have; with none, the built-in "Virtual CAN" works out of the box.
+
+| Category | Brands / models | Driver DLL |
+|:---------|:----------------|:-----------|
+| **Native drivers (9)** | ZLG USBCAN2 / USBCANFD-200U, PEAK PCAN family, Vector VN series, Kvaser family, TOSUN TCANFD, TOOMOSS USB2CAN, SLCAN serial | `USBCAN.dll` / `zlgcan.dll` / `vxlapi64.dll` / `libTSCAN.dll` … |
+| **New in this release (6, via adapter)** | ChuangXin USBCAN-2A/2C · CANalyst-II, ESD NTCAN, NI-XNET, ETAS BOA, Intrepid neoVI, EbEl FlexCard (classic CAN only) | `ControlCAN.dll` / `ntcan64.dll` / `nixnet.dll` / BOA / `icsneo40.dll` / `fcbase.dll` |
+| **Virtual** | Virtual dual channel (no hardware, bridged internally) | none |
+
+> Driver sources: ZLG (both generations), Vector, TOSUN and ChuangXin DLLs **ship with the package**; PEAK / Kvaser / TOOMOSS / ESD / NI / ETAS / Intrepid / EbEl need their **official drivers installed**.
+
+### How hardware is invoked (changed in this release)
+
+- **One entry point, no impact on the 1ms fixed step**: every device goes through the same device interface and the same asynchronous I/O path — model threads only enqueue/dequeue once per millisecond, while USB and driver calls happen on a dedicated I/O thread.
+- **New vendors plug in through an adapter**: the six new brands are adapted by one hardware abstraction layer (`vendor/canhw` + `src/can_canhw.cpp`) instead of a bespoke driver each; **the original nine drivers are unchanged in code and behaviour**.
+- **Scripts run across benches unchanged**: switch hardware with environment variables:
+  ```bash
+  QC2015P_DEVICE=chuangxin QC2015P_DEVTYPE=4 python TC_xxx.py
+  ```
+  Supported: `QC2015P_DEVICE / BAUD / DEVTYPE / DEVIDX / TERM / CH / SECC_PHYS / EVCC_PHYS`; with none set, behaviour is identical to before.
+
+> 📄 Full support matrix, per-vendor addressing and validation status: [docs/can-hardware.md](docs/can-hardware.md).
 
 ---
 
@@ -457,7 +483,7 @@ Data flow in one line: **frames from the hardware are stored for display and dec
 
 | Dependency | Description | Required |
 |:-----------|:------------|:--------:|
-| **Any supported CAN adapter** | ZLG / PEAK PCAN / Vector / Kvaser / TOSUN / TOOMOSS / SLCAN — not needed in **virtual CAN** mode | ⭕ Optional |
+| **Any supported CAN adapter (15)** | ZLG / PEAK PCAN / Vector / Kvaser / TOSUN / TOOMOSS / SLCAN / ChuangXin / ESD / NI-XNET / ETAS / Intrepid / EbEl — not needed in **virtual CAN** mode | ⭕ Optional |
 | **Windows 10/11** | Operating system | ✅ |
 | **Chrome / Edge** | Browser | ✅ |
 
@@ -467,7 +493,7 @@ This repository provides **pre-compiled executables** — no build environment n
 
 **Step 1: Download** — grab the `build` folder, or the packaged archive from [Releases](https://github.com/Miki-Hunter/QC2015P_Platform/releases).
 
-**Step 2: Connect CAN (or stay virtual)** — the web CAN panel defaults to "**Virtual CAN (no hardware)**", so you can connect and start testing right away. For real hardware pick **brand → model** in the panel (ZLG / PEAK PCAN / Vector VN / Kvaser / TOSUN / TOOMOSS / SLCAN serial); it also offers termination-resistor control and single-channel independent operation. Note: PEAK / Kvaser / TOOMOSS need their official drivers installed; Vector and TOSUN DLLs ship with the package.
+**Step 2: Connect CAN (or stay virtual)** — the web CAN panel defaults to "**Virtual CAN (no hardware)**", so you can connect and start testing right away. For real hardware pick **brand → model** in the panel (all 15 brands are listed under [CAN hardware](#🔌-supported-can-hardware-15)); it also offers termination-resistor control and single-channel independent operation. Note: ZLG / Vector / TOSUN / ChuangXin DLLs ship with the package; PEAK / Kvaser / TOOMOSS / ESD / NI / ETAS / Intrepid / EbEl need their official drivers.
 
 **Step 3: Launch** — enter the `build` folder and double-click `QC2015P_HIL.exe`.
 
@@ -520,7 +546,7 @@ QC2015P_Platform/
 |:------|:-----------|:------------------------------|
 | **Frontend** | Vue.js 3 + Vite 5 | The UI in the browser — **no client install** |
 | **Backend** | C++ 17 + MinGW-w64 | The program that simulates and sends/receives frames, **one step per millisecond** |
-| **CAN** | 9 devices: ZLG / PEAK PCAN / Vector / Kvaser / TOSUN / TOOMOSS / SLCAN + virtual | The hardware box talking to real chargers / vehicles — all major brands covered |
+| **CAN** | 15 devices: ZLG / PEAK PCAN / Vector / Kvaser / TOSUN / TOOMOSS / SLCAN / ChuangXin / ESD / NI / ETAS / Intrepid / EbEl + virtual | The hardware box talking to real chargers / vehicles — every major brand covered |
 | **Model** | Simulink Coder | Charging logic built graphically, **code generated automatically** |
 | **Protocol** | GB/T 27930.2-2024 + GB/T 27930-2015 | Both generations of the national standard |
 | **DBC** | CANdb++ format | The message spec: **which bits are voltage, which are current** |
@@ -598,6 +624,7 @@ It states **whether this end supports 2015P (the 2024 standard)**: `true` (defau
 <details>
 <summary><b>📝 Changelog</b> (click to expand)</summary>
 
+- **2026-11-14** — Supported devices expanded to **15**: ChuangXin (USBCAN/CANalyst-II), ESD NTCAN, NI-XNET, ETAS BOA, Intrepid neoVI and EbEl FlexCard added through a unified hardware adapter (`vendor/canhw`) — **the original nine drivers are unchanged in code and behaviour**; all hardware now goes through the asynchronous I/O path so swapping devices never affects the 1ms fixed step; Python scripts accept `QC2015P_*` environment variables to switch hardware across benches
 - **2026-11-08** — Devices expanded to **9** (PEAK PCAN, Vector VN, Kvaser, TOSUN, TOOMOSS, SLCAN serial + both ZLG generations + virtual), with brand→model selection, termination resistor and single-channel independent operation; automation panel gained "full reset / assert equal / assert near / wait for change / array index" blocks and a "full reset" button; conformance recordings grew to **78** files grouped by standard chapter (new: authentication, output circuit detection)
 - **2026-11-06** — New **full soft reset** `/api/system/reset` (no process restart, fresh state in milliseconds); DBC multiplex signal fix (full signal dropdown, per-group value retention); fixed-step performance hardening (windowed p99/max period stats, lock slimming)
 - **2026-11-02** — New **virtual CAN device** (`virtual`): dual-end testing with no hardware — the charger and vehicle channels are bridged inside the program, with tracing, recording and DBC decoding on exactly the same path as real hardware; supported by both the CAN panel and the automation panel's connect block, and it is the web default
